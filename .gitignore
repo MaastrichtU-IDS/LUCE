@@ -12,3 +12,4 @@ luce_vm/jupyter/.ipynb_checkpoints/*
 
 # Exclude specific files
 nohup.out
+ubuntu-xenial-16.04-cloudimg-console.log
