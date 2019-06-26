@@ -13,4 +13,6 @@ if ! [ -L /var/www ]; then
   ln -fs /vagrant /var/www
 fi
 
-cp /vagrant/prepare_system.sh /home/vagrant
+# Copy scripts to vagrant user directory
+cp /vagrant/scripts/prepare_system.sh /home/vagrant
+cp /vagrant/scripts/run_* /home/vagrant
