@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-su - vagrant <<!
-vagrant
-
 # Bash commands to run after the VM has started
 
 # Install GNU compiler utitilities 
@@ -68,5 +65,3 @@ nvm install node
 
 # 3) Install Ganache
 npm install -g ganache-cli
-
-!
