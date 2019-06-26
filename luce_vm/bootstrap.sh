@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Bash commands to run after the VM has started
+# Bash commands to run during VM initialization
 
 apt-get update
 
