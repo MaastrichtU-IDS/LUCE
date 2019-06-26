@@ -21,18 +21,18 @@ sudo apt --assume-yes install build-essential
 # ==== INSTALL ANACONDA ====
 
 # 1) Download installer script
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /home/vagrant/miniconda.sh
 
 # 2) Install miniconda
-bash ~/miniconda.sh -b -p $HOME/miniconda
+bash /home/vagrant/miniconda.sh -b -p /home/vagrant/miniconda
 
 # 3) Add to path and initialize
 eval "$(/home/vagrant/miniconda/bin/conda shell.bash hook)"
 conda init
-source ~/.bashrc
+source /home/vagrant/.bashrc
 
 # 4) Clean up 
-rm miniconda.sh
+rm /home/vagrant/miniconda.sh
 
 # ==== CONDA ENVIRONMENT ====
 
