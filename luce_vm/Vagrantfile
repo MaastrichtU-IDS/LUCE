@@ -3,28 +3,38 @@
 
 
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
+  # Use Ubuntu 16.04 as basis for VM
   config.vm.box = "ubuntu/xenial64"
-  # Port for Apache Web Server
+
+  # ==== PORT CONFIGURATION ====
+
+  # Apache Web Server
   config.vm.network :forwarded_port, guest: 80, host: 4567
-  # Port for Jupyter Notebook
+
+  # Jupyter Notebook
   config.vm.network :forwarded_port, guest: 8888, host: 8888
-  # Port for Ganache Chain
+
+  # Ganache Blockchain
   config.vm.network :forwarded_port, guest: 8545, host: 8545
 
-  # VM configuration
+  # ==== VM CONFIGURATION ====
+
   config.vm.provider "virtualbox" do |vb|
-    # Customize the amount of memory on the VM:
+
+    # Amount of memory used by VM (4GB)
     vb.memory = "4096"
-    # Display the VirtualBox GUI when booting the machine
+
+    # Display VirtualBox GUI when booting the machine
     # vb.gui = true
+
   end
+
+  # ==== SCRIPTS TO RUN AFTER STARTUP ====
 
   config.vm.provision :shell, path: "bootstrap.sh"
   
 end
+
+# For a complete reference of configuration options:
+# https://docs.vagrantup.com.

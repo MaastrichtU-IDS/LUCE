@@ -9,3 +9,6 @@ luce_vm/jupyter/.ipynb_checkpoints/*
 
 # Exclude all files with a certain ending
 **.icloud
+
+# Exclude specific files
+nohup.out

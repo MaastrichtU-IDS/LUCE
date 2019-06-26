@@ -1,0 +1,112 @@
+#thesis #vagrant #luce #vm #conda #solc
+
+==== Goal ====
+
+Have a linux vm that can compile and deploy Solidity contracts
+
+Run ganache-cli in VM
+Run jupyter and python kernel in VM
+
+expose ports to host system for access
+
+==== Vagrant Commands ====
+
+vagrant up
+vagrant halt
+vagrant suspend
+vagrant destroy
+
+vagrant ssh
+
+==== Linux Setup ====
+
+Steps in Linux:
+
+* Install gcc (compiler needed for installing web3.py later)
+sudo apt --assume-yes install build-essential
+
+* Install Anaconda (miniconda)
+# Download miniconda installer script
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+# install miniconda in headless mode
+bash ~/miniconda.sh -b -p $HOME/miniconda
+rm miniconda.sh
+# add to path & restart terminal
+eval "$(/home/vagrant/miniconda/bin/conda shell.bash hook)"
+conda init
+source ~/.bashrc
+
+* set-up python conda environment & jupyter kernel
+
+conda create --name luce_vm python
+conda activate conda_luce
+conda install jupyter
+
+# Install jupyter kernel in new environment:
+pip install ipykernel
+python -m ipykernel install --user --name=conda_luce
+
+* install python web3 packages
+pip install web3
+pip install py-solc-x
+
+* Install solc
+# Install solidity compiler v0.4.25 (v4.25 is the latest stable v4 version on github)
+python -m solcx.install v0.4.25
+
+* Install nvm, node and ganache-cli
+# Install Node Version Manager
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Install node.js and ganache
+nvm install node 
+# Install ganache
+npm install -g ganache-cli
+
+* run jupyter notebook is running and accessible from host (password = luce)
+
+jupyter notebook --no-browser --ip 0.0.0.0 --NotebookApp.token="luce" --notebook-dir=/vagrant/jupyter/
+
+* run ganache
+ganache-cli --mnemonic luce
+
+* test compile, deploy, interact flow
+
+
+
+==== HEADLESS MODE ====
+
+# Run jupyter in headless mode
+nohup jupyter notebook --no-browser --ip 0.0.0.0 --NotebookApp.token="luce" --notebook-dir=/vagrant/jupyter/ > /vagrant/jupyter/error.log &
+
+# Run ganache in headless mode
+
+Ganache command options
+https://github.com/trufflesuite/ganache-cli/issues/490
+ganache-cli --deterministic
+ganache-cli --mnemonic luce
+
+
+
+==== Graphical UI ====
+
+
+If graphical UI for VM is desired:
+https://stackoverflow.com/questions/18878117/using-vagrant-to-run-virtual-machines-with-desktop-environment
+
+sudo apt-get install xfce4
+sudo startxfce4&
+
+Password is:
+vagrant | vagrant
+
+
+==== Apache Server ====
+
+create HTML folder for apache server to work :)
+
+  
+  
