@@ -12,10 +12,12 @@ contract Dataset{
     mapping (address => uint) userTokens;
     mapping (address => address) public mappedUsers;
     address[] public addressIndices;
+    
     // Events allow light clients to react to changes efficiently.
     event Sent(address from, address to, uint token);
     event publishedDataset(address publisher, string description, string link, uint licence); // Event
     event updateDataset(address to, string uspdateDescr, string link);
+
     constructor () public{
                 dataProvider=msg.sender;
     }
@@ -27,6 +29,7 @@ contract Dataset{
         licence=_licence;
         emit publishedDataset(msg.sender, _newdescription, link, licence); // Triggering event
     }
+
     function setLicence(uint newLicence) public{
        dataProvider=msg.sender;
        licence=newLicence;
@@ -38,11 +41,13 @@ contract Dataset{
     function getLicence() public view returns(uint) {
        return licence;
     }
+
     //DataRequesters get the link to the data only if the token is right!
     function getLink(uint token) public view returns(string memory){
         require(token==1);
         return link;
     }
+
     //This is a function to notify the dataRequesters to update the data records
     function updateData(string memory updateDescr, string memory _newlink) public{
         require(dataProvider==msg.sender);
@@ -54,6 +59,7 @@ contract Dataset{
             emit updateDataset(to, updateDescr, link); // Triggering event for all dataRequesters
         }//for
    }
+
     function addDataRequester(uint purposeCode, uint licenceType) public returns(uint){
        //for now the purpose is a code as the string comparison it's expensive in solidity
        //in the future the purpose should be compared to a field of the overall contract description
@@ -65,6 +71,7 @@ contract Dataset{
         uint token=1; //TODO this is a shortcut. tokens should be derived from some verifiable function that cannot be faked
         return token;
     }
+
     function renewToken(uint compliance) public returns(uint token){
         require(userTokens[msg.sender] > 0, "need to agree on licence first");
         if(licence==compliance){
