@@ -8,11 +8,13 @@ test_vm/.vagrant/*
 # Exlude django cache directories
 test_vm/django/myproject/__pycache__/*
 test_vm/django/dapp/__pycache__/*
+test_vm/try_django/try_django/__pycache__/*
 luce_vm/django/dapp/__pycache__/*
 
 
 # Exclude jupyter checkpoints directory
 luce_vm/jupyter/.ipynb_checkpoints/*
+test_vm/jupyter/.ipynb_checkpoints/*
 
 # Exclude all files with a certain ending
 **.icloud
