@@ -16,7 +16,8 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /h
 bash /home/vagrant/miniconda.sh -b -p /home/vagrant/miniconda
 
 # 3) Add to path and initialize
-eval "$(/home/vagrant/miniconda/bin/conda shell.bash hook)"
+# This command allows the current shell (also in script) to access conda commands
+eval "$(/home/vagrant/miniconda/bin/conda shell.bash hook)" 
 conda init
 source /home/vagrant/.bashrc
 
@@ -26,30 +27,35 @@ rm /home/vagrant/miniconda.sh
 # ==== CONDA ENVIRONMENT ====
 
 # Set up new conda environment
-conda create -y --name test_vm python
+conda create -y --name django_vm python
 
 # Activate environment
-conda activate test_vm
+conda activate django_vm
 
+# ==== INSTALL JUPYTER & KERNEL ====
 
-# ==== INSTALL POSTGRESQL ====
+# Install Jupyter
+conda install -y jupyter
 
-sudo apt-get --assume-yes install postgresql postgresql-contrib libpq-dev 
+# Set up jupyter kernel inside virtual environment
+# pip install ipykernel
+python -m ipykernel install --user --name=django_vm
 
 
 # ==== INSTALL DJANGO ====
 
-# Install django and postgres package for python
-pip install django psycopg2
+# conda install django=2.2
+# pip install sqlparse
 
 
 # ==== COMPLETION MESSAGE ====
 
 echo
-echo "Everything is ready."
+echo "Everything is ready :D"
 echo
 
 echo "Please run the following command to finalise the setup:"
-echo "$ cat setup_database.sh | bash"
+echo "(Not sure if needed, try without and only do if needed.)"
+echo "$ source ./bashrc"
 echo
 exec bash
