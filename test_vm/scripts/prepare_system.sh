@@ -31,11 +31,24 @@ conda create -y --name test_vm python
 # Activate environment
 conda activate test_vm
 
+# ==== INSTALL POSTGRESQL ====
+
+sudo apt-get --assume-yes install postgresql postgresql-contrib libpq-dev 
+
+
+# ==== INSTALL DJANGO ====
+
+# Install django and postgres package for python
+pip install django psycopg2
+
 
 # ==== COMPLETION MESSAGE ====
 
 echo
 echo "Everything is ready."
+echo
+
 echo "Please run the following command to finalise the setup:"
-echo "$ source ~/.bashrc"
+echo "$ cat setup_database.sh | bash"
+echo
 exec bash
