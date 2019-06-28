@@ -71,7 +71,7 @@ npm install -g ganache-cli
 echo
 echo "Everything is ready."
 echo "Please run the following command to finalise the setup:"
-echo "source ~/.bashrc"
+echo "$ source ~/.bashrc"
 exec bash
 
 echo

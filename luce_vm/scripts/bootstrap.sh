@@ -4,6 +4,10 @@
 
 apt-get update
 
+# Customise motd
+rm /etc/update-motd.d/*
+cp /vagrant/.motd/luce_motd /etc/update-motd.d/00-header
+
 # ==== INSTALL APACHE ====
 
 # Install apache web sever
