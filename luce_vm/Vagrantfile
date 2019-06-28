@@ -28,6 +28,9 @@ Vagrant.configure("2") do |config|
     # Display VirtualBox GUI when booting the machine
     # vb.gui = true
 
+    # Disable creation of log file
+    vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
+
   end
 
   # ==== SCRIPTS TO RUN AFTER STARTUP ====
