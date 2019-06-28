@@ -1,9 +1,15 @@
 # Ignore MacOS files
 .DS_Store
 
-# Exlude vagrant directories
+# Exlude internal vagrant directories
 luce_vm/.vagrant/*
 test_vm/.vagrant/*
+
+# Exlude django cache directories
+test_vm/django/myproject/__pycache__/*
+test_vm/django/dapp/__pycache__/*
+luce_vm/django/dapp/__pycache__/*
+
 
 # Exclude jupyter checkpoints directory
 luce_vm/jupyter/.ipynb_checkpoints/*

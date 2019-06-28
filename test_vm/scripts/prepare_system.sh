@@ -3,9 +3,9 @@
 # Bash commands to run after the VM has started
 
 # Install GNU compiler utitilities 
-# (required for web3 installation) 
+# (required for web3 installation and also for psycopg2 (PostgreSQL)) 
 
-#sudo apt --assume-yes install build-essential
+sudo apt --assume-yes install build-essential
 
 # ==== INSTALL ANACONDA ====
 
