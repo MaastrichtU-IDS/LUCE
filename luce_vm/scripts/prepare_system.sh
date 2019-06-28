@@ -66,6 +66,8 @@ nvm install node
 # 3) Install Ganache
 npm install -g ganache-cli
 
+# ==== COMPLETION MESSAGE ====
+
 echo
 echo "Everything is ready."
 echo "Please run the following command to finalise the setup:"
