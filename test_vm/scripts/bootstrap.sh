@@ -4,7 +4,7 @@
 
 # Customise motd
 rm /etc/update-motd.d/*
-cp /vagrant/.motd/luce_motd /etc/update-motd.d/00-header
+cp /vagrant/.etc/luce_motd /etc/update-motd.d/00-header
 
 # Copy scripts to vagrant user directory
 cp /vagrant/scripts/* /home/vagrant
