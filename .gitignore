@@ -3,7 +3,7 @@
 
 # Exlude vagrant directories
 luce_vm/.vagrant/*
-test/.vagrant/*
+test_vm/.vagrant/*
 
 # Exclude jupyter checkpoints directory
 luce_vm/jupyter/.ipynb_checkpoints/*
