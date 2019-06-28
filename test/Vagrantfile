@@ -1,0 +1,40 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+
+  # Use Ubuntu 16.04 as basis for VM
+  config.vm.box = "ubuntu/xenial64"
+
+  # ==== PORT CONFIGURATION ====
+
+  # Apache Web Server
+  config.vm.network :forwarded_port, guest: 80, host: 4567
+
+  # Jupyter Notebook
+  config.vm.network :forwarded_port, guest: 8888, host: 8888
+
+  # Ganache Blockchain
+  config.vm.network :forwarded_port, guest: 8545, host: 8545
+
+  # ==== VM CONFIGURATION ====
+
+  config.vm.provider "virtualbox" do |vb|
+
+    # Amount of memory used by VM
+    vb.memory = "1024"
+
+    # Display VirtualBox GUI when booting the machine
+    # vb.gui = true
+
+  end
+
+  # ==== SCRIPTS TO RUN AFTER STARTUP ====
+
+  config.vm.provision :shell, path: "bootstrap.sh"
+  
+end
+
+# For a complete reference of configuration options:
+# https://docs.vagrantup.com.

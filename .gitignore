@@ -1,8 +1,9 @@
 # Ignore MacOS files
 .DS_Store
 
-# Exlude vagrant directory
+# Exlude vagrant directories
 luce_vm/.vagrant/*
+test/.vagrant/*
 
 # Exclude jupyter checkpoints directory
 luce_vm/jupyter/.ipynb_checkpoints/*
