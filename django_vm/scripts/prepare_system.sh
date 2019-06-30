@@ -38,13 +38,34 @@ conda activate django_vm
 conda install -y jupyter
 
 # Set up jupyter kernel inside virtual environment
+# -> Not needed for django_vm since jupyter itself was installed inside
+# -> django_vm environment. So the ipykernel package is already available
+# -> and the default Python 3 kernel uses django_vm environment.
+
 # pip install ipykernel
-python -m ipykernel install --user --name=django_vm
+# python -m ipykernel install --user --name=django_vm
 
 
-# ==== INSTALL DJANGO ====
+# ==== PREPARE DJANGO ENVIRONMENT ====
+# Prepare environment for Try Django tutorial
 
-# conda install django=2.2
+# Set up conda environment for try_django
+# conda create -y --name try_django python
+
+# Activate environment
+# conda activate try_django
+
+# Set up jupyter kernel inside virtual environment
+# -> Here both is needed: the ipykernel package does not exist yet in the
+# -> new environment. And installing the kernel in this environment allows
+# -> to use this environment even if jupyter notebook server is called from
+# -> another environment. E.g. jupyter notebbok running in django_vm but the
+# -> kernel is acessing packages in try_django. In this case bash commands in
+# -> jupyter will access a different python env than commands in python cells. 
+# pip install ipykernel
+# python -m ipykernel install --user --name=django_vm
+
+# conda install -y django=2.2
 # pip install sqlparse
 
 
