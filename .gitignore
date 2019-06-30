@@ -11,6 +11,10 @@ test_vm/django/myproject/__pycache__/*
 test_vm/django/dapp/__pycache__/*
 test_vm/try_django/try_django/__pycache__/*
 django_vm/try_django/try_django/__pycache__/*
+django_vm/try_django/blog/__pycache__/*
+django_vm/try_django/blog/migrations/__pycache__/*
+
+
 luce_vm/django/dapp/__pycache__/*
 
 
