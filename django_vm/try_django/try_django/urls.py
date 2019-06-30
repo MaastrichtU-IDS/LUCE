@@ -24,8 +24,14 @@ from .views import (
 	example_page
 	)
 
+# Import views from blog app
+from blog.views import (
+	blog_post_detail_page
+)
+
 urlpatterns = [
 	path('', home_page),
+	path('blog/', blog_post_detail_page),
 	re_path(r'^pages?/$', about_page), 
 	path('about/', about_page),
 	path('contact/', contact_page),
