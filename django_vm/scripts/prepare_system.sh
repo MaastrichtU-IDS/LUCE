@@ -63,10 +63,12 @@ conda install -y jupyter
 # -> kernel is acessing packages in try_django. In this case bash commands in
 # -> jupyter will access a different python env than commands in python cells. 
 # pip install ipykernel
-# python -m ipykernel install --user --name=django_vm
+# python -m ipykernel install --user --name=try_django
 
 # conda install -y django=2.2
 # pip install sqlparse
+# -> pip install django already includes sqlparse, 
+# -> conda install django does not
 
 
 # ==== COMPLETION MESSAGE ====
@@ -77,6 +79,6 @@ echo
 
 echo "Please run the following command to finalise the setup:"
 echo "(Not sure if needed, try without and only do if needed.)"
-echo "$ source ./bashrc"
+echo "$ source .bashrc"
 echo
 exec bash
