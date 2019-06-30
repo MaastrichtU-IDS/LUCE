@@ -20,7 +20,8 @@ from django.urls import path, re_path
 from .views import (
 	home_page,
 	about_page,
-	contact_page
+	contact_page,
+	example_page
 	)
 
 urlpatterns = [
@@ -28,6 +29,7 @@ urlpatterns = [
 	re_path(r'^pages?/$', about_page), 
 	path('about/', about_page),
 	path('contact/', contact_page),
-    path('admin/', admin.site.urls),
+	path('example/', example_page),
+    path('admin/', admin.site.urls)
 ]
 

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+	
+	Home
+
+{% endblock %}
+
+{% block content %}
+
+	{{ title }}
+
+	{{ content }}
+
+	<!-- Django context processors / environment variables -->
+
+	{{ user }}
+
+	{{ user.is_authenticated }}
+
+{% endblock %}
