@@ -16,6 +16,27 @@
 
 	{{ user }}
 
+	<!-- Only show when user is authenticated -->
+	{% if user.is_authenticated %}
+	<h1> User only data</h1>
+
+		<!-- Loop through context variable (defined in views.py) -->
+		{% for a in my_list %}
+
+		<li> {{ a }} </li>
+
+		{% endfor %}
+
+		<!-- Disply context variable content -->
+		<p> {{ my_env_var }} </p>
+
+	{% endif %}
+
+	
+
+
+	
+
 	{{ user.is_authenticated }}
 
 {% endblock %}

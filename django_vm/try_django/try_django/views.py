@@ -6,10 +6,9 @@ from django.template.loader import get_template
 # Python function acts as view
 # View receives a request and returns a response
 def home_page(request):
-	my_title = "Dynamic Title"
-	my_content = "Test content"
-	context  = {"title": my_title,
-				"content": my_content}
+	context  = {"title": "Dynamic Title",
+				"my_env_var": "Test var content",
+				"my_list": [1,2,3,4,5]}
 	return render(request, "home.html", context)
 
 def about_page(request):

@@ -2,6 +2,8 @@
 
 # Bash commands to run during VM initialization
 
+apt-get update
+
 # Customise motd
 rm /etc/update-motd.d/*
 cp /vagrant/.etc/luce_motd /etc/update-motd.d/00-header
