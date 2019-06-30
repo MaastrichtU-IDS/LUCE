@@ -1,0 +1,332 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"to",
+				"toInt"
+			],
+			[
+				"Streaming",
+				"StreamingKMeans"
+			],
+			[
+				"df",
+				"df_relevant_stops"
+			],
+			[
+				"data",
+				"data_prep"
+			],
+			[
+				"script",
+				"script"
+			],
+			[
+				"co",
+				"collect"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"sca",
+				"Set Syntax: Scala"
+			],
+			[
+				"java",
+				"Set Syntax: Java"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/arno/Desktop/code/luce/django_vm/try_django"
+	],
+	"file_history":
+	[
+		"/Users/arno/Desktop/code/luce/django_vm/scripts/prepare_system.sh",
+		"/Users/arno/Desktop/code/luce/luce_vm/scripts/prepare_system.sh",
+		"/Users/arno/Desktop/code/luce/django_vm/scripts/bootstrap.sh",
+		"/Users/arno/Desktop/code/luce/django_vm/scripts/tmux_jupyter.sh",
+		"/Users/arno/Desktop/code/luce/django_vm/scripts/tmux_django.sh",
+		"/Users/arno/Desktop/code/luce/django_vm/scripts/run_django.sh",
+		"/Users/arno/Desktop/code/luce/django_vm/scripts/start_jupyter_tmux.sh",
+		"/Users/arno/Desktop/code/luce/django_vm/scripts/start_jupyter_and_ganache_tmux.sh",
+		"/Users/arno/Desktop/code/luce/django_vm/scripts/run_jupyter.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/prepare_system.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/bootstrap.sh",
+		"/Users/arno/Desktop/code/luce/luce_vm/scripts/run_jupyter.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/run_django.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/setup_database.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/4django.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/3django.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/2postgres.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/1postgres.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/django/dapp/settings.py",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/1prepare_postgres copy.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/.motd/luce_motd",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/prepare_postgres.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/scripts/prep_postgres.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/django/myproject/settings.py",
+		"/Users/arno/Desktop/code/luce/luce_vm/scripts/bootstrap.sh",
+		"/Users/arno/Desktop/code/luce/luce_vm/bootstrap.sh",
+		"/Users/arno/Desktop/code/luce/test_vm/bootstrap.sh",
+		"/Users/arno/Desktop/code/luce/luce_vm/scripts/start_jupyter_and_ganache_tmux.sh",
+		"/Users/arno/Desktop/code/luce/luce_vm/scripts/start_jupyter_and_ganache.sh",
+		"/Users/arno/Desktop/code/luce/test/scripts/start_jupyter_and_ganache.sh",
+		"/Users/arno/Desktop/code/luce/test/scripts/test2.sh",
+		"/Users/arno/Desktop/code/luce/luce_vm/scripts/run_ganache.sh",
+		"/Users/arno/Desktop/code/luce/test/scripts/test.sh",
+		"/Users/arno/Desktop/code/luce/test/scripts/jupyter_ganache.window.sh",
+		"/Users/arno/Desktop/code/luce/test/scripts/example.window.sh",
+		"/Users/arno/Desktop/code/luce/test/bootstrap.sh",
+		"/Users/arno/Desktop/code/luce/test/scripts/test_session.session.sh",
+		"/Users/arno/Desktop/code/luce/luce_vm/jupyter/data/luce.sol",
+		"/Users/arno/Desktop/code/luce/luce_vm/jupyter/data/contract.sol",
+		"/Users/arno/Dropbox/Good Reader/Master Thesis/Auxilary Files/2019-06-21 Solidity Contract & Visra Presentation/data.sol",
+		"/Users/arno/Dropbox/Good Reader/Master Thesis/Auxilary Files/2019-06-21 Solidity Contract & Visra Presentation/Data.sol",
+		"/Users/arno/Desktop/code/luce/luce_vm/html/index.html",
+		"/Users/arno/Desktop/code/luce/luce_vm/prepare_system.sh",
+		"/Users/arno/Desktop/code/luce/luce_vm/test.sh",
+		"/Users/arno/Desktop/code/luce_vm/Vagrantfile",
+		"/Users/arno/Desktop/code/vagrant_test/bootstrap.sh",
+		"/Users/arno/Desktop/code/luce_vm/bootstrap.sh",
+		"/Users/arno/Desktop/code/Luce_VM/bootstrap.sh",
+		"/Users/arno/Desktop/code/conda_luce/contract.sol",
+		"/Users/arno/.tmux.conf",
+		"/Users/arno/Desktop/code/web3_python/provision_vm.sh",
+		"/Users/arno/Desktop/code/vagrant_test/Vagrantfile",
+		"/Users/arno/Desktop/luce_python/luce_abi.py",
+		"/Users/arno/Desktop/luce_python/AccessRights_abi.py",
+		"/Users/arno/Desktop/hello_world/AccessRights_abi.py",
+		"/Users/arno/Public/CompArch/shell-fu/week12/wk12q1",
+		"/Users/arno/Downloads/Schumann_29971683_Assessment2/PoC02/PoC02.scala",
+		"/Users/arno/Public/BigVM/ass2/my_test/k-means.py",
+		"/Users/arno/Public/BigVM/ass2/my_test/k-means.scala",
+		"/Users/arno/Public/BigVM/ass2/my_test/StreamingKMeansExample.scala",
+		"/Users/arno/Public/BigVM/ass2/KMeans.scala",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT5196 - Data Wrangling/assignment3/aws/kiwi/aws_script.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT5196 - Data Wrangling/assignment3/aws/kiwi/aws_script4.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT5196 - Data Wrangling/assignment3/aws/kiwi/aws_script3.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT5196 - Data Wrangling/assignment3/aws/kiwi/aws_script2.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT5196 - Data Wrangling/assignment3/aws/aws_script.py",
+		"/Users/arno/Desktop/train_script.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT5196 - Data Wrangling/assignment3/data/29909163/pretty_xml.xml",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT5196 - Data Wrangling/assignment3/data/29909163/real_state.xml",
+		"/Users/arno/Public/CompArch/shell-fu/yoga/yoga.sh",
+		"/Users/arno/Public/CompArch/shell-fu/week11/wk11q3b.sh",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/final submission/A2_29909163/main_29909163.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/final submission/A2_29909163/task2_29909163.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/final submission/A2_29909163/task3_29909163.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/final submission/A2_29909163/task1_29909163.py",
+		"/Users/arno/Public/CompArch/shell-fu/week10/wk10q4.sh",
+		"/Users/arno/Public/CompArch/shell-fu/week10/wk10q3b.sh",
+		"/Users/arno/Public/CompArch/shell-fu/week10/wk10q3a.sh",
+		"/Library/WebServer/Documents/index.html.en",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/main_29909163.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/task1_29909163.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/katya/task2_29351189.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/katya/task1_29351189.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/katya/task1.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/task3_29909163.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/task2_29909163.py",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/assignment2/task2_29909163 copy.py",
+		"/Users/arno/Desktop/task1_29909163.py",
+		"/Users/arno/Public/CompArch/shell-fu/week11/wk11q4.sh",
+		"/Users/arno/Public/CompArch/shell-fu/week11/wk11q3a.sh",
+		"/Users/arno/Public/CompArch/shell-fu/week10/mywc2.sh",
+		"/Users/arno/Public/CompArch/shell-fu/week10/mywc.sh",
+		"/Users/arno/Public/BigVM/lab_test/in_lab.scala",
+		"/Users/arno/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/27F8DD6B-8A09-4B02-9A56-94207B0D241D/in_lab.scala",
+		"/Users/arno/Public/BigVM/lab_test/test.scala",
+		"/Users/arno/Public/BigVM/assignment1/q2-a.scala",
+		"/Users/arno/Public/BigVM/assignment1/q1.scala",
+		"/Users/arno/Desktop/submission/q2-a.scala",
+		"/Users/arno/Desktop/submission/q1.scala",
+		"/Users/arno/Public/BigVM/reservoir.scala",
+		"/Users/arno/Desktop/Lab8 Solutions.scala",
+		"/Users/arno/Dropbox/Good Reader/Monash/FIT5202 - Big Data/Lab Week 6/Lab06-Solutions-20180827/MyLittleHBaseClient.java",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT9133 - Python/Assignment/notebook.tex",
+		"/Users/arno/Dropbox/Good Reader/xJupyter/FIT5196 - Data Wrangling/Assignment/notebook.tex",
+		"/Users/arno/.vim/colors/wombat256mod.vim",
+		"/Users/arno/.vim/colors/darcula.vim",
+		"/Users/arno/xJupyter/FIT5196 - Data Wrangling/Assignment/sample files/sample.xml",
+		"/Users/arno/Public/wordcount-java-20180813/file02",
+		"/Users/arno/Public/wordcount-java-20180813/file01",
+		"/Users/arno/Desktop/FIT5202 - Group 3 - Week 2 Lab Exercises/myprog.scala",
+		"/Users/arno/Public/sum.scala",
+		"/Users/arno/Public/myprog.scala",
+		"/Users/arno/Dropbox/Good Reader/Master Thesis (GDPR_ML)/Thesis Data/emovec.csv",
+		"/Users/arno/Downloads/Linear.cpython-35.pyc",
+		"/Users/arno/Dropbox/Good Reader/Master Thesis (GDPR_ML)/Thesis Data/ResultAnalysis.ipynb",
+		"/Users/arno/test.py",
+		"/Users/arno/Downloads/Lab 6/caravanTest_unknown_class.arff",
+		"/Users/arno/Downloads/Lab 6/caravan_balanced.arff",
+		"/Users/arno/Downloads/Lab 6/caravan_renamed.arff",
+		"/Users/arno/Downloads/Lab 6/caravanTest_renamed.arff",
+		"/Users/arno/Downloads/Lab 6/Lab 3) caravanR (renamed).arff",
+		"/Users/arno/Downloads/Lab 6/test.arff",
+		"/Users/arno/Downloads/Lab 6/Lab 3) caravanR (renamed).csv",
+		"/Users/arno/Documents/Data/R/Caravan/data/caravanTest_renamed.csv",
+		"/Users/arno/Documents/Data/R/Caravan/data/caravan.csv",
+		"/Users/arno/Documents/Data/R/Caravan/data/caravan_renamed.csv",
+		"/Users/arno/Documents/Data/R/Caravan/data/caravanTest.csv",
+		"/Users/arno/Documents/Data/R/Caravan/data/caravanR.csv"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "try_django.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
