@@ -1,0 +1,11 @@
+<!-- Always include base import -->
+{% extends "base.html" %}
+
+<!-- Modify the base template with following content -->
+{% block content %}
+
+	{% for object in object_list %}
+		<li> {{ object.title }}		</li>
+	{% endfor %}
+
+{% endblock %}
