@@ -5,6 +5,9 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 from .models import BlogPost
 
+# Import forms
+from .forms import BlogPostForm
+
 # CRUD
 
 # GET -> Retrieve / Read
@@ -24,8 +27,13 @@ def blog_post_list_view(request):
 def blog_post_create_view(request):
 	# create objects
 	# how? use a form
-	template 	= 'blog/create.html'
-	context 	= {'form': None}	
+	form = BlogPostForm(request.POST or None)
+	if form.is_valid():
+		# Store content of form as new entry in database
+		obj = BlogPost.objects.create(**form.cleaned_data)
+		form = BlogPostForm()
+	template 	= 'blog/form.html'
+	context 	= {'form': form}	
 	return render(request, template, context)
 
 # Retireve view or detail view
