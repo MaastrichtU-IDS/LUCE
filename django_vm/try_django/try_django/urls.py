@@ -29,9 +29,16 @@ from blog.views import (
 	blog_post_detail_page
 )
 
+# Import views from datastore app
+from datastore.views import (
+	view_dataset_page
+)
+
 urlpatterns = [
 	path('', home_page),
+	path('blog/', blog_post_detail_page),
 	path('blog/<int:post_id>/', blog_post_detail_page),
+	path('dataset/<int:dataset_id>/', view_dataset_page),
 	re_path(r'^pages?/$', about_page), 
 	path('about/', about_page),
 	path('contact/', contact_page),
