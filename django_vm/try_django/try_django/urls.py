@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 
 # Import own views
 from .views import (
@@ -29,26 +29,15 @@ from datastore.views import (
 	view_dataset_page
 )
 
-# Import views from blog app
 from blog.views import (
-	blog_post_list_view,
-	blog_post_detail_view,
-	blog_post_create_view,
-	blog_post_update_view,
-	blog_post_delete_view,
+	blog_post_create_view
 )
-
-
 
 urlpatterns = [
 	path('', home_page),
-	path('blog/', blog_post_list_view),
-
 	path('blog-new/', blog_post_create_view),
-	path('blog/<str:slug>/', blog_post_detail_view),
-	path('blog/<str:slug>/edit', blog_post_update_view),
-	path('blog/<str:slug>/delete', blog_post_delete_view),
-
+	path('blog/', include('blog.urls')),
+	
 	path('dataset/<int:dataset_id>/', view_dataset_page),
 	re_path(r'^pages?/$', about_page), 
 	path('about/', about_page),
