@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 
+from.forms import ContactForm
+
 # Python function acts as view
 # View receives a request and returns a response
 def home_page(request):
@@ -17,8 +19,14 @@ def about_page(request):
 	return render(request, "about.html", {"title": "About us"})
 
 def contact_page(request):
-	print(request.POST)
-	return render(request, "form.html", {"title": "Contact us"})
+	template = "form.html"
+	form = ContactForm(request.POST or None)
+	if form.is_valid():
+		print(form.cleaned_data)
+		form = ContactForm()
+	context = {"title": "Contact us",
+				"form": form}
+	return render(request, template, context)
 
 def example_page(request):
 	context 		= {"title": "Example"}
