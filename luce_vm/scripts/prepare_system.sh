@@ -69,10 +69,14 @@ npm install -g ganache-cli
 # ==== COMPLETION MESSAGE ====
 
 echo
-echo "Everything is ready."
+echo "(Almost) everything is ready."
 echo "Please run the following command to finalise the setup:"
 echo "$ source ~/.bashrc"
 exec bash
 
 echo
-echo "Open http://127.0.0.1:4567 in your browser for further instructions how to continue."
+echo "Please run the following command to start the servers:"
+echo "$ bash run_servers_tmux.sh"
+
+# echo
+# echo "Open http://127.0.0.1:4567 in your browser for further instructions how to continue."
