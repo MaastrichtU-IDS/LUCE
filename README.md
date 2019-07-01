@@ -6,11 +6,14 @@ The repository also contains supporting content and documentation materials I us
 
 ## Usage of LuceVM
 
-* First make sure [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) are installed
-* Then clone the base folder from github and set up the VM as follows:
+* First make sure [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) are installed
+  * On macOS High Sierra and Mojave the VirtualBox installation may fail. [This blog post](https://medium.com/@DMeechan/fixing-the-installation-failed-virtualbox-error-on-mac-high-sierra-7c421362b5b5) explains how to fix that
+* Check if `git` is installed and if not install from [here](https://git-scm.com)
+  * (To check if git is installed run `git --version` in the terminal. If it is installed it will return the version number.)
+* Then clone the LUCE base folder from github and set up the VM as follows:
 
 ```bash
-cd /desired/location/
+cd ~/desired/project/location/
 git clone https://github.com/arnoan/LUCE.git
 cd ./luce_vm 
 vagrant up # start the VM
