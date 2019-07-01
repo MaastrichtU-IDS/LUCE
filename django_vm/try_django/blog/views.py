@@ -17,27 +17,27 @@ def blog_post_list_view(request):
 	# list out objects
 	# could be search
 	qs = BlogPost.objects.all() # queryset -> list of python objects
-	template 	= 'blog_post_list.html'
+	template 	= 'blog/list.html'
 	context 	= {'object_list': qs}
 	return render(request, template, context)
 
 def blog_post_create_view(request):
 	# create objects
 	# how? use a form
-	template 	= 'blog_post_create.html'
+	template 	= 'blog/create.html'
 	context 	= {'form': None}	
 	return render(request, template, context)
 
 # Retireve view or detail view
 def blog_post_detail_view(request, slug):
 	# 1 object -> detail view
-	template 	= 'blog_post_detail.html'
+	template 	= 'blog/detail.html'
 	obj 		= get_object_or_404(BlogPost, slug=slug)
 	context 	= {'object': obj}
 	return render(request, template, context)
 
 def blog_post_update_view(request, slug):
-	template 	= 'blog_post_update.html'
+	template 	= 'blog/update.html'
 	obj 		= get_object_or_404(BlogPost, slug=slug)
 	context 	= {'object': obj, 
 					'form': None}
@@ -45,7 +45,7 @@ def blog_post_update_view(request, slug):
 
 
 def blog_post_delete_view(request, slug):
-	template 	= 'blog_post_delete.html'
+	template 	= 'blog/delete.html'
 	obj 		= get_object_or_404(BlogPost, slug=slug)
 	context 	= {'object': obj}
 	return render(request, template, context)
