@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from .models import BlogPost
 
 # Import forms
-from .forms import BlogPostForm
+from .forms import BlogPostModelForm
 
 # CRUD
 
@@ -27,11 +27,11 @@ def blog_post_list_view(request):
 def blog_post_create_view(request):
 	# create objects
 	# how? use a form
-	form = BlogPostForm(request.POST or None)
+	form = BlogPostModelForm(request.POST or None)
 	if form.is_valid():
-		# Store content of form as new entry in database
-		obj = BlogPost.objects.create(**form.cleaned_data)
-		form = BlogPostForm()
+		# Store content of form into database
+		form.save()
+		form = BlogPostModelForm()
 	template 	= 'blog/form.html'
 	context 	= {'form': form}	
 	return render(request, template, context)
