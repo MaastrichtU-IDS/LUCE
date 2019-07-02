@@ -25,3 +25,30 @@ bash run_servers_tmux.sh # Start the servers
 ```
 Then interface with server from host system via `http://127.0.0.1:8888` with password `luce`.
 
+## Further Information
+(Note: This section is still under development.) 
+
+*Q: How do I stop the machine when I am finished working?*   
+From within the LuceVM terminal:
+```bash
+Ctrl + d # to exit the active conda environment 
+Ctrl + d # to exit the ssh session (LuceVM and the servers are still running)
+```
+Then from the host terminal prompt:
+```
+vagrant suspend
+```
+This hibernates the virtual machine. That way the next time it is started via `vagrant up` it will be exactly in the same state again and there is no need to repeat any of the inital setup steps.  
+
+*Q: How do I stop the machine completely?*   
+The machine can be shut down completely via `vagrant halt` - in that case the servers have to be started again the next time LuceVM is booted. Finally `vagrant destroy` can be used to completely destory the virtual machine instance. That way the next time the machine is provisioned the full setup process will need to be performed again. (The python notebooks are still preserved even if the machine is destroyed as they live outside the filesystem of the VM.)
+
+*Q:How can I update to the latest data contained in this github repository?*  
+To update, first navigate to the local LUCE folder: `cd ~/path/to/LUCE/`  
+Then run the following in the terminal:  
+```bash
+git fetch origin # this downloads all new content from github
+git reset --hard origin/master # this replaces all local LUCE content with the newest updates
+```
+
+**Warning:** Note that by running `git reset` all LUCE files that may have been changed locally will be overwritten with the latest version from Github. In order experiment locally with Jupyter notebooks without the possibility of them accidentally being over-written I created the `/jupyter/safe_storage_area/` folder. This folder is not synced with the github repository. Not even when `git reset` is executed. Please keep files you wish to keep safe in there.
