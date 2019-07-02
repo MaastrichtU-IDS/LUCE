@@ -55,10 +55,14 @@ def blog_post_detail_view(request, slug):
 	return render(request, template, context)
 
 def blog_post_update_view(request, slug):
-	template 	= 'blog/update.html'
 	obj 		= get_object_or_404(BlogPost, slug=slug)
-	context 	= {'object': obj, 
-					'form': None}
+	form = BlogPostModelForm(request.POST or None, instance=obj)
+	# do something with the updated data
+	if form.is_valid():
+		form.save()
+	template 	= 'form.html'
+	context 	= {	'form': form,
+					'title': f"Update {obj.title}" }
 	return render(request, template, context)
 
 
