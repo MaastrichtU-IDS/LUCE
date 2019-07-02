@@ -1,6 +1,6 @@
 # LuceVM & Technical Prototype
 
-This repository contains LuceVM, a self-contained virtual machine to facilitate web3 development using the python stack. LuceVM allows to compile, deploy and interact with Ethereum Smart Contracts from a Python environment in a seamless matter.
+This repository contains LuceVM, a self-contained virtual machine to facilitate web3 development using the python stack. LuceVM allows to compile, deploy and interact with Ethereum Smart Contracts from a Python environment in a seamless manner.
 
 The repository also contains supporting content and documentation materials I use in the process of building the technical prototype of the LUCE infrastructure. At this point all content in this repository is primarly to facilite the implementation of my master thesis and not (yet) optimised for wider useage.
 
