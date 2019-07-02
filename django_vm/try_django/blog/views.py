@@ -29,8 +29,11 @@ def blog_post_create_view(request):
 	# how? use a form
 	form = BlogPostModelForm(request.POST or None)
 	if form.is_valid():
-		# Store content of form into database
 		form.save()
+		# To change the form content before saving:
+		# obj = form.save(commit=False)
+		# obj.title = form.cleaned_data.get("title") + "_My_Suffix"
+		# obj.save()
 		form = BlogPostModelForm()
 	template 	= 'blog/form.html'
 	context 	= {'form': form}	
