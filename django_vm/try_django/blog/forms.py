@@ -9,5 +9,15 @@ class BlogPostForm(forms.Form):
 # Directly combine model and form
 class BlogPostModelForm(forms.ModelForm):
 	class Meta:
+		# Which model to use
 		model = BlogPost
+		# Which fields should be included
 		fields = ['title', 'slug', 'content']
+
+	# Custom form content validation
+	def clean_title(self,*args,**kwargs):
+		title = self.cleaned_data.get('title')
+		qs = BlogPost.objects.filter(title=title)
+		if qs.exists():
+			raise forms.ValidationError("This title has already been used. Please try again.")
+		return title
