@@ -29,16 +29,18 @@ def blog_post_list_view(request):
 # Wrapper for view that checks valid login session status
 @staff_member_required
 # @login_required
+# request.user -> return something
 def blog_post_create_view(request):
 	# create objects
 	# how? use a form
 	form = BlogPostModelForm(request.POST or None)
 	if form.is_valid():
-		form.save()
 		# To change the form content before saving:
-		# obj = form.save(commit=False)
-		# obj.title = form.cleaned_data.get("title") + "_My_Suffix"
-		# obj.save()
+		obj = form.save(commit=False)
+		obj.title = form.cleaned_data.get("title") + "_My_Suffix"
+		obj.user = request.user # add correct user to object 
+		obj.save()
+
 		form = BlogPostModelForm()
 	template 	= 'blog/form.html'
 	context 	= {'form': form}	
