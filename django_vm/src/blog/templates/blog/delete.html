@@ -3,6 +3,16 @@
 
 {% block content %}
 
-<h1>{{ object.title }} - Delete</h1>
-<p>{{ object.content }}</p>
+<h1>Are you sure you want to delete the following? </h1>
+<p> {{ object.title }} </p>
+<p> {{ object.content }} </p>
+
+<!-- This is a confirmation page. The deletion logic happens in view.py -->
+<form method ='POST'>{% csrf_token %}
+
+	<button class='btn btn-danger'> Yes, delete </button>
+
+</form>
+
+
 {% endblock %}
