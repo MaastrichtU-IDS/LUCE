@@ -21,7 +21,6 @@ cd ./LUCE/luce_vm
 vagrant up # start the VM
 vagrant ssh # ssh into the VM
 bash prepare_system.sh
-source ./bashrc # refresh shell
 bash run_servers_tmux.sh # Start the servers
 ```
 Then interface with server from host system via `http://127.0.0.1:8888` with password `luce`.
