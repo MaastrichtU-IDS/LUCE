@@ -35,8 +35,10 @@ printf "This virtual machine was authored by Arno Angerer
 and is designed to facilitate the development of
 the LUCE technical prototype.\n\n"
 
-printf "It is powered by %s (%s %s %s)\n\n" "$DISTRIB_DESCRIPTION" "$(uname -o)" "$(uname -r)" "$(uname -m)"
+printf "It is powered by %s \n\n" "$DISTRIB_DESCRIPTION"
 
 printf "To complete the setup please run the following command: \n"
+printf "(Only required when booting the system for the first time) \n"
 printf "$ bash prepare_system.sh\n\n"
+
 
