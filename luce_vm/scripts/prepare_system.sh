@@ -69,14 +69,15 @@ npm install -g ganache-cli
 # ==== COMPLETION MESSAGE ====
 
 echo
-echo "(Almost) everything is ready."
-echo "Please run the following command to finalise the setup:"
-echo "$ source ~/.bashrc"
-exec bash
-
+echo "Thank you for your patience =)"
+echo "The LuceVM environment is ready now"
 echo
 echo "Please run the following command to start the servers:"
 echo "$ bash run_servers_tmux.sh"
 
+# echo "Please run the following command to finalise the setup:"
+# echo "$ source ~/.bashrc"
+# exec bash
+
 # echo
-# echo "Open http://127.0.0.1:4567 in your browser for further instructions how to continue."
+# echo "Open http://127.0.0.1:4567 in your browser for further instructions on how to continue."

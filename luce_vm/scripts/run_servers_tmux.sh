@@ -18,6 +18,24 @@ tmux send-keys -t jupyter_ganache.1 'eval "$(conda shell.bash hook)"' ENTER
 tmux send-keys -t jupyter_ganache.1 'conda activate luce_vm' ENTER
 tmux send-keys -t jupyter_ganache.1 'ganache-cli --mnemonic luce' ENTER
 
+
+echo
+printf "The Jupyter and Ganache servers are running...\n\n"
+
+printf "This terminal window which runs the LuceVM and 
+server processes can now be minimised to the background\n\n"
+
+printf "Visit http://127.0.0.1:4567 on your host machine 
+browser for further instructions on how to continue\n\n"
+
+printf "Or you can directly visit http://127.0.0.1:8888 to access 
+the jupyter notebook environment which contains example python code 
+The password is: luce\n"
+echo
+
+# echo "Open http://127.0.0.1:8888 to access the Django server"
+# echo "The ganache blockchain running on LuceVM is available via http://127.0.0.1:8545"
+
 # Attach session for quick debugging
 #tmux attach-session -t jupyter_ganache
 

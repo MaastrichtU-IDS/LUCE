@@ -26,11 +26,17 @@ if [ -z "$DISTRIB_DESCRIPTION" ] && [ -x /usr/bin/lsb_release ]; then
 	DISTRIB_DESCRIPTION=$(lsb_release -s -d)
 fi
 
+printf "\n\n"
+printf "================= \n"
 printf "Welcome to LuceVM \n"
-printf "This virtual machine was authored by Arno Angerer and is meant to facilitate the development of the LUCE technical prototype. "
-printf "It is powered by %s (%s %s %s)\n" "$DISTRIB_DESCRIPTION" "$(uname -o)" "$(uname -r)" "$(uname -m)"
+printf "================= \n\n"
 
-printf "\n"
+printf "This virtual machine was authored by Arno Angerer
+and is designed to facilitate the development of
+the LUCE technical prototype.\n\n"
+
+printf "It is powered by %s (%s %s %s)\n\n" "$DISTRIB_DESCRIPTION" "$(uname -o)" "$(uname -r)" "$(uname -m)"
+
 printf "To complete the setup please run the following command: \n"
 printf "$ bash prepare_system.sh\n\n"
 
