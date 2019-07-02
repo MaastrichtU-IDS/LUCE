@@ -23,6 +23,10 @@ luce_vm/django/dapp/__pycache__/*
 luce_vm/jupyter/.ipynb_checkpoints/*
 test_vm/jupyter/.ipynb_checkpoints/*
 django_vm/jupyter/.ipynb_checkpoints/*
+*/.ipynb_checkpoints/*
+
+# Exclude safe storage area
+luce_vm/jupyter/safe_storage_area/*
 
 # Exclude all files with a certain ending
 **.icloud
