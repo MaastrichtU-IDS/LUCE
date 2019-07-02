@@ -17,7 +17,9 @@ class BlogPostModelForm(forms.ModelForm):
 	# Custom form content validation
 	def clean_title(self,*args,**kwargs):
 		title = self.cleaned_data.get('title')
-		qs = BlogPost.objects.filter(title=title)
+		# __iexact checks for both upper & lower case
+		# memo: ignore exact case
+		qs = BlogPost.objects.filter(title__iexact=title)
 		if qs.exists():
 			raise forms.ValidationError("This title has already been used. Please try again.")
 		return title
