@@ -2,9 +2,11 @@
 
 
 {% block content %}
-
+	
+	
     {% for object in object_list %}
-        <li><a href='{{ object.get_absolute_url }}'> {{ object.title }}</li>
+    	<!-- We're passing in one template variable inside another -->
+    	{% include 'blog/list-inline.html' with blog_post=object %}
     {% endfor %}
 
 
