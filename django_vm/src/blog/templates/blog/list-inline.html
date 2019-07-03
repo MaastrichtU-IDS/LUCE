@@ -5,7 +5,15 @@
 	<div class='card'>
 		<div class='card-body'>
 			<h5 class='card-title'> {{ blog_post.title }} </h5>
-			<p class='card-text'> {{ blog_post.content|linebreaks|truncatewords:30 }} </p>
+			<p class='card-text'> 
+				{% if truncate %}
+					{{ blog_post.content|linebreaks|truncatewords:30 }} 
+				{% else %}
+					{{ blog_post.content|linebreaks }} 
+				{% endif %}
+
+			</p>
+			<a href="{{ blog_post.get_absolute_url }}"> View </a>
 		</div>
 	</div>
 </div>
