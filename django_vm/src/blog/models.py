@@ -1,9 +1,16 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
 User = settings.AUTH_USER_MODEL
+
+class BlogPostManager(models.Manager):
+	def published(self):
+		now = timezone.now()
+		# get_queryset == Blogpost.objects
+		return self.get_queryset().filter(publish_date__lte=now)
 
 class BlogPost(models.Model): # blogpost_set -> queryset
     # id = models.IntegerField() # pk
@@ -14,6 +21,12 @@ class BlogPost(models.Model): # blogpost_set -> queryset
     publish_date = models.DateTimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    # This adds more methods to the objects attribute itself
+    objects = BlogPostManager()
+    # So Model Manager allows us to do BlogPost.objects.published()
+    # It operates on ALL objects, whereas functions within BlogPost
+    # class operate on ONE instance of class at a time
 
     class Meta:
     	# the `-` means that the MOST RECENT date will be first
