@@ -134,4 +134,4 @@ STATICFILES_DIRS = [
 
 # This is where user files are uploaded to
 MEDIA_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/' # django-storages on AWS would be the ideal place to store static files
