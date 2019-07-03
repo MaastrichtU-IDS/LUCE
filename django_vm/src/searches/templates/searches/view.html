@@ -22,6 +22,11 @@
 
 		<!-- Search results go here -->
 
+		{% for object in blog_list %}
+
+			{% include 'blog/list-inline.html' with blog_post=object truncate=True content=True detail=False %}
+
+		{% endfor %}
 
 	</div>	
 </div>

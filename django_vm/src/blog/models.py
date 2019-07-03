@@ -7,20 +7,28 @@ from django.utils import timezone
 User = settings.AUTH_USER_MODEL
 
 class BlogPostQuerySet(models.QuerySet):
-	def published(self):
-		now = timezone.now()
-		return self.filter(publish_date__lte=now)
+    def published(self):
+        now = timezone.now()
+        return self.filter(publish_date__lte=now)
+
+    def search(self, query):
+        return self.filter(title__iexact=query)
 
 class BlogPostManager(models.Manager):
-	def get_queryset(self):
-		return BlogPostQuerySet(self.model, using=self._db)
-	# This allows us to do BP.objects.all().published()
-	# So we have a custom filter
-	# -> We need this for search & filtering
+    def get_queryset(self):
+        return BlogPostQuerySet(self.model, using=self._db)
+    # This allows us to do BP.objects.all().published()
+    # So we have a custom filter
+    # -> We need this for search & filtering
 
-	def published(self):
-		return self.get_queryset().published()
-	# This allows to directly do BP.objects.published()
+    def published(self):
+        return self.get_queryset().published()
+    # This allows to directly do BP.objects.published()
+
+    def search(self, query=None):
+        if query is None:
+            return self.get_queryset().none()
+        return self.get_queryset().published().search(query)
 
 class BlogPost(models.Model): # blogpost_set -> queryset
     # id = models.IntegerField() # pk
@@ -41,16 +49,16 @@ class BlogPost(models.Model): # blogpost_set -> queryset
     # class operate on ONE instance of class at a time
 
     class Meta:
-    	# the `-` means that the MOST RECENT date will be first
-    	ordering = ['-publish_date', '-updated', '-timestamp']
-    	# this changes the order of the queryset & list view
+        # the `-` means that the MOST RECENT date will be first
+        ordering = ['-publish_date', '-updated', '-timestamp']
+        # this changes the order of the queryset & list view
 
     # object methods
     def get_absolute_url(self):
-    	return f"/blog/{self.slug}"
+        return f"/blog/{self.slug}"
 
     def get_edit_url(self):
-    	return f"/blog/{self.slug}/edit"
+        return f"/blog/{self.slug}/edit"
 
     def get_delete_url(self):
-    	return f"/blog/{self.slug}/delete"
+        return f"/blog/{self.slug}/delete"
