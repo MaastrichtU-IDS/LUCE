@@ -19,9 +19,11 @@ from .models import BlogPost
 
 def blog_post_list_view(request):
     qs = BlogPost.objects.all().published()
-    # Only display items of the user currently logged in
+    # Display all published posts AND all posts of current user
+    # (even if not yet published)
     if request.user.is_authenticated:
-        qs = BlogPost.objects.filter(user=request.user)
+        my_qs = BlogPost.objects.filter(user=request.user)
+        qs = (qs | my_qs).distinct() # distinct = no duplicates
     template_name = 'blog/list.html'
     context = {'object_list': qs}
     return render(request, template_name, context) 
