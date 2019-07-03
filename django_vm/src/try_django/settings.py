@@ -121,3 +121,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# This path is outside django project, usually CDN like AWS S3
+LOCAL_STATIC_CDN_PATH = os.path.join(os.path.dirname(BASE_DIR), 'django_static_files/static_cdn_test')
+
+STATIC_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'static') # usually live cdn like AWS S3
+
+# These files are inside django project
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles')
+]
+
+# This is where user files are uploaded to
+MEDIA_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'media')
+MEDIA_URL = '/media/'
