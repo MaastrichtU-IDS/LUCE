@@ -2,7 +2,7 @@
 
 <!-- Bootstrap classes -->
 <div class='col-12 col-md-10 mb-2 mt-2 mx-auto'>
-	<div class='card'>
+	<div class='card {% if not blog_post.publish_date %} bg-dark text-light {% endif %}' >
 		<div class='card-body'>
 			<h5 class='card-title'> {{ blog_post.title }} </h5>
 
