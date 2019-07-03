@@ -11,6 +11,14 @@ class BlogPost(models.Model): # blogpost_set -> queryset
     title  = models.CharField(max_length=120)
     slug   = models.SlugField(unique=True) # hello world -> hello-world
     content  = models.TextField(null=True, blank=True)
+    publish_date = models.DateTimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+    	# the `-` means that the MOST RECENT date will be first
+    	ordering = ['-publish_date', '-updated', '-timestamp']
+    	# this changes the order of the queryset & list view
 
     # object methods
     def get_absolute_url(self):
