@@ -2,6 +2,9 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+# module for complex queries
+from django.db.models import Q
+
 # Create your models here.
 
 User = settings.AUTH_USER_MODEL
@@ -12,7 +15,17 @@ class BlogPostQuerySet(models.QuerySet):
         return self.filter(publish_date__lte=now)
 
     def search(self, query):
-        return self.filter(title__iexact=query)
+        # build complex lookup
+        lookup = (
+                Q(title__icontains=query) | 
+                Q(content__icontains=query) |
+                Q(slug__icontains=query) |
+                Q(user__first_name__icontains=query) |
+                Q(user__last_name__icontains=query) |
+                Q(user__username__icontains=query)
+                )
+        # pass into query
+        return self.filter(lookup)
 
 class BlogPostManager(models.Manager):
     def get_queryset(self):
@@ -28,7 +41,7 @@ class BlogPostManager(models.Manager):
     def search(self, query=None):
         if query is None:
             return self.get_queryset().none()
-        return self.get_queryset().published().search(query)
+        return self.get_queryset().search(query)
 
 class BlogPost(models.Model): # blogpost_set -> queryset
     # id = models.IntegerField() # pk
