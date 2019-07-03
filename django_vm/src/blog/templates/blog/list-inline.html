@@ -5,6 +5,10 @@
 	<div class='card'>
 		<div class='card-body'>
 			<h5 class='card-title'> {{ blog_post.title }} </h5>
+
+			<!-- Only include content if variable is true -->
+			{% if content %}
+
 			<p class='card-text'> 
 				{% if truncate %}
 					{{ blog_post.content|linebreaks|truncatewords:30 }} 
@@ -13,7 +17,14 @@
 				{% endif %}
 
 			</p>
+
+			{% endif %}
+
+			{% if not detail %}
+
 			<a href="{{ blog_post.get_absolute_url }}"> View </a>
+
+			{% endif %}
 		</div>
 	</div>
 </div>
