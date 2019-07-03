@@ -35,7 +35,7 @@ def blog_post_create_view(request):
     # create objects
     # ? use a form
     # request.user -> return something
-    form = BlogPostModelForm(request.POST or None)
+    form = BlogPostModelForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
@@ -57,7 +57,7 @@ def blog_post_detail_view(request, slug):
 @staff_member_required
 def blog_post_update_view(request, slug):
     obj = get_object_or_404(BlogPost, slug=slug)
-    form = BlogPostModelForm(request.POST or None, instance=obj)
+    form = BlogPostModelForm(request.POST or None, request.FILES or None, instance=obj)
     if form.is_valid():
         form.save()
     template_name = 'form.html'
