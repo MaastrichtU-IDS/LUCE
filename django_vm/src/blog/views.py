@@ -20,7 +20,7 @@ from .models import BlogPost
 def blog_post_list_view(request):
     # list out objects 
     # could be search
-    qs = BlogPost.objects.published() # queryset -> list of python objects
+    qs = BlogPost.objects.all().published() # queryset -> list of python objects
     # Only include items that were published already (in the past)
     # qs = qs.filter(publish_date__lte=now)
     # Update: We use Django Model Manager instead

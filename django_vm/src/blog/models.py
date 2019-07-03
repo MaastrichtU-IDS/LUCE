@@ -6,11 +6,21 @@ from django.utils import timezone
 
 User = settings.AUTH_USER_MODEL
 
-class BlogPostManager(models.Manager):
+class BlogPostQuerySet(models.QuerySet):
 	def published(self):
 		now = timezone.now()
-		# get_queryset == Blogpost.objects
-		return self.get_queryset().filter(publish_date__lte=now)
+		return self.filter(publish_date__lte=now)
+
+class BlogPostManager(models.Manager):
+	def get_queryset(self):
+		return BlogPostQuerySet(self.model, using=self._db)
+	# This allows us to do BP.objects.all().published()
+	# So we have a custom filter
+	# -> We need this for search & filtering
+
+	def published(self):
+		return self.get_queryset().published()
+	# This allows to directly do BP.objects.published()
 
 class BlogPost(models.Model): # blogpost_set -> queryset
     # id = models.IntegerField() # pk
