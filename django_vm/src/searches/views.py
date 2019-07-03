@@ -13,9 +13,9 @@ def search_view(request):
 	user = None
 	if request.user.is_authenticated:
 		user = request.user
-
-	# Store query as entry for log
-	SearchQuery.objects.create(user=user, query=query)
+	if query is not None:
+		# Store query as entry for log
+		SearchQuery.objects.create(user=user, query=query)
 
 	template = 'searches/view.html'
 	context = {"query": query}
