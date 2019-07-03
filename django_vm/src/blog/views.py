@@ -18,12 +18,10 @@ from .models import BlogPost
 
 
 def blog_post_list_view(request):
-    # list out objects 
-    # could be search
-    qs = BlogPost.objects.all().published() # queryset -> list of python objects
-    # Only include items that were published already (in the past)
-    # qs = qs.filter(publish_date__lte=now)
-    # Update: We use Django Model Manager instead
+    qs = BlogPost.objects.all().published()
+    # Only display items of the user currently logged in
+    if request.user.is_authenticated:
+        qs = BlogPost.objects.filter(user=request.user)
     template_name = 'blog/list.html'
     context = {'object_list': qs}
     return render(request, template_name, context) 
