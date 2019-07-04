@@ -55,6 +55,24 @@ conda install -y jupyter
 # Activate environment
 # conda activate try_django
 
+# pip install django==2.2
+# pip install pillow # for image processing
+
+# ==== PREPARE LUCE_DJANGO ====
+
+# Set up conda environment for luce_django
+# conda create -y --name luce_django python
+
+# # Activate environment
+# conda activate luce_django
+
+# pip install django==2.2
+# pip install pillow # for image processing
+
+# # Change to directory (create dir if not yet in existence)
+# cd /vagrant/luce_django 2>/dev/null || { mkdir /vagrant/luce_django && cd /vagrant/luce_django; }
+
+
 # Set up jupyter kernel inside virtual environment
 # -> Here both is needed: the ipykernel package does not exist yet in the
 # -> new environment. And installing the kernel in this environment allows
