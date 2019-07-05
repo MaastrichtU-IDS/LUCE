@@ -5,11 +5,15 @@ from django.urls import path
 from django.conf import settings
 
 # Import view functions here
-from .views import home_page
+from lucehome.views import (
+    home_page,
+    dev_view
+    )
 
 from datastore.views import (
 	upload_view,
 	list_view,
+    my_data_view
 	)
 
 urlpatterns = [
@@ -18,8 +22,8 @@ urlpatterns = [
     path('', home_page),
     path('upload/', upload_view),
     path('browse/', list_view),
-    path('my_data/', home_page),
-    path('dev/', home_page),
+    path('my_data/', my_data_view),
+    path('dev/', dev_view),
     path('search/', home_page),
 
 ]

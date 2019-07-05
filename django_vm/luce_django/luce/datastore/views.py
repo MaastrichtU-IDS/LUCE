@@ -32,3 +32,12 @@ def list_view(request):
                 "dataset_list": qs}
     template = 'data/list.html'
     return render(request, template, context)
+
+def my_data_view(request):
+    head_title = "LUCE"
+    # Get first five datasets
+    qs = Dataset.objects.all()[:5]
+    context = {"head_title": head_title, 
+                "dataset_list": qs}
+    template = 'data/my_data.html'
+    return render(request, template, context)

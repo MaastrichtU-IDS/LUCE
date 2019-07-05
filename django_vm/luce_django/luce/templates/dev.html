@@ -3,14 +3,26 @@
 <!-- Main Content Section -->
 {% block content %}
 
-	<h1> Welcome to LUCE </h1>
+	<h1> In Development.. </h1>
 
-	<!-- Receive dataset_list as variable from view context -->
-	{% for data in dataset_list %}
+	<!-- Include some buttons to call functions in backend -->
 
-		<!-- Load HTML from list template and pass arguments to template -->
-		{% include 'data/list-inline.html' with object=data description=True truncate=True %}        
+	<form action="#" method="get">
+		<button type='submit' name="mybtn_2" value="Click">Create wallet for User</button>
+	</form>
 
-	{% endfor %}
+	<form action="#" method="get">
+		<button type='submit' name="mybtn_3" value="Click">Transfer some Ether from coinbase</button>
+	</form>
+
+	<form action="#" method="get">
+		<button type='submit' name="mybtn_4" value="Click">Deploy Contract</button>
+	</form>
+
+	<form action="#" method="get">
+ 		<input type="text" value="8" name="mytextbox" size="1"/>
+ 		<input type="submit" class="btn" value="Get Input" name="mybtn">
+	</form>
+
     
 {% endblock %}
