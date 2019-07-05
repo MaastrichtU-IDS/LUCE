@@ -116,7 +116,25 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
+# ==== SETUP STATIC FILE DIRECTORIES ====
 
+# Simulate a CDN locally:
+# This path is outside django project, usually a CDN like AWS S3
+LOCAL_STATIC_CDN_PATH = os.path.join(os.path.dirname(BASE_DIR), 'luce_static_files/static_cdn_local')
+
+# Static files (CSS, JavaScript, Images)
+STATIC_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'static')
 STATIC_URL = '/static/'
+
+# This is where files are uploaded to
+MEDIA_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'media')
+MEDIA_URL = '/media/'
+
+
+# These files live inside django project
+# Local file changes take place here, then at some point they are uploaded to CDN
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_files') ]
+
+
+

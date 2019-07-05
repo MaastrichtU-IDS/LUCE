@@ -1,26 +1,32 @@
-"""lucehome URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
 from django.urls import path
+
+# Import settings to access environment variables 
+from django.conf import settings
 
 # Import view functions here
 from .views import home_page
 
+from datastore.views import (
+	upload_view,
+	list_view,
+	)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', home_page),
+    path('upload/', upload_view),
+    path('browse/', list_view),
+    path('my_data/', home_page),
+    path('dev/', home_page),
+    path('search/', home_page),
+
 ]
+
+if settings.DEBUG:
+    # Use local simulated CDN
+    # Add the following to urlpatterns
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

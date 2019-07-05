@@ -14,9 +14,8 @@ django_vm/try_django/try_django/__pycache__/*
 django_vm/try_django/blog/__pycache__/*
 django_vm/try_django/blog/migrations/__pycache__/*
 django_vm/**/__pycache__/*
-
-
 luce_vm/django/dapp/__pycache__/*
+**/static_cdn_local/static/**
 
 
 # Exclude jupyter checkpoints directory
