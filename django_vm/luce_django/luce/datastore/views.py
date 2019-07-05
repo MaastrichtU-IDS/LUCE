@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 
 from datastore.models import Dataset
@@ -41,3 +41,9 @@ def my_data_view(request):
                 "dataset_list": qs}
     template = 'data/my_data.html'
     return render(request, template, context)
+
+def detail_view(request, dataset_id):
+    obj = get_object_or_404(Dataset, id=dataset_id)
+    context = {"object": obj}
+    template = 'data/detail.html'
+    return render(request, template, context)  

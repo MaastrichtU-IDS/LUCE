@@ -13,7 +13,8 @@ from lucehome.views import (
 from datastore.views import (
 	upload_view,
 	list_view,
-    my_data_view
+    my_data_view,
+    detail_view
 	)
 
 urlpatterns = [
@@ -25,6 +26,9 @@ urlpatterns = [
     path('my_data/', my_data_view),
     path('dev/', dev_view),
     path('search/', home_page),
+
+    path('data/<int:dataset_id>/', detail_view)
+    # re_path(r'^data/(?P<slug>\w+)/$', detail_view)
 
 ]
 
