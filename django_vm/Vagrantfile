@@ -18,8 +18,10 @@ Vagrant.configure("2") do |config|
   # Ganache Blockchain
   config.vm.network :forwarded_port, guest: 8545, host: 8545
 
-  # Django
+  # Django - Open up a few ports for testing multiple servers
   config.vm.network :forwarded_port, guest: 8000, host: 8000
+  config.vm.network :forwarded_port, guest: 8001, host: 8001
+  config.vm.network :forwarded_port, guest: 8002, host: 8002
 
   # ==== VM CONFIGURATION ====
 

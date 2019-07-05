@@ -5,7 +5,11 @@
 # Install GNU compiler utitilities 
 # (required for web3 installation and also for psycopg2 (PostgreSQL)) 
 
+sudo apt-get update
+# This installs gcc and other compile tools
 sudo apt --assume-yes install build-essential
+# This installs the latest OpenSSL libraries -> needed for Django-Web3-Auth
+sudo apt-get install libssl-dev
 
 # ==== INSTALL ANACONDA ====
 
@@ -60,7 +64,7 @@ conda install -y jupyter
 
 # ==== PREPARE LUCE_DJANGO ====
 
-# Set up conda environment for luce_django
+# # Set up conda environment for luce_django
 # conda create -y --name luce_django python
 
 # # Activate environment
@@ -69,8 +73,20 @@ conda install -y jupyter
 # pip install django==2.2
 # pip install pillow # for image processing
 
-# # Change to directory (create dir if not yet in existence)
+# # Original  web3-auth repo (no longer works)
+# # pip install https://github.com/atereshkin/django-web3-auth/archive/master.zip
+
+# # New web3-auth repo:
+# git clone https://github.com/sanosano/django-web3-auth
+# cd django-web3-auth/example
+# pip install -r requirements.txt
+# # -> THIS FORK WORKS :D
+
+
+
+# Change to directory (create dir if not yet in existence)
 # cd /vagrant/luce_django 2>/dev/null || { mkdir /vagrant/luce_django && cd /vagrant/luce_django; }
+
 
 
 # Set up jupyter kernel inside virtual environment
