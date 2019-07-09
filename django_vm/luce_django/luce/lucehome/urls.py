@@ -12,7 +12,7 @@ from lucehome.views import (
 
 from datastore.views import (
 	upload_view,
-	list_view,
+	browse_view,
     my_data_view,
     detail_view
 	)
@@ -22,7 +22,7 @@ urlpatterns = [
 
     path('', home_page),
     path('upload/', upload_view),
-    path('browse/', list_view),
+    path('browse/', browse_view),
     path('my_data/', my_data_view),
     path('dev/', dev_view),
     path('search/', home_page),

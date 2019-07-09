@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+<!-- Main Content Section -->
+{% block content %}
+
+	<h1> Available Datasets </h1>
+
+	<!-- Receive dataset_list as variable from view context -->
+	{% for data in dataset_list %}
+
+	{% endfor %}
+
+
+<div class="card">
+  <h5 class="card-header">Featured</h5>
+  <div class="card-body">
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+<!-- Row of cards (without card group or deck) -->
+<div class="row my-2">
+  <!-- Card style prototype for dataset list -->
+  <div class="col-sm-4 my-2">
+    <div class="card shadow-sm">
+
+      <div class="card-body">
+        <h5 class="card-title">Dataset Title </h5>
+        <p class="card-text">The dataset description goes here and possibly other information about the dataset, too. Maybe we like to add the author, licence..</p>
+   
+        	  <!-- Buttons for View & Edit -->
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='/'">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='/'">Edit</button>
+                </div>
+                <small class="text-muted">Last Update</small>
+              </div>
+
+
+      </div> <!-- End of card body -->
+
+
+
+    </div>
+  </div> <!-- End of card col -->
+
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4 my-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4 my-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+
+
+
+</div> 
+
+<div class="row">
+	<div class='card-deck m-2 '> <!-- Begin card deck -->
+ 
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+  </div>
+      <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content. Even if the text in one dataset is longer they should still be the same size.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+  </div>
+
+</div> <!-- End card deck -->
+</div>
+    
+{% endblock %}
