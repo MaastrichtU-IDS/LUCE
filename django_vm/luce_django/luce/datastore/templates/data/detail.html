@@ -3,30 +3,47 @@
 
 {% block content %}
 
-<div class='row'>
+<!-- Create container to center content -->
+<div class='container'>
 
-<!-- Detail page is same as list view but with only one item.
-This allows for consistent experience across views.  -->
-{% include 'data/list-inline.html' with object=object description=True truncate=False %}
+			<!-- Dataset Detail View -->
+			<div class="col my-2">
+			    <div class="card shadow-sm">
+			      <div class="card-body">
 
+			        <h5 class="card-title"> {{ dataset.title }} </h5>
+			        <p class="card-text"> {{ dataset.description|linebreaks }} </p>
+			   
+			          <!-- Download Button | Check access rights.. -->
+	                  {% if dataset.file %}
+	                  <div class='d-flex mb-1'>
+	                  <a class='btn-sm btn-secondary bg-white text-dark border border-secondary' href="{{ dataset.file.url }}" Download> Download Dataset </a> 
+	                  </div>
+	                  {% endif %}
+	              	  
 
-<!-- DOWNLOAD button -->
-<!-- (!!!) Ensure permission to download.. -->
-{% if object.file %}
-	<a href="{{ object.file.url }}" Download> Download Dataset </a> 
-{% endif %}
+			        	  <!-- Buttons for View & Edit -->
+			              <div class="d-flex justify-content-between align-items-center">
+			                <div class="btn-group">
 
+		                	<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='{{ dataset.get_absolute_url }} '">View</button>
 
-<!-- (!!!) Add edit and delete functionality -->
-<!-- 	{% if request.user.is_authenticated %}
-		{% if request.user.is_staff %}
-			<div class='col-12'>
-				<a href='{{ object.get_edit_url }}'> Edit </a>
-				<a href='{{ object.get_delete_url }}'> Delete </a>
-			</div>
+			                  <!-- Check if current user is owner for edit and delete rights.. -->
+			                  <!-- {% if request.user.is_authenticated %} 
 
-		{% endif %}
-	{% endif %} -->
+			                  	{% endif %} -->
+
+			                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href=' {{ dataset.get_edit_url }} '">Edit</button>
+
+			                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='{{ dataset.get_delete_url }}'">Delete</button>
+
+			                </div>
+			                <small class="text-muted"> Last Update </small>
+			              </div>
+
+			      </div> <!-- End of card body -->
+			    </div>
+			  </div> <!-- End of card column -->
 
 </div>
 

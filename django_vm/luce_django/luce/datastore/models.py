@@ -7,6 +7,7 @@ User = settings.AUTH_USER_MODEL
 # Module for combined queries
 from django.db.models import Q
 
+
 class Dataset(models.Model):
     title           = models.CharField(max_length=120)
     description     = models.TextField(null=True, blank=True)
@@ -19,3 +20,19 @@ class Dataset(models.Model):
     created_by      = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
     timestamp       = models.DateTimeField(auto_now_add=True)
     updated         = models.DateTimeField(auto_now=True)
+
+
+    # Dataset object methods
+    def get_absolute_url(self):
+        return f"/data/{self.pk}"
+
+    def get_edit_url(self):
+        return f"/data/{self.pk}/edit"
+
+    def get_delete_url(self):
+        return f"/data/{self.pk}/delete"
+
+    # Subclass with meta information
+    class Meta:
+        # The negative value means that newest datasets will show up first
+        ordering = ['-updated', '-timestamp']
