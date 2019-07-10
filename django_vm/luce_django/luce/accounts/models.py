@@ -127,6 +127,7 @@ class User(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         return True
 
+    # Properties are based on our custom attributes
     @property
     def is_staff(self):
         "Is the user a member of staff?"
