@@ -87,6 +87,11 @@ class User(AbstractBaseUser):
     # Automatically obtain public_address from Metamask
     ethereum_public_key 	=	models.CharField(max_length=255, blank=True, null=True)
 
+
+    # Can use this later to activate certain features only 
+    # once ethereum address is associated
+    is_approved =  models.BooleanField(default=True) # True for now while developing..
+
     # active user? -> can login
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False) # a admin user; non super-user
@@ -102,7 +107,7 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
-    # The following methods are expected to be defined by Django
+    # The following default methods are expected to be defined by Django
     def get_full_name(self):
         # The user is identified by their email address
         return self.email
@@ -116,12 +121,10 @@ class User(AbstractBaseUser):
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property

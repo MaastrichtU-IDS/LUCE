@@ -5,6 +5,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import User
 
 
+# Form for signup view
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
@@ -27,6 +28,24 @@ class RegisterForm(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(RegisterForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        user.active = True # Could set this to false and wait for e-mail confirmation first
+        # Before saving the user we want to store the public_key
+
+        # (!!!) web3.py script -> Create new wallet and pre-fund    
+        user.ethereum_public_key = None
+        if commit:
+            user.save()
+        return user
+
+# Form for login view
+class LoginForm(forms.Form):
+    email = forms.EmailField(label="Email")
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
 class UserAdminCreationForm(forms.ModelForm):

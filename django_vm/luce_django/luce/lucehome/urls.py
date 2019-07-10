@@ -7,7 +7,10 @@ from django.conf import settings
 # Import view functions here
 from lucehome.views import (
     home_page,
-    dev_view
+    dev_view,
+    # register_view,
+    RegisterView,
+    LoginView,
     )
 
 from datastore.views import (
@@ -28,6 +31,11 @@ urlpatterns = [
     path('my_data/', my_data_view),
     path('dev/', dev_view),
     path('search/', home_page),
+
+    # path('register/', register_view),
+    path('register/', RegisterView.as_view()),
+    path('login/', LoginView.as_view()),
+
 
     path('data/<int:dataset_id>/', detail_view),
     path('data/<int:dataset_id>/edit', update_view),
