@@ -78,9 +78,13 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
+
+    # Make these fields compulsory?
     first_name 	= 	models.CharField(max_length=255, blank=True, null=True)
     last_name 	= 	models.CharField(max_length=255, blank=True, null=True)
     institution =	models.CharField(max_length=255, blank=True, null=True)
+
+    # Automatically obtain public_address from Metamask
     ethereum_public_key 	=	models.CharField(max_length=255, blank=True, null=True)
 
     # active user? -> can login
@@ -98,6 +102,7 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
+    # The following methods are expected to be defined by Django
     def get_full_name(self):
         # The user is identified by their email address
         return self.email
