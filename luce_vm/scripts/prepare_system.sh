@@ -2,6 +2,9 @@
 
 # Bash commands to run after the VM has started
 
+
+sudo apt-get update
+
 # Install GNU compiler utitilities 
 # (required for web3 installation) 
 

@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 
+# Import generic logout view
+from django.contrib.auth.views import LogoutView
+
 # Import settings to access environment variables 
 from django.conf import settings
 
@@ -35,6 +38,7 @@ urlpatterns = [
     # path('register/', register_view),
     path('register/', RegisterView.as_view()),
     path('login/', LoginView.as_view()),
+    path('logout/', LogoutView.as_view()),
 
 
     path('data/<int:dataset_id>/', detail_view),

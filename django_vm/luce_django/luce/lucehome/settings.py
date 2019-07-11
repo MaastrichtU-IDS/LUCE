@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Re-direct to home view after logout
+LOGOUT_REDIRECT_URL = '/'
 ROOT_URLCONF = 'lucehome.urls'
 
 TEMPLATES = [
