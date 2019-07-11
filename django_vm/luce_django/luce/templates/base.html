@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Website Title (in browser bar) -->
+    <title>{% block head_title %} {% endblock %}</title>
+  </head>
+
+  <body>
+    <!-- Load Navigation Bar -->
+    {% include 'navbar.html' %}
+
+    <!-- Main Page Content -->
+    <div class='container-fluid'>
+        {% block content %}
+          <!-- Content is insered there -->
+        {% endblock %}
+    </div>
+
+    <!-- Source Javascript -->
+    {% include 'js.html' %}
+  </body>
+
+</html>

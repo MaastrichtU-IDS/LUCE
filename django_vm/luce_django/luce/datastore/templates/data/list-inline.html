@@ -1,0 +1,33 @@
+<!-- Design for listing datasets is specified here, other parts of website can simply include data/list-inline.html -->
+
+<!-- Bootstrap classes -->
+<div class='col-12 col-md-10 mb-2 mt-2 mx-auto'>
+	<div class='card {% if not blog_post.publish_date %} border border-warning text-dark  {% endif %}' >
+		<div class='card-body'>
+
+			<!-- TITLE -->
+			<h5 class='card-title'> {{ object.title }} </h5>
+
+			<!-- DESCRIPTION (only include if variable is true) -->
+			{% if description %}
+
+			<p class='card-text'>
+
+				<!-- PUBLISH DATE -->
+				<small class='text-muted'> {{ object.publish_date }} </small>
+				{% if truncate %}
+					{{ object.description|linebreaks|truncatewords:30 }} 
+				{% else %}
+					{{ object.description|linebreaks }} 
+				{% endif %}
+
+			</p>
+
+			{% endif %}
+
+			<!-- LINK to detail view -->
+			<a href="{{ object.get_absolute_url }}"> View </a>
+
+		</div>
+	</div>
+</div>
