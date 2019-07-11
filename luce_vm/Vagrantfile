@@ -15,6 +15,9 @@ Vagrant.configure("2") do |config|
   # Jupyter Notebook
   config.vm.network :forwarded_port, guest: 8888, host: 8888
 
+  # Jupyter Notebook Alternative Port
+  config.vm.network :forwarded_port, guest: 8889, host: 8889
+
   # Ganache Blockchain
   config.vm.network :forwarded_port, guest: 8545, host: 8545
 

@@ -17,7 +17,5 @@ if ! [ -L /var/www ]; then
   ln -fs /vagrant /var/www
 fi
 
-# Copy scripts to vagrant user directory
-cp /vagrant/scripts/prepare_system.sh /home/vagrant
-cp /vagrant/scripts/run_* /home/vagrant
-cp /vagrant/scripts/start_jupyter_and_ganache_tmux.sh /home/vagrant
+# Copy scripts to vagrant home directory
+cp /vagrant/scripts/* /home/vagrant
