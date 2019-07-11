@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-
 from datastore.models import Dataset
 from datastore.forms import DatasetModelForm
 
@@ -16,7 +15,13 @@ def upload_view(request):
         obj.save()
         # Refresh to blank form 
         # (!!!) Maybe display "Success" message and go to detail view for dataset
+
+        # -> Data has been submitted and stored
+        # Display a new, empty form
         form = DatasetModelForm()
+
+        # Or redirect to another subsequent page
+        # return redirect('/thanks_for_uploading/')
     context = {
             'form': form
                 }
