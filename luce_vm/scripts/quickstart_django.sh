@@ -12,6 +12,7 @@
 # ==== LUCE DJANGO ====
 MY_ENV=luce_vm
 MY_PATH=/vagrant/luce_django/luce
+PS1="$ "
 
 echo
 echo "Change to $MY_PATH directory"
@@ -24,3 +25,4 @@ conda activate $MY_ENV
 echo
 echo "Run Django server"
 python manage.py runserver 0.0.0.0:8000 --noreload
+

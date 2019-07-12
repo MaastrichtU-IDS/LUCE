@@ -18,6 +18,8 @@ from django.views.generic import CreateView, FormView
 # For redirect after form submission
 from django.shortcuts import redirect
 
+# Import Python web3 scripts
+from utils.web3_scripts import create_wallet, fund_wallet, deploy_contract
 
 def home_page(request):
     head_title = "LUCE"
@@ -77,11 +79,15 @@ class LoginView(FormView):
         return super(LoginView, self).form_invalid(form)
 
 
+# Available scripts:
+# create_wallet, fund_wallet, deploy_contract
 
 def dev_view(request):
 
     if(request.GET.get('mybtn_2')):
+        create_wallet()
         print("Second button was pressed")
+
 
     if(request.GET.get('mybtn_3')):
         print("Third button was pressed")
