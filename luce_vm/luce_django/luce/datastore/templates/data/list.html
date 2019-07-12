@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+<!-- Main Content Section -->
+{% block content %}
+
+	<h1> Available Datasets </h1>
+
+	<!-- Receive dataset_list as variable from view context -->
+	{% for data in dataset_list %}
+
+		<!-- Load HTML from list template and pass arguments to template -->
+		{% include 'data/list-inline.html' with object=data description=True truncate=True %}        
+
+	{% endfor %}
+    
+{% endblock %}

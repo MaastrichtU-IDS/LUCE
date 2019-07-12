@@ -2,15 +2,17 @@
 
 # Bash commands to run after the VM has started
 
-
+# Update packages
 sudo apt-get update
 
 # Install GNU compiler utitilities 
-# (required for web3 installation) 
-
+# (required for web3, psycopg2 (PostgreSQL) and web3-auth) 
 sudo apt --assume-yes install build-essential
 
-# ==== INSTALL ANACONDA ====
+# Install the latest OpenSSL libraries (for Django-Web3-Auth)
+sudo apt-get install libssl-dev
+
+# ==== INSTALL MINICONDA ====
 
 # 1) Download installer script
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /home/vagrant/miniconda.sh
@@ -68,6 +70,18 @@ nvm install node
 
 # 3) Install Ganache
 npm install -g ganache-cli
+
+
+# ==== INSTALL DJANGO ====
+
+pip install django==2.2
+pip install pillow # for image processing
+
+# # Django-web3-auth:
+# git clone https://github.com/sanosano/django-web3-auth
+# cd django-web3-auth/example
+# pip install -r requirements.txt
+
 
 # ==== COMPLETION MESSAGE ====
 

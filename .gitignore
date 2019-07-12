@@ -7,29 +7,21 @@ test_vm/.vagrant/*
 django_vm/.vagrant/*
 
 # Exlude django cache directories
-test_vm/django/myproject/__pycache__/*
 test_vm/django/dapp/__pycache__/*
-test_vm/try_django/try_django/__pycache__/*
-django_vm/try_django/try_django/__pycache__/*
-django_vm/try_django/blog/__pycache__/*
-django_vm/try_django/blog/migrations/__pycache__/*
-django_vm/**/__pycache__/*
-luce_vm/django/dapp/__pycache__/*
+**/__pycache__/**
 **/static_cdn_local/static/**
-
 
 # Exclude jupyter checkpoints directory
 luce_vm/jupyter/.ipynb_checkpoints/*
-test_vm/jupyter/.ipynb_checkpoints/*
-django_vm/jupyter/.ipynb_checkpoints/*
-*/.ipynb_checkpoints/*
+*/jupyter/.ipynb_checkpoints/*
 
 # Exclude safe storage area
 luce_vm/jupyter/safe_storage_area/*
 
-# Exclude all files with a certain ending
+# Exclude all files of a certain filetype
 **.icloud
 **.sublime-workspace
+**.sublime-project
 
 # Exclude specific files
 nohup.out
