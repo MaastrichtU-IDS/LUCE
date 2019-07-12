@@ -3,7 +3,7 @@
 # Bash commands to run during VM initialization
 # Customise motd
 rm /etc/update-motd.d/*
-cp /vagrant/.motd/luce_motd /etc/update-motd.d/00-header
+cp /vagrant/.config/luce_motd /etc/update-motd.d/00-header
 
 # ==== INSTALL APACHE ====
 
@@ -14,5 +14,9 @@ if ! [ -L /var/www ]; then
   ln -fs /vagrant /var/www
 fi
 
+# Copy jupyter configuration into VM
+mkdir -p /home/vagrant/.jupyter && cp /vagrant/.config/jupyter_notebook_config.py $_
+
 # Copy scripts to vagrant home directory
 cp /vagrant/scripts/* /home/vagrant
+

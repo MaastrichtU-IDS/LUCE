@@ -18,8 +18,7 @@ tmux send-keys -t jupyter_ganache_django.1 'eval "$(conda shell.bash hook)"' ENT
 tmux send-keys -t jupyter_ganache_django.1 'conda activate luce_vm' ENTER
 tmux send-keys -t jupyter_ganache_django.1 'ganache-cli --mnemonic luce' ENTER
 
-# Select second window in session and split it
-tmux select-window -t jupyter_ganache_django:1
+# Split window once again
 tmux split-window -v
 
 # Send in commands to start Django Server

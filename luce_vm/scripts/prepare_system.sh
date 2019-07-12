@@ -2,7 +2,7 @@
 
 # Bash commands to run after the VM has started
 
-# Update packages
+# Refresh repository index
 sudo apt-get update
 
 # Install GNU compiler utitilities 
@@ -10,7 +10,7 @@ sudo apt-get update
 sudo apt --assume-yes install build-essential
 
 # Install the latest OpenSSL libraries (for Django-Web3-Auth)
-sudo apt-get install libssl-dev
+sudo apt --assume-yes install libssl-dev
 
 # ==== INSTALL MINICONDA ====
 
