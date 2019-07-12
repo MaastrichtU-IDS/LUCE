@@ -1,1 +1,0 @@
-Blank on purpose. Some content is in here so that git creates the folders.

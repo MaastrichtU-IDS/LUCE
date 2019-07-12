@@ -17,13 +17,16 @@ luce_vm/jupyter/.ipynb_checkpoints/*
 
 # Exclude safe storage area
 luce_vm/jupyter/safe_storage_area/*
- my_files/**
 
 # Exclude all files of a certain filetype
 **.icloud
 **.sublime-workspace
 **.sublime-project
 
-# Exclude specific files
+# Exclude specific files/folders
 nohup.out
 ubuntu-xenial-16.04-cloudimg-console.log
+ my_files/**
+
+# Exclude Django VM
+ django_vm/**

@@ -75,7 +75,7 @@ npm install -g ganache-cli
 # ==== INSTALL DJANGO ====
 
 pip install django==2.2
-pip install pillow # for image processing
+# pip install pillow # for image processing
 
 # # Django-web3-auth:
 # git clone https://github.com/sanosano/django-web3-auth
