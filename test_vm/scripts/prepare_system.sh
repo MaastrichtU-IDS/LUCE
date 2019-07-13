@@ -5,6 +5,7 @@
 # Install GNU compiler utitilities 
 # (required for web3 installation and also for psycopg2 (PostgreSQL)) 
 
+sudo apt-get update --assume-yes
 sudo apt --assume-yes install build-essential
 
 # ==== INSTALL ANACONDA ====
@@ -30,6 +31,10 @@ conda create -y --name test_vm python
 
 # Activate environment
 conda activate test_vm
+
+# ==== INSTALL POSTGRESQL ====
+
+conda install -y jupyter
 
 
 # ==== INSTALL POSTGRESQL ====

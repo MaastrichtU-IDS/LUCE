@@ -1,2 +1,3 @@
+/* #ipython_notebook::before{content:'<a href="127.0.0.1:8888">LuceVM Jupyter</a>'}*/
 #ipython_notebook::before{content:"LuceVM Jupyter"}
 #ipython_notebook img{display:none;}
