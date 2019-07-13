@@ -14,9 +14,10 @@ if ! [ -L /var/www ]; then
   ln -fs /vagrant /var/www
 fi
 
-# Copy jupyter configuration into VM
+# Copy jupyter configuration into VM & make vagrant owner of folder
 mkdir -p /home/vagrant/.jupyter && cp /vagrant/.config/jupyter_notebook_config.py $_
+mkdir -p /home/vagrant/.jupyter/custom && cp /vagrant/.config/custom.css $_
+sudo chown -R vagrant:vagrant /home/vagrant/.jupyter
 
 # Copy scripts to vagrant home directory
 cp /vagrant/scripts/* /home/vagrant
-

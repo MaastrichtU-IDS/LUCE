@@ -15,6 +15,10 @@ MY_PATH=/vagrant/luce_django/luce
 PS1="$ "
 
 echo
+echo "Start Jupyter and Ganache servers"
+bash run_servers_tmux.sh
+
+echo
 echo "Change to $MY_PATH directory"
 cd $MY_PATH
 
