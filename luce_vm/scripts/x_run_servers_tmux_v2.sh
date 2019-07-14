@@ -7,7 +7,7 @@ tmux rename-window 'jupyter_ganache_django'
 # Send in commands to start Jupyter Server
 tmux send-keys -t jupyter_ganache_django.0 'eval "$(conda shell.bash hook)"' ENTER
 tmux send-keys -t jupyter_ganache_django.0 'conda activate luce_vm' ENTER
-tmux send-keys -t jupyter_ganache_django.0 'jupyter notebook --no-browser --ip 0.0.0.0 --NotebookApp.token="luce" --notebook-dir=/vagrant/jupyter/' ENTER
+tmux send-keys -t jupyter_ganache_django.0 'jupyter notebook --no-browser --ip 0.0.0.0 --notebook-dir=/vagrant/jupyter/' ENTER
 
 # Select first window in session and split it
 tmux select-window -t jupyter_ganache_django:0

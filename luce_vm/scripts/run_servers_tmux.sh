@@ -7,7 +7,7 @@ tmux rename-window 'jupyter_ganache'
 # Send in commands to start jupyter
 tmux send-keys -t jupyter_ganache.0 'eval "$(conda shell.bash hook)"' ENTER
 tmux send-keys -t jupyter_ganache.0 'conda activate luce_vm' ENTER
-tmux send-keys -t jupyter_ganache.0 'jupyter notebook --no-browser --ip 0.0.0.0 --NotebookApp.token="luce" --notebook-dir=/vagrant/jupyter/' ENTER
+tmux send-keys -t jupyter_ganache.0 'jupyter notebook --no-browser --ip 0.0.0.0 --notebook-dir=/vagrant/jupyter/' ENTER
 
 # Select first window in session and split it
 tmux select-window -t jupyter_ganache:0

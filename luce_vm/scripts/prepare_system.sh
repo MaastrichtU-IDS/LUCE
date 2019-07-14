@@ -41,9 +41,14 @@ conda activate luce_vm
 # Install Jupyter
 conda install -y jupyter
 
+# Install Jupyter Notebook Extensions
+conda install -y -c conda-forge jupyter_contrib_nbextensions
+
 # Set up jupyter kernel for luce python environment
 # pip install ipykernel
 python -m ipykernel install --user --name=luce_vm
+
+
 
 # ==== INSTALL WEB3 ====
 
