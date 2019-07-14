@@ -9,6 +9,7 @@ The repository also contains supporting content and documentation materials I us
 * First make sure [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) are installed
   * On macOS High Sierra and Mojave the VirtualBox installation may fail
   * [This blog post](https://medium.com/@DMeechan/fixing-the-installation-failed-virtualbox-error-on-mac-high-sierra-7c421362b5b5) explains how to fix that
+  * On Windows, ensure that [Hyper-V is enabled](https://www.vagrantup.com/docs/hyperv/)
 * Check if `git` is installed and if not install from [here](https://git-scm.com)
   * To check if git is installed run `git --version` in the terminal 
   * If it is installed it will return the version number
@@ -41,7 +42,7 @@ vagrant suspend
 This hibernates the virtual machine. That way the next time it is started via `vagrant up` it will be exactly in the same state again and there is no need to repeat any of the inital setup steps.  
 
 *Q: How do I stop the machine completely?*   
-The machine can be shut down completely via `vagrant halt` - in that case the servers have to be started again the next time LuceVM is booted. Finally `vagrant destroy` can be used to completely destory the virtual machine instance. That way the next time the machine is provisioned the full setup process will need to be performed again. (The python notebooks are still preserved even if the machine is destroyed as they live outside the filesystem of the VM.)
+The machine can be shut down completely via `vagrant halt` - in that case the servers have to be started again the next time LuceVM is booted. Finally `vagrant destroy` can be used to completely destroy the virtual machine instance. That way the next time the machine is provisioned the full setup process will need to be performed again. (The python notebooks are still preserved even if the machine is destroyed as they live outside the filesystem of the VM.)
 
 * Q:How can I update to the latest data contained in this github repository?*  
 To update, first navigate to the local LUCE folder: `cd ~/path/to/LUCE/`  
