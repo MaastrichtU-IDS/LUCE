@@ -4,6 +4,8 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from .models import User
 
+# Import Python web3 script
+from utils.web3_scripts import assign_address
 
 # Form for signup view
 class RegisterForm(forms.ModelForm):
@@ -33,12 +35,13 @@ class RegisterForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super(RegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password"])
-        user.active = True # Could set this to false and wait for e-mail confirmation first
-        # Before saving the user we want to store the public_key
+        user.active = True 
+        # Could set this to false and wait for e.g. e-mail confirmation first
 
-        # (!!!) web3.py script -> Create new wallet and pre-fund    
-        user.ethereum_public_key = None
+        # Assign ethereum address via web3 script
+        current_user = assign_address(user)
         if commit:
+            # Create the new user object in the database
             user.save()
         return user
 

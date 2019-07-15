@@ -14,6 +14,7 @@ from lucehome.views import (
     # register_view,
     RegisterView,
     LoginView,
+    LoginView_PostReg,
     )
 
 from datastore.views import (
@@ -40,6 +41,8 @@ urlpatterns = [
     path('login/', LoginView.as_view()),
     path('logout/', LogoutView.as_view()),
 
+    # Post Registration View
+    path('register_login/', LoginView_PostReg.as_view() ),
 
     path('data/<int:dataset_id>/', detail_view),
     path('data/<int:dataset_id>/edit', update_view),

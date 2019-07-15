@@ -21,6 +21,7 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'institution')}),
+        ('Web3', {'fields': ('ethereum_public_key',)}),
         ('Permissions', {'fields': ('admin', 'staff','active')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
