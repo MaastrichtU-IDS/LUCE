@@ -41,8 +41,11 @@ urlpatterns = [
     path('login/', LoginView.as_view()),
     path('logout/', LogoutView.as_view()),
 
-    # Post Registration View
-    path('register_login/', LoginView_PostReg.as_view() ),
+    # Post Registration/Upload Views
+    path('register_login/', LoginView_PostReg.as_view()),
+    # path('upload_success/', ),
+
+    
 
     path('data/<int:dataset_id>/', detail_view),
     path('data/<int:dataset_id>/edit', update_view),

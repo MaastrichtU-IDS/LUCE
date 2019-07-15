@@ -5,7 +5,7 @@ from datastore.models import Dataset
 class DatasetModelForm(forms.ModelForm):
     class Meta:
         model = Dataset
-        fields = ['title', 'description', 'file', 'owner', 'license']
+        fields = ['title', 'description', 'file', 'license']
 
     def clean_title(self, *args, **kwargs):
         instance = self.instance

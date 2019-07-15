@@ -12,8 +12,9 @@ class Dataset(models.Model):
     title           = models.CharField(max_length=120)
     description     = models.TextField(null=True, blank=True)
     file            = models.FileField(upload_to='files/', blank=True, null=True)
-    owner           = models.CharField(max_length=120) # owner name/institute
-    owner_address   = models.CharField(max_length=180) # should be msg.sender
+    owner           = models.CharField(max_length=120) # owner username/email
+    owner_address   = models.CharField(max_length=180) # msg.sender
+    contract_address= models.CharField(max_length=180) # address of corresponding smart contract
     license         = models.IntegerField() # encoded as integer
     
     # log user that uploaded the file

@@ -10,18 +10,17 @@ def upload_view(request):
         # Obtain data from form
         obj = form.save(commit=False)
         # Add user attribute
-        obj.user = request.user
+        obj.owner = request.user
+        obj.owner_address = request.user.ethereum_public_key
         # Save to database
         obj.save()
-        # Refresh to blank form 
-        # (!!!) Maybe display "Success" message and go to detail view for dataset
 
         # -> Data has been submitted and stored
         # Display a new, empty form
         form = DatasetModelForm()
 
-        # Or redirect to another subsequent page
-        # return redirect('/thanks_for_uploading/')
+        # (!!!) Redirect to subsequent page
+        # return redirect('/upload_success')
     context = {
             'form': form
                 }

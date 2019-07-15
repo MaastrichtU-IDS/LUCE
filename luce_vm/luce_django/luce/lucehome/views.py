@@ -123,12 +123,18 @@ def dev_view(request):
         print(current_user.ethereum_public_key)
         print("Address was assigned to current user.")
 
+
+    if(request.GET.get('deploy_contract')):
+        current_user = request.user
+        contract_address = deploy_contract(current_user)
+        print("Contract address:")
+        print(contract_address)   
+
     if(request.GET.get('mybtn_2')):
         create_wallet()
         print("Second button was pressed")
 
-    if(request.GET.get('mybtn_4')):
-        print("Forth button was pressed")        
+         
 
     if(request.GET.get('mybtn')):
         print( int(request.GET.get('mytextbox')) ) # or any other function
