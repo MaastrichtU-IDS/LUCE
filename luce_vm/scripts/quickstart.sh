@@ -16,7 +16,12 @@ PS1="$ "
 
 echo
 echo "Start Jupyter and Ganache servers"
-bash run_servers_tmux.sh
+# Check if servers are already running
+string=$(tmux ls)
+if [[ $string != *"jupyter"* ]]; then
+	# Run servers
+	bash run_servers_tmux.sh  
+fi
 
 echo
 echo "Change to $MY_PATH directory"
