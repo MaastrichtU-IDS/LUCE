@@ -67,8 +67,23 @@ def create_wallet():
 	print("The balance of the new account is:\n")
 	print(w3.eth.getBalance(eth_account.address))
 
-def assign_wallet():
-	pass
+def assign_address(request):
+	# Establish web3 connection
+    from web3 import Web3
+    w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
+    accounts = w3.eth.accounts
+    # Obtain user model
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    # Obtain user count
+    user_count = len(User.objects.all())
+    idx = user_count-1
+    # Assign web3 account to user
+    current_user = request.user
+    current_user.ethereum_public_key = accounts[idx]
+    current_user.save()
+    # Return user with address associated
+    return current_user
 
 def fund_wallet():
 	pass
