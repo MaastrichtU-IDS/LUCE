@@ -23,6 +23,7 @@ from datastore.views import (
     my_data_view,
     detail_view,
     update_view,
+    # UpdateView,
     delete_view,
 	)
 

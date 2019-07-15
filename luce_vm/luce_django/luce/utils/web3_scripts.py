@@ -133,8 +133,59 @@ def deploy_contract(user):
     
     # Obtain address of freshly deployed contract
     contractAddress = tx_receipt.contractAddress
-    
+
     return contractAddress
+
+
+def deploy_contract_with_data(user, description, license, link=""):
+    from solcx import compile_source
+    from web3 import Web3
+    
+    # Read in LUCE contract code
+    with open('./utils/data/luce.sol', 'r') as file:
+        contract_source_code = file.read()
+        
+    # Compile & Store Compiled source code
+    compiled_sol = compile_source(contract_source_code)
+
+    # Extract full interface as dict from compiled contract
+    contract_interface = compiled_sol['<stdin>:Dataset']
+
+    # Extract abi and bytecode
+    abi = contract_interface['abi']
+    bytecode = contract_interface['bin']
+    
+    # Establish web3 connection
+    w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
+
+    # Obtin user
+    current_user = user
+    
+    # Set sender
+    w3.eth.defaultAccount = current_user.ethereum_public_key
+
+    # Create contract blueprint
+    Luce = w3.eth.contract(abi=abi, bytecode=bytecode)
+
+    # Submit the transaction that deploys the contract
+    tx_hash = Luce.constructor().transact()
+    
+    # Wait for the transaction to be mined, and get the transaction receipt
+    tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    
+    # Obtain address of freshly deployed contract
+    contract_address = tx_receipt.contractAddress
+    
+    # Create python instance of deployed contract
+    luce = w3.eth.contract(
+    address=contract_address,
+    abi=contract_interface['abi'],
+    )
+    
+    # Store dataset information in contract
+    tx_hash = luce.functions.publishData(description, link, license).transact()
+    
+    return contract_address
 	
 
 
