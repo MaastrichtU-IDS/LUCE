@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'datastore',
     'accounts',
+
+    'django_extensions',
 ]
 
 AUTH_USER_MODEL = 'accounts.User' # changes the built-in user model

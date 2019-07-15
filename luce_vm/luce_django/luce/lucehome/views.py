@@ -19,7 +19,7 @@ from django.views.generic import CreateView, FormView
 from django.shortcuts import redirect
 
 # Import Python web3 scripts
-from utils.web3_scripts import create_wallet, fund_wallet, deploy_contract
+from utils.web3_scripts import create_wallet, fund_wallet, deploy_contract, assign_wallet
 
 def home_page(request):
     head_title = "LUCE"
@@ -80,7 +80,7 @@ class LoginView(FormView):
 
 
 # Available scripts:
-# create_wallet, fund_wallet, deploy_contract
+# create_wallet, fund_wallet, deploy_contract, assign_wallet
 
 def dev_view(request):
 
@@ -90,6 +90,10 @@ def dev_view(request):
 
 
     if(request.GET.get('mybtn_3')):
+        current_user = request.user
+        current_user = assign_wallet(current_user)
+        current_user.save()
+        print(current_user.ethereum_public_key)
         print("Third button was pressed")
 
     if(request.GET.get('mybtn_4')):

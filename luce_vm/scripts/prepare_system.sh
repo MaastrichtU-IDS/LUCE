@@ -45,8 +45,13 @@ conda install -y jupyter
 conda install -y -c conda-forge jupyter_contrib_nbextensions
 
 # Set up jupyter kernel for luce python environment
+# The custom kernel allows us to introduce environment variables 
+# for access to the Django context from within Jupyter
 # pip install ipykernel
 python -m ipykernel install --user --name=luce_vm
+
+# Update the jupyter custom kernel configuration
+cp /vagrant/.config/luce_jupyter_kernel.json /home/vagrant/.local/share/jupyter/kernels/luce_vm/
 
 
 
@@ -81,6 +86,7 @@ npm install -g ganache-cli
 
 pip install django==2.2
 # pip install pillow # for image processing
+pip install django-extensions
 
 # # Django-web3-auth:
 # git clone https://github.com/sanosano/django-web3-auth

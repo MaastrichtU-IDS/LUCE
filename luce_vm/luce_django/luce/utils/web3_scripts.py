@@ -67,6 +67,9 @@ def create_wallet():
 	print("The balance of the new account is:\n")
 	print(w3.eth.getBalance(eth_account.address))
 
+def assign_wallet():
+	pass
+
 def fund_wallet():
 	pass
 
