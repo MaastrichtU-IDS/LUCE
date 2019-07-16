@@ -44,12 +44,12 @@ This hibernates the virtual machine. That way the next time it is started via `v
 *Q: How do I stop the machine completely?*   
 The machine can be shut down completely via `vagrant halt` - in that case the servers have to be started again the next time LuceVM is booted. Finally `vagrant destroy` can be used to completely destroy the virtual machine instance. That way the next time the machine is provisioned the full setup process will need to be performed again. (The python notebooks are still preserved even if the machine is destroyed as they live outside the filesystem of the VM.)
 
-* Q:How can I update to the latest data contained in this github repository?*  
-To update, first navigate to the local LUCE folder: `cd ~/path/to/LUCE/`  
+*Q: How can I update to the latest data contained in this github repository?*  
+To update, first navigate to your local LUCE folder: `cd ~/path/to/LUCE/`  
 Then run the following in the terminal:  
 ```bash
 git fetch origin # this downloads all new content from github
 git reset --hard origin/master # this replaces all local LUCE content with the newest updates
 ```
 
-**Warning:** Note that by running `git reset` all LUCE files that may have been changed locally will be overwritten with the latest version from Github. In order experiment locally with Jupyter notebooks without the possibility of them accidentally being over-written I created the `/jupyter/safe_storage_area/` folder. This folder is not synced with the github repository. Not even when `git reset` is executed. Please keep files you wish to keep safe in there.
+**Warning:** Note that by running `git reset` all LUCE files that may have been changed locally will be overwritten with the latest version from Github. In order to experiment locally with Jupyter notebooks without the possibility of them accidentally being over-written I created the `/jupyter/safe_storage_area/` folder. This folder is not synced with the github repository. Not even when `git reset` is executed. Please keep files you wish to keep safe in there.
