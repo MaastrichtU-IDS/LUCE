@@ -44,7 +44,7 @@ This hibernates the virtual machine. That way the next time it is started via `v
 *Q: How do I stop the machine completely?*   
 The machine can be shut down completely via `vagrant halt` - in that case the servers have to be started again the next time LuceVM is booted. Finally `vagrant destroy` can be used to completely destroy the virtual machine instance. That way the next time the machine is provisioned the full setup process will need to be performed again. (The python notebooks are still preserved even if the machine is destroyed as they live outside the filesystem of the VM.)
 
-* Q:How can I update to the latest data contained in this github repository?*  
+*Q: How can I update to the latest data contained in this github repository?*  
 To update, first navigate to the local LUCE folder: `cd ~/path/to/LUCE/`  
 Then run the following in the terminal:  
 ```bash
