@@ -7,21 +7,32 @@ User = settings.AUTH_USER_MODEL
 # Module for combined queries
 from django.db.models import Q
 
+# Import Custom QuerySet and Manager
+from datastore.managers import DatasetQuerySet, DatasetManager
+
 
 class Dataset(models.Model):
+    # These fields are provided by data provider
     title           = models.CharField(max_length=120)
     description     = models.TextField(null=True, blank=True)
+    license         = models.IntegerField() # encoded as integer
     file            = models.FileField(upload_to='files/', blank=True, null=True)
+
+    # These fields are populated automatically
     owner           = models.CharField(max_length=120) # owner username/email
     owner_address   = models.CharField(max_length=180) # msg.sender
-    contract_address= models.CharField(max_length=180) # address of corresponding smart contract
-    license         = models.IntegerField() # encoded as integer
+
+    # These fields are populated when a dataset is published
+    contract_address= models.CharField(max_length=180) # address of smart contract
+    published       = models.BooleanField(default = False)
     
-    # log user that uploaded the file
+    # Useful information when dataset was first uploaded and last updated..
     created_by      = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
     timestamp       = models.DateTimeField(auto_now_add=True)
     updated         = models.DateTimeField(auto_now=True)
 
+    # Update to use custom model manager
+    objects         = DatasetManager()
 
     # Dataset object methods
     def get_absolute_url(self):
@@ -33,7 +44,11 @@ class Dataset(models.Model):
     def get_delete_url(self):
         return f"/data/{self.pk}/delete"
 
-    # Subclass with meta information
+    # Subclass with meta information like ordering
     class Meta:
         # The negative value means that newest datasets will show up first
         ordering = ['-updated', '-timestamp']
+
+
+
+

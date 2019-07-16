@@ -8,6 +8,8 @@ from django.contrib.auth.views import LogoutView
 from django.conf import settings
 
 # Import view functions here
+from search.views import search_view
+
 from lucehome.views import (
     home_page,
     dev_view,
@@ -35,12 +37,14 @@ urlpatterns = [
     path('browse/', browse_view),
     path('my_data/', my_data_view),
     path('dev/', dev_view),
-    path('search/', home_page),
+    path('search/', search_view),
 
     # path('register/', register_view),
     path('register/', RegisterView.as_view()),
     path('login/', LoginView.as_view()),
     path('logout/', LogoutView.as_view()),
+
+    path('search/', search_view),
 
     # Post Registration/Upload Views
     path('register_login/', LoginView_PostReg.as_view()),
@@ -53,7 +57,7 @@ urlpatterns = [
     path('data/<int:dataset_id>/delete', delete_view),
     # re_path(r'^data/(?P<slug>\w+)/$', detail_view)
 
-]
+    ]
 
 if settings.DEBUG:
     # Use local simulated CDN

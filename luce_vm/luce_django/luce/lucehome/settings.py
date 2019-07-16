@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'datastore',
     'accounts',
+    'search',
 
     'django_extensions',
 ]

@@ -13,6 +13,7 @@
 
 			        <h5 class="card-title"> {{ dataset.title }} </h5>
 			        <p class="card-text"> {{ dataset.description|linebreaks }} </p>
+			        <p class="card-text"> License: {{ dataset.license }} </p>
 			   
 			          <!-- Download Button | Check access rights.. -->
 	                  {% if dataset.file %}
