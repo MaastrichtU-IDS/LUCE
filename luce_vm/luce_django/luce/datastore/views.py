@@ -21,8 +21,9 @@ def browse_view(request):
 
 def my_data_view(request):
     head_title = "LUCE"
-    # Get first five datasets
-    qs = Dataset.objects.all()[:5]
+    qs = Dataset.objects.all()
+    # Only datasets owned by current user
+    qs = qs.filter(created_by=request.user)
     context = {"head_title": head_title, 
                 "dataset_list": qs}
     template = 'data/my_data.html'
@@ -32,7 +33,8 @@ def my_data_view(request):
 
 def detail_view(request, dataset_id):
     obj = get_object_or_404(Dataset, id=dataset_id)
-    context = {"dataset": obj}
+    context = {"dataset": obj,
+                "user": request.user}
     template = 'data/detail.html'
     return render(request, template, context)  
 
@@ -103,5 +105,19 @@ def delete_view(request, dataset_id):
         return redirect("/")
     context = {"dataset": obj}
     template = 'data/delete.html'
+    return render(request, template, context)
+
+def publish_view(request, dataset_id):
+    obj = get_object_or_404(Dataset, id=dataset_id)
+    if request.method == "POST":
+        # Logic for publishing
+        obj.published = True
+        obj.save()
+        # Deploy smart contract
+        # Add contract address to dataset
+        # Save dataset
+        return redirect("/my_data/")
+    context = {"dataset": obj}
+    template = 'data/publish.html'
     return render(request, template, context)
     

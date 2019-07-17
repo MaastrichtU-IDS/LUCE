@@ -25,6 +25,9 @@ class Dataset(models.Model):
     # These fields are populated when a dataset is published
     contract_address= models.CharField(max_length=180) # address of smart contract
     published       = models.BooleanField(default = False)
+
+    # Keep track of access rights
+    access_granted  = models.ManyToManyField(User,null=True)
     
     # Useful information when dataset was first uploaded and last updated..
     created_by      = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
@@ -43,6 +46,9 @@ class Dataset(models.Model):
 
     def get_delete_url(self):
         return f"/data/{self.pk}/delete"
+
+    def get_publish_url(self):
+        return f"/data/{self.pk}/publish"
 
     # Subclass with meta information like ordering
     class Meta:

@@ -3,15 +3,16 @@
 
 {% block content %}
 
-<h1>Are you sure you want to delete the following? </h1>
+<h1>Are you sure you want to publish the following dataset? </h1>
 <p> {{ dataset.title }} </p>
 <p> {{ dataset.description }} </p>
+<p> License: {{ dataset.license }} </p>
 
-<!-- This is a confirmation page. 
-	The deletion logic happens in view.py -->
+<!-- This is simply a confirmation page. 
+	All other logic happens in view.py -->
 <form method ='POST'>{% csrf_token %}
 
-	<button class='btn btn-danger'> Yes, delete! </button>
+	<button class='btn btn-success'> Yes, Publish! </button>
 
 </form>
 

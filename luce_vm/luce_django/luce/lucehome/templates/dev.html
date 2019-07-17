@@ -4,26 +4,51 @@
 {% block content %}
 
 	<h1> For Development </h1>
-	<p class='col-md-6 pl-0'>These buttons are used to test new functionality before it is incroporated into the page. </p>
+	<p class='col-md-6 pl-0'>The buttons here are used to test new functionality before it is incroporated into the page. </p>
 
 	<!-- Include some buttons to call functions in backend -->
+	<div class='row'>
+		<div class='col-sm-6'>
+				<h3>First iteration:</h3>
+				<p>These functions make use of the default accounts provided by Ganache</p>
 
-	<form action="#" method="get">
-		<button type='submit' name="assign_address" value="Click">Assign Ethereum Address</button>
-	</form>
+				<form action="#" method="get">
+					<button type='submit' name="assign_address" value="Click">Assign Ethereum Address</button>
+				</form>
 
-	<form action="#" method="get">
-		<button type='submit' name="deploy_contract" value="Click">Deploy Contract</button>
-	</form>
+				<form action="#" method="get">
+					<button type='submit' name="deploy_contract" value="Click">Deploy Contract</button>
+				</form>
 
-	<form action="#" method="get">
-		<button type='submit' name="mybtn_2" value="Click">Create wallet for User</button>
-	</form>
+				<form action="#" method="get">
+					<button type='submit' name="mybtn_2" value="Click">Create wallet for User</button>
+				</form>
 
-	<form action="#" method="get">
- 		<input type="text" value="8" name="mytextbox" size="1"/>
- 		<input type="submit" class="btn" value="Get Input Value" name="mybtn">
-	</form>
+				<form action="#" method="get">
+			 		<input type="text" value="8" name="mytextbox" size="1"/>
+			 		<input type="submit" class="btn" value="Get Input Value" name="mybtn">
+				</form>
+
+		</div>
+
+		<div class='col-sm-6'>
+				<h3>Second iteration:</h3>
+				<p>These functions are built using freshly created local private keys</p>
+
+
+				<form action="#" method="get">
+					<button type='submit' name="assign_address_v2" value="Click">Create & Assign Ethereum Address</button>
+				</form>
+
+				<form action="#" method="get">
+					<button type='submit' name="deploy_contract_v2" value="Click">Deploy Contract</button>
+				</form>
+
+		</div>
+
+
+
+	</div> <!-- END OF ROW -->
 
     
 {% endblock %}

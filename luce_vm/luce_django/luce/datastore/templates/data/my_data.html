@@ -15,7 +15,7 @@
 					{% if data.published %}
 
 						<!-- Load HTML from inline list template and pass arguments to template -->
-						{% include 'data/list-inline.html' with object=data description=True truncate=True %}        
+						{% include 'data/list-inline.html' with object=data %}        
 
 					{% endif %}
 				{% endfor %}
