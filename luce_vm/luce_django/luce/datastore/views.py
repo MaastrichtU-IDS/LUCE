@@ -29,6 +29,15 @@ def my_data_view(request):
     template = 'data/my_data.html'
     return render(request, template, context)
 
+def my_access_view(request):
+    head_title = "LUCE"
+    qs = Dataset.objects.all()
+    # Only datasets current user has access to
+    qs = qs.filter(access_granted=request.user)
+    context = {"head_title": head_title, 
+                "dataset_list": qs}
+    template = 'data/my_access.html'
+    return render(request, template, context)
 
 
 def detail_view(request, dataset_id):
@@ -47,9 +56,11 @@ def upload_view(request):
         obj = form.save(commit=False)
         # Add user attribute
         obj.owner = request.user
+        obj.created_by = request.user
         obj.owner_address = request.user.ethereum_public_key
 
         # Deploy smart contract & retrieve contract address
+        # contract_address = deploy_contract(request.user)
         contract_address = deploy_contract_with_data(request.user,obj.description,obj.license)
         obj.contract_address = contract_address
 
@@ -113,11 +124,23 @@ def publish_view(request, dataset_id):
         # Logic for publishing
         obj.published = True
         obj.save()
-        # Deploy smart contract
+        # Deploy smart contract (!!!)
         # Add contract address to dataset
         # Save dataset
         return redirect("/my_data/")
     context = {"dataset": obj}
     template = 'data/publish.html'
+    return render(request, template, context)
+
+def request_access_view(request, dataset_id):
+    obj = get_object_or_404(Dataset, id=dataset_id)
+    if request.method == "POST":
+        # Logic for access request
+        # Add requestor to smart contract (!!!)
+        obj.access_granted.add(request.user)
+        obj.save()
+        return redirect("/my_access/")
+    context = {"dataset": obj}
+    template = 'data/request_access.html'
     return render(request, template, context)
     

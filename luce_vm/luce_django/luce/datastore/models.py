@@ -27,10 +27,10 @@ class Dataset(models.Model):
     published       = models.BooleanField(default = False)
 
     # Keep track of access rights
-    access_granted  = models.ManyToManyField(User,null=True)
+    access_granted  = models.ManyToManyField(User, related_name='datasets_accessible')
     
     # Useful information when dataset was first uploaded and last updated..
-    created_by      = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
+    created_by      = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL, related_name='datasets_owned')
     timestamp       = models.DateTimeField(auto_now_add=True)
     updated         = models.DateTimeField(auto_now=True)
 
@@ -49,6 +49,9 @@ class Dataset(models.Model):
 
     def get_publish_url(self):
         return f"/data/{self.pk}/publish"
+
+    def get_request_access_url(self):
+        return f"/data/{self.pk}/request"
 
     # Subclass with meta information like ordering
     class Meta:

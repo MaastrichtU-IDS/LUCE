@@ -27,16 +27,19 @@ from datastore.views import (
     update_view,
     # UpdateView,
     delete_view,
-    publish_view
+    publish_view,
+    request_access_view,
+    my_access_view
 	)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('luce_admin/', admin.site.urls),
 
     path('', home_page),
     path('upload/', upload_view),
     path('browse/', browse_view),
     path('my_data/', my_data_view),
+    path('my_access/', my_access_view),
     path('dev/', dev_view),
     path('search/', search_view),
 
@@ -57,6 +60,7 @@ urlpatterns = [
     path('data/<int:dataset_id>/edit', update_view),
     path('data/<int:dataset_id>/delete', delete_view),
     path('data/<int:dataset_id>/publish', publish_view),
+    path('data/<int:dataset_id>/request', request_access_view),
     # re_path(r'^data/(?P<slug>\w+)/$', detail_view)
 
     ]

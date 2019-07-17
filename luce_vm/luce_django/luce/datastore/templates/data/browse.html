@@ -3,7 +3,10 @@
 <!-- Main Content Section -->
 {% block content %}
 
+	<!-- Dynamic block allows for this file to be used as template for my_access.html -->
+	{% block header %}
 	<h1> Available Datasets </h1>
+	{% endblock %}
 
 	<!-- Row containing dataset cards -->
 	<div class="row my-2">
