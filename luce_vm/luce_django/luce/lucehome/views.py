@@ -31,25 +31,11 @@ def home_page(request):
     return render(request, template, context)
 
 
-# Obtain access to our (custom) user model
-# User = get_user_model()
-
-
-# Class-Based View that handles a lot of detail automatically for us:
+# Class-Based Views for registration and login:
 class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = 'accounts/register.html'
-    success_url = '/register_login' # Maybe better '/login' with success message and next steps..
-    # Can use register/login flow to direct user through page experience.
-
-# Old function-based view
-# def register_view(request):
-#     form = RegisterForm(request.POST or None)
-#     context = {"form": form}
-#     if form.is_valid():
-#         form.save()
-#     template = 'accounts/register.html'
-#     return render(request, template, context)
+    success_url = '/register_login'
 
 class LoginView(FormView):
     form_class = LoginForm

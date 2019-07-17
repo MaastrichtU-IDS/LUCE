@@ -8,6 +8,33 @@ from datastore.forms import DatasetModelForm
 # Import Python web3 script
 from utils.web3_scripts import deploy_contract, deploy_contract_with_data 
 
+def browse_view(request):
+    head_title = "LUCE"
+    # Get all datasets
+    qs = Dataset.objects.all()
+    qs = qs.published() # only show published datasets
+    context = {"head_title": head_title, 
+                "dataset_list": qs}
+    template = 'data/browse.html'
+    return render(request, template, context)
+
+
+def my_data_view(request):
+    head_title = "LUCE"
+    # Get first five datasets
+    qs = Dataset.objects.all()[:5]
+    context = {"head_title": head_title, 
+                "dataset_list": qs}
+    template = 'data/my_data.html'
+    return render(request, template, context)
+
+
+
+def detail_view(request, dataset_id):
+    obj = get_object_or_404(Dataset, id=dataset_id)
+    context = {"dataset": obj}
+    template = 'data/detail.html'
+    return render(request, template, context)  
 
 
 
@@ -40,36 +67,6 @@ def upload_view(request):
     return render(request, template, context)
 
 
-def browse_view(request):
-    head_title = "LUCE"
-    # Get all datasets
-    qs = Dataset.objects.all()
-    context = {"head_title": head_title, 
-                "dataset_list": qs}
-    template = 'data/browse.html'
-    return render(request, template, context)
-
-def my_data_view(request):
-    head_title = "LUCE"
-    # Get first five datasets
-    qs = Dataset.objects.all()[:5]
-    context = {"head_title": head_title, 
-                "dataset_list": qs}
-    template = 'data/my_data.html'
-    return render(request, template, context)
-
-def detail_view(request, dataset_id):
-    obj = get_object_or_404(Dataset, id=dataset_id)
-    context = {"dataset": obj}
-    template = 'data/detail.html'
-    return render(request, template, context)  
-
-
-# class UpdateView(UpdateView):
-#     model = Dataset
-#     fields = ['title', 'description', 'file', 'license']
-#     template_name = 'data/update.html'
-#     # success_url = '/register_login'
 
 def update_view(request, dataset_id):
     obj = get_object_or_404(Dataset, id=dataset_id)
@@ -86,8 +83,7 @@ def update_view(request, dataset_id):
         # Save to database
         obj.save()
 
-        # form.save()
-        return redirect('/') # (!!!) Redirect
+        return redirect('/data/'+ str(dataset_id))
     else:
         print(form)
         print("Form is not valid")
@@ -97,6 +93,8 @@ def update_view(request, dataset_id):
                 }
     template = 'data/update.html'
     return render(request, template, context)
+
+
 
 def delete_view(request, dataset_id):
     obj = get_object_or_404(Dataset, id=dataset_id)

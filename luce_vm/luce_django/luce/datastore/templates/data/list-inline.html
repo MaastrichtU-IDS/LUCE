@@ -1,8 +1,8 @@
 <!-- Design for listing datasets is specified here, other parts of website can simply include data/list-inline.html -->
 
 <!-- Bootstrap classes -->
-<div class='col-12 col-md-10 mb-2 mt-2 mx-auto'>
-	<div class='card {% if not blog_post.publish_date %} border border-warning text-dark  {% endif %}' >
+<div class='col-12 col-md-10 mb-2 mt-2'>
+	<div class='card shadow-sm {% if not object.published %} border border-warning text-dark  {% endif %}' >
 		<div class='card-body'>
 
 			<!-- TITLE -->
