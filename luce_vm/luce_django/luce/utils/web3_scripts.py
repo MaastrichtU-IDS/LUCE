@@ -2,78 +2,94 @@ from web3 import Web3
 import time
 w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
 
+
+
+#### WEB3 HELPER FUNCTIONS ####
+# Helper functions used to make the code in assign_address_v3 easier to read
 def create_wallet():
-	print("This message comes from within my custom script")
-	
-	class EthAccount():
-	    address = None
-	    pkey = None
+    eth_account = w3.eth.account.create()
+    return (eth_account)
 
-	def create_wallet():
-	    eth_account = EthAccount()
-	    eth_account_raw = w3.eth.account.create()
-	    eth_account.address = eth_account_raw.address
-	    eth_account.pkey = eth_account_raw.privateKey
-	    return (eth_account)
+def send_ether(amount_in_ether, recipient_address, sender_pkey=faucet.privateKey):
+    amount_in_wei = w3.toWei(amount_in_ether,'ether');
+    
+    # Obtain sender address from private key
+    sender_address = w3.eth.account.privateKeyToAccount(sender_pkey).address
 
-	eth_account = create_wallet()
+    # How many transactions have been made by wallet?
+    # This is required and prevents double-spending.
+    # Same name but different from nonce in block mining.
+    nonce = w3.eth.getTransactionCount(sender_address)
+    
+    # Specify transcation dictionary
+    txn_dict = {
+            'to': recipient_address,
+            'value': amount_in_wei,
+            'gas': 2000000,
+            'gasPrice': w3.toWei('40', 'gwei'),
+            'nonce': nonce,
+            'chainId': 3
+    }
+    
+    # IN THIS STEP THE PRIVATE KEY OF THE SENDER IS USED
+    # Sign transaction
+    def sign_transaction(txn_dict, sender_pkey):
+        signed_txn = w3.eth.account.signTransaction(txn_dict, sender_pkey)
+        return signed_txn
+    signed_txn      = sign_transaction(txn_dict, sender_pkey)
+    signed_txn_raw = signed_txn.rawTransaction
+    
+    
+    # Send transaction & store transaction hash
+    def send_raw_transaction(raw_transaction):
+        txn_hash = w3.eth.sendRawTransaction(raw_transaction)
+        return txn_hash
+    txn_hash = send_raw_transaction(signed_txn_raw)
 
-	# Extract default accounts created by ganache
-	accounts = w3.eth.accounts
+    # Check if transaction was added to blockchain 
+    # time.sleep(5)     # Not needed on Ganache since our transactions are instantaneous
+    txn_receipt = w3.eth.getTransactionReceipt(txn_hash)
+    return txn_hash
 
-	# Instantiate faucet object
-	faucet = EthAccount()
+def fund_wallet(recipient = eth_account.address, amount = 100):
+    send_ether(amount,recipient)
 
-	# Wallet address
-	faucet.address       = "0x92D44e8579620F2Db88A12E70FE38e8CDB3541BA"
-	# Private key (from Ganache interface)
-	faucet.pkey   = "0x4a2cb86c7d3663abebf7ab86a6ddc3900aee399750f35e65a44ecf843ec39116"
 
-	# Define a function to send ether
 
-	def send_ether(amount_in_ether, recipient_address, sender_address = faucet.address, sender_pkey=faucet.pkey):
-	    amount_in_wei = w3.toWei(amount_in_ether,'ether');
+#### ASSIGN ADDRESS ####
+# This script takes a Django user object as input and
+# creates a fresh ethereum account for the user.
+# It will also pre-fund the new account with some ether.
 
-	    # How many transactions have been made by wallet?
-	    # This is required and prevents double-spending.
-	    # Different from nonce in block mining.
-	    nonce = w3.eth.getTransactionCount(sender_address)
-	    
-	    # Specify transcation dictionary
-	    txn_dict = {
-	            'to': recipient_address,
-	            'value': amount_in_wei,
-	            'gas': 2000000,
-	            'gasPrice': w3.toWei('40', 'gwei'),
-	            'nonce': nonce,
-	            'chainId': 3
-	    }
-	    
-	    # Sign transaction
-	    signed_txn = w3.eth.account.signTransaction(txn_dict, sender_pkey)
+def assign_address_v3(user):
+    # Establish web3 connection
+    from web3 import Web3
+    import time
+    from hexbytes import HexBytes
+    w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
+    accounts = w3.eth.accounts
+    current_user = user
 
-	    # Send transaction & store transaction hash
-	    txn_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    # Create new web3 account
+    eth_account = create_wallet()
+    # Store public key and private key in user model
+    current_user.ethereum_public_key = eth_account.address
+    # current_user.ethereum_private_key = eth_account.privateKey.hex() # this field is not implemented atm
+    current_user.save()
+    # Fund wallet
+    fund_wallet(recipient = eth_account.address, amount = 100)
+    # Return user, now with wallet associated
+    return current_user
 
-	    # Check if transaction was added to blockchain
-	    # time.sleep(0.5)
-	    txn_receipt = w3.eth.getTransactionReceipt(txn_hash)
-	    return txn_hash
 
-	# Send ether and store transaction hash
-	txn_hash = send_ether(1.5,eth_account.address)
 
-	# Show balance
-	print("The balance of the new account is:\n")
-	print(w3.eth.getBalance(eth_account.address))
 
-	import os
- 
-	dirpath = os.getcwd()
-	print("current directory is : " + dirpath)
-	foldername = os.path.basename(dirpath)
-	print("Directory name is : " + foldername)
-
+#### Initial Implementations
+# These implementations make use of the Ganache pre-funded
+# accounts. This is conveninent but doesn't scale well.
+# To smoothen the later transition to a hosted node like Infura
+# and using the official Ethereum testnet it it is preferable
+# to have full control over the accounts.
 
 def assign_address(user):
     # Establish web3 connection
@@ -84,6 +100,12 @@ def assign_address(user):
     from django.contrib.auth import get_user_model
     User = get_user_model()
     # Obtain user count
+    # The user count is used as a 'global counter'
+    # to ensure each new user that registers is assigned
+    # a new one of the pre-generated ganache acounts
+    # I use this workaround as a proxy to track the
+    # 'global state' of how many accounts are already
+    # asigned.
     user_count = len(User.objects.all())
     idx = user_count-1
     # Assign web3 account to user
@@ -187,6 +209,78 @@ def deploy_contract_with_data(user, description, license, link=""):
     
     return contract_address
 	
+# Not used in Django Frontend anymore - kept for testing and reference
+def create_wallet():
+    print("This message comes from within my custom script")
+    
+    class EthAccount():
+        address = None
+        pkey = None
+
+    def create_wallet():
+        eth_account = EthAccount()
+        eth_account_raw = w3.eth.account.create()
+        eth_account.address = eth_account_raw.address
+        eth_account.pkey = eth_account_raw.privateKey
+        return (eth_account)
+
+    eth_account = create_wallet()
+
+    # Extract default accounts created by ganache
+    accounts = w3.eth.accounts
+
+    # Instantiate faucet object
+    faucet = EthAccount()
+
+    # Wallet address
+    faucet.address       = "0x92D44e8579620F2Db88A12E70FE38e8CDB3541BA"
+    # Private key (from Ganache interface)
+    faucet.pkey   = "0x4a2cb86c7d3663abebf7ab86a6ddc3900aee399750f35e65a44ecf843ec39116"
+
+    # Define a function to send ether
+
+    def send_ether(amount_in_ether, recipient_address, sender_address = faucet.address, sender_pkey=faucet.pkey):
+        amount_in_wei = w3.toWei(amount_in_ether,'ether');
+
+        # How many transactions have been made by wallet?
+        # This is required and prevents double-spending.
+        # Different from nonce in block mining.
+        nonce = w3.eth.getTransactionCount(sender_address)
+        
+        # Specify transcation dictionary
+        txn_dict = {
+                'to': recipient_address,
+                'value': amount_in_wei,
+                'gas': 2000000,
+                'gasPrice': w3.toWei('40', 'gwei'),
+                'nonce': nonce,
+                'chainId': 3
+        }
+        
+        # Sign transaction
+        signed_txn = w3.eth.account.signTransaction(txn_dict, sender_pkey)
+
+        # Send transaction & store transaction hash
+        txn_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+
+        # Check if transaction was added to blockchain
+        # time.sleep(0.5)
+        txn_receipt = w3.eth.getTransactionReceipt(txn_hash)
+        return txn_hash
+
+    # Send ether and store transaction hash
+    txn_hash = send_ether(1.5,eth_account.address)
+
+    # Show balance
+    print("The balance of the new account is:\n")
+    print(w3.eth.getBalance(eth_account.address))
+
+    import os
+ 
+    dirpath = os.getcwd()
+    print("current directory is : " + dirpath)
+    foldername = os.path.basename(dirpath)
+    print("Directory name is : " + foldername)
 
 
 def fund_wallet():
