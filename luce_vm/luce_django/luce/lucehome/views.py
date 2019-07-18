@@ -19,7 +19,10 @@ from django.views.generic import CreateView, FormView
 from django.shortcuts import redirect
 
 # Import Python web3 scripts
-from utils.web3_scripts import create_wallet, fund_wallet, deploy_contract, assign_address
+from utils.web3_scripts import create_wallet_old, fund_wallet, deploy_contract, assign_address
+# Import newest versions of web3 scripts
+from utils.web3_scripts import assign_address_v3, deploy_contract_v3, add_requester_v3, update_contract_v3
+
 
 def home_page(request):
     head_title = "LUCE"
@@ -94,9 +97,31 @@ class LoginView_PostReg(FormView):
 
 
 # Available scripts:
-# create_wallet, fund_wallet, deploy_contract, assign_address
-
+# create_wallet_old, fund_wallet, deploy_contract, assign_address
+# assign_address_v3, deploy_contract_v3, add_requester_v3, update_contract_v3
 def dev_view(request):
+
+    # Assign address & pre-fund
+    if(request.GET.get('assign_address_v3')):
+        # Pass user into web3 script
+        current_user = request.user
+        # Script does work and passes updated user object back
+        current_user = assign_address_v3(current_user)
+        print(current_user)
+        print(current_user.ethereum_public_key)
+        print("Address was assigned to current user.")
+
+    # Deploy contract
+    if(request.GET.get('deploy_contract_v3')):
+        current_user = request.user
+        print(current_user.ethereum_private_key)
+        contract_address = deploy_contract_v3(current_user.ethereum_private_key)
+        print(current_user)
+        print("Contract address:", contract_address)
+
+
+# First iteration functions:
+
 
     if(request.GET.get('assign_address')):
         # Pass request into web3 script
@@ -116,14 +141,11 @@ def dev_view(request):
         print("Contract address:")
         print(contract_address)   
 
-    if(request.GET.get('mybtn_2')):
-        create_wallet()
-        print("Second button was pressed")
-
-         
+    if(request.GET.get('create_wallet')):
+        create_wallet_old()
 
     if(request.GET.get('mybtn')):
-        print( int(request.GET.get('mytextbox')) ) # or any other function
+        print("The input value is: ", int(request.GET.get('mytextbox')) ) # or any other function
 
     context = {}
     template = 'dev.html'

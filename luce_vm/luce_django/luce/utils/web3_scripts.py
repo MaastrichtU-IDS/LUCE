@@ -6,6 +6,17 @@ w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
 
 #### WEB3 HELPER FUNCTIONS ####
 # Helper functions used to make the code in assign_address_v3 easier to read
+
+# Create faucet for pre-funding accounts
+# NOTE: placing a private key here is obviously very unsafe
+# We only do this for development usage. When transitioning 
+# to Infura the faucet can be replaced with an API call instead.
+
+# Private key (obtained via Ganache interface)
+faucet_privateKey   = "0x4a2cb86c7d3663abebf7ab86a6ddc3900aee399750f35e65a44ecf843ec39116"
+# Establish faucet account
+faucet = w3.eth.account.privateKeyToAccount(faucet_privateKey)
+
 def create_wallet():
     eth_account = w3.eth.account.create()
     return (eth_account)
@@ -51,7 +62,7 @@ def send_ether(amount_in_ether, recipient_address, sender_pkey=faucet.privateKey
     txn_receipt = w3.eth.getTransactionReceipt(txn_hash)
     return txn_hash
 
-def fund_wallet(recipient = eth_account.address, amount = 100):
+def fund_wallet(recipient, amount = 100):
     send_ether(amount,recipient)
 
 
@@ -74,14 +85,71 @@ def assign_address_v3(user):
     eth_account = create_wallet()
     # Store public key and private key in user model
     current_user.ethereum_public_key = eth_account.address
-    # current_user.ethereum_private_key = eth_account.privateKey.hex() # this field is not implemented atm
+    current_user.ethereum_private_key = eth_account.privateKey.hex() # this field is not implemented atm
     current_user.save()
     # Fund wallet
     fund_wallet(recipient = eth_account.address, amount = 100)
+    print("Balance:", w3.eth.getBalance(current_user.ethereum_public_key)) # print balance to ensure funding took place
     # Return user, now with wallet associated
     return current_user
 
 
+def deploy_contract_v3(private_key):
+    from solcx import compile_source
+    from web3 import Web3
+    
+    # Read in LUCE contract code
+    with open('./utils/data/luce.sol', 'r') as file: # Adjust file_path for use in Jupyter/Django
+        contract_source_code = file.read()
+    
+    # Compile & Store Compiled source code
+    compiled_sol = compile_source(contract_source_code)
+
+    # Extract full interface as dict from compiled contract
+    contract_interface = compiled_sol['<stdin>:Dataset']
+
+    # Extract abi and bytecode
+    abi = contract_interface['abi']
+    bytecode = contract_interface['bin']
+    
+    # Establish web3 connection
+    w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
+    
+    #Obtain user so we know his address for the 'from' field
+    user = w3.eth.account.privateKeyToAccount(private_key)
+    
+    # Construct raw transaction
+    nonce = w3.eth.getTransactionCount(user.address)
+    
+    transaction = {
+    'from': user.address,
+    'gas': 2000000,
+    'data': bytecode,
+    'chainId': 3,
+    'gasPrice': w3.toWei('40', 'gwei'),
+    'nonce': nonce,
+    }
+    
+    # Sign transaction
+    signed_txn = w3.eth.account.signTransaction(transaction, private_key)
+    
+    # Deploy
+    tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    
+    # Wait for the transaction to be mined, and get the transaction receipt
+    tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    
+    # Obtain address of freshly deployed contract
+    contractAddress = tx_receipt.contractAddress
+    
+    return contractAddress
+
+
+def add_requester_v3():
+    pass
+
+def update_contract_v3():
+    pass
 
 
 #### Initial Implementations
@@ -138,7 +206,7 @@ def deploy_contract(user):
     # Establish web3 connection
     w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
 
-    # Obtin user
+    # Obtain user
     current_user = user
     
     # Set sender
@@ -210,7 +278,7 @@ def deploy_contract_with_data(user, description, license, link=""):
     return contract_address
 	
 # Not used in Django Frontend anymore - kept for testing and reference
-def create_wallet():
+def create_wallet_old():
     print("This message comes from within my custom script")
     
     class EthAccount():
@@ -281,7 +349,3 @@ def create_wallet():
     print("current directory is : " + dirpath)
     foldername = os.path.basename(dirpath)
     print("Directory name is : " + foldername)
-
-
-def fund_wallet():
-	pass

@@ -84,8 +84,10 @@ class User(AbstractBaseUser):
     last_name 	= 	models.CharField(max_length=255, blank=True, null=True)
     institution =	models.CharField(max_length=255, blank=True, null=True)
 
-    # Automatically obtain public_address from Metamask
+    # Ideally we automatically obtain the public_address from Metamask
+    # For now the server manages accounts on behalf of the user
     ethereum_public_key 	=	models.CharField(max_length=255, blank=True, null=True)
+    ethereum_private_key    =   models.CharField(max_length=255, blank=True, null=True)
 
 
     # Can use this later to activate certain features only 
