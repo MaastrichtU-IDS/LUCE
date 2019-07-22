@@ -29,7 +29,10 @@ from datastore.views import (
     delete_view,
     publish_view,
     request_access_view,
-    my_access_view
+    my_access_view,
+    upload_success_view,
+    publish_success_view,
+    update_success_view
 	)
 
 urlpatterns = [
@@ -61,6 +64,9 @@ urlpatterns = [
     path('data/<int:dataset_id>/delete', delete_view),
     path('data/<int:dataset_id>/publish', publish_view),
     path('data/<int:dataset_id>/request', request_access_view),
+    path('data/<int:dataset_id>/upload_success', upload_success_view),
+    path('data/<int:dataset_id>/publish_success', publish_success_view),
+    path('data/<int:dataset_id>/update_success', update_success_view)
     # re_path(r'^data/(?P<slug>\w+)/$', detail_view)
 
     ]

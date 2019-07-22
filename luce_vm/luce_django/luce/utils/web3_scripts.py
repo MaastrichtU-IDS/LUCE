@@ -210,9 +210,10 @@ def publish_data_v3(provider_private_key, contract_address, description="Descrip
     
     return tx_receipt
 
-def add_requester_v3(requester_private_key, contract_address, license_type=3, purpose_code=3):
+def add_requester_v3(requester_private_key, contract_address, license=3, purpose_code=3):
     from web3 import Web3
     
+
     # Compile Luce contract and obtain interface
     d = compile_and_extract_interface()
     
@@ -236,6 +237,7 @@ def add_requester_v3(requester_private_key, contract_address, license_type=3, pu
     'nonce': nonce,
     }
     
+    license_type = license
     luce_txn = luce.functions.addDataRequester(purpose_code,license_type).buildTransaction(txn_dict)
     
     # Sign transaction
@@ -288,7 +290,7 @@ def update_contract_v3(provider_private_key, contract_address, description="Upda
     
     return tx_receipt
 
-    
+
 
 
 #### Initial Implementations

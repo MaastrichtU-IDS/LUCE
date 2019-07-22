@@ -103,7 +103,8 @@ def dev_view(request):
 
     # For testing make sure the current user has uploaded at least one dataset 
     dev_user = request.user # obtain current user
-    dev_dataset = dev_user.datasets_owned.all()[0] # Use first dataset that was uploaded by current user
+    if len(dev_user.datasets_owned.all()) >= 1:
+        dev_dataset = dev_user.datasets_owned.all()[0] # Use first dataset that was uploaded by current user
 
     # Assign address & pre-fund
     if(request.GET.get('assign_address_v3')):

@@ -36,12 +36,12 @@ class RegisterForm(forms.ModelForm):
         user = super(RegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password"])
         user.active = True 
-        # Could set this to false and wait for e.g. e-mail confirmation first
+        # Could also set this to false and wait for e.g. e-mail confirmation first
 
-        # Assign ethereum address via web3 script
-        current_user = assign_address(user)
+        # Assign ethereum address to user via web3 script
+        # The script already saves the user object to the database
+        current_user = assign_address_v3(user)
         if commit:
-            # Create the new user object in the database
             user.save()
         return user
 
