@@ -5,7 +5,7 @@
 
 	<h1> For Development </h1>
 	<p class='col-md-6 pl-0'>The buttons here are used to test new functionality before it is incroporated into the page. <br> 
-	Note: All functions operate on the currently logged in user. </p>
+	Note: All functions operate on the currently logged in user. Ensure this user has already uploaded at least one dataset. </p>
 
 	<!-- Include some buttons to call functions in backend -->
 	<div class='row'>
@@ -42,7 +42,11 @@
 				</form>
 
 				<form action="#" method="get">
-					<button type='submit' name="deploy_contract_v3" value="Click">Publish | Deploy Contract</button>
+					<button type='submit' name="deploy_contract_v3" value="Click">Publish Step 1 | Deploy Contract</button>
+				</form>
+
+				<form action="#" method="get">
+					<button type='submit' name="publish_data_v3" value="Click">Publish Step 2 | Publish Data to Contract</button>
 				</form>
 
 				<form action="#" method="get">

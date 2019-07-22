@@ -21,7 +21,7 @@ from django.shortcuts import redirect
 # Import Python web3 scripts
 from utils.web3_scripts import create_wallet_old, fund_wallet, deploy_contract, assign_address
 # Import newest versions of web3 scripts
-from utils.web3_scripts import assign_address_v3, deploy_contract_v3, add_requester_v3, update_contract_v3
+from utils.web3_scripts import assign_address_v3, deploy_contract_v3, publish_data_v3, add_requester_v3, update_contract_v3
 
 
 def home_page(request):
@@ -98,13 +98,17 @@ class LoginView_PostReg(FormView):
 
 # Available scripts:
 # create_wallet_old, fund_wallet, deploy_contract, assign_address
-# assign_address_v3, deploy_contract_v3, add_requester_v3, update_contract_v3
+# assign_address_v3, deploy_contract_v3, publish_data_v3, add_requester_v3, update_contract_v3
 def dev_view(request):
+
+    # For testing make sure the current user has uploaded at least one dataset 
+    dev_user = request.user # obtain current user
+    dev_dataset = dev_user.datasets_owned.all()[0] # Use first dataset that was uploaded by current user
 
     # Assign address & pre-fund
     if(request.GET.get('assign_address_v3')):
         # Pass user into web3 script
-        current_user = request.user
+        current_user = dev_user
         # Script does work and passes updated user object back
         current_user = assign_address_v3(current_user)
         print(current_user)
@@ -113,16 +117,57 @@ def dev_view(request):
 
     # Deploy contract
     if(request.GET.get('deploy_contract_v3')):
-        current_user = request.user
+        current_user = dev_user
         print(current_user.ethereum_private_key)
         contract_address = deploy_contract_v3(current_user.ethereum_private_key)
         print(current_user)
         print("Contract address:", contract_address)
+        # associate dev_dataset with deployed contract
+        dev_dataset.contract_address = contract_address
+        print(dev_dataset.contract_address)
+
+
+    # Publish Data of dev_dataset to Smart Contract
+    if(request.GET.get('publish_data_v3')):
+        current_user = dev_user
+        current_contract = dev_dataset.contract_address
+        # Publish metadata to contract
+        tx_receipt = publish_data_v3(
+                        provider_private_key = current_user.ethereum_private_key, 
+                        contract_address     = current_contract, 
+                        description          = dev_dataset.description, 
+                        license              = dev_dataset.license)
+        print("Transaction receipt:\n", tx_receipt)
+
+
+
+    # Add data requester to Smart Contract
+    if(request.GET.get('add_requester_v3')):
+        current_user = dev_user
+        current_contract = dev_dataset.contract_address
+        # Add data requester
+        tx_receipt = add_requester_v3(
+                        requester_private_key= current_user.ethereum_private_key, 
+                        contract_address     = current_contract,
+                        license_type         = dev_dataset.license)
+        print("Transaction receipt:\n", tx_receipt)
+
+
+    # Update Smart Contract
+    if(request.GET.get('update_contract_v3')):
+        current_user = dev_user
+        current_contract = dev_dataset.contract_address
+        # Update contract
+        tx_receipt = publish_data_v3(
+                        provider_private_key = current_user.ethereum_private_key, 
+                        contract_address     = current_contract, 
+                        description          = dev_dataset.description)
+        print("Transaction receipt:\n", tx_receipt)
+
+
 
 
 # First iteration functions:
-
-
     if(request.GET.get('assign_address')):
         # Pass request into web3 script
 

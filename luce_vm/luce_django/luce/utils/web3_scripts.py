@@ -145,11 +145,150 @@ def deploy_contract_v3(private_key):
     return contractAddress
 
 
-def add_requester_v3():
-    pass
+# Auxilary function to support interaction with existing smart contract
+def compile_and_extract_interface():
+    from solcx import compile_source
+    
+    # Read in LUCE contract code
+    with open('./utils/data/luce.sol', 'r') as file: # Adjust file_path for use in Jupyter/Django
+        contract_source_code = file.read()
+        
+    # Compile & Store Compiled source code
+    compiled_sol = compile_source(contract_source_code)
 
-def update_contract_v3():
-    pass
+    # Extract full interface as dict from compiled contract
+    contract_interface = compiled_sol['<stdin>:Dataset']
+
+    # Extract abi and bytecode
+    abi = contract_interface['abi']
+    bytecode = contract_interface['bin']
+    
+    # Create dictionary with interface
+    d = dict()
+    d['abi']      = abi
+    d['bytecode'] = bytecode
+    d['full_interface'] = contract_interface
+    return(d)
+
+
+def publish_data_v3(provider_private_key, contract_address, description="Description", license=3, link="void"):
+    from web3 import Web3
+    
+    # Compile Luce contract and obtain interface
+    d = compile_and_extract_interface()
+    
+    # Establish web3 connection
+    w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
+    
+    # Obtain user so we know his address for the 'from' field
+    private_key = provider_private_key
+    user = w3.eth.account.privateKeyToAccount(private_key)
+    
+    # Obtain contract address & instantiate contract
+    contract_address = contract_address
+    luce = w3.eth.contract(address=contract_address, abi=d['abi'])
+    
+    # Construct raw transaction
+    nonce = w3.eth.getTransactionCount(user.address)
+    txn_dict = {
+    'gas': 2000000,
+    'chainId': 3,
+    'gasPrice': w3.toWei('40', 'gwei'),
+    'nonce': nonce,
+    }
+    
+    luce_txn = luce.functions.publishData(description,link,license).buildTransaction(txn_dict)
+    
+    # Sign transaction
+    signed_txn = w3.eth.account.signTransaction(luce_txn, private_key)
+    
+    # Deploy
+    tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    
+    # Wait for the transaction to be mined, and get the transaction receipt
+    tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    
+    return tx_receipt
+
+def add_requester_v3(requester_private_key, contract_address, license_type=3, purpose_code=3):
+    from web3 import Web3
+    
+    # Compile Luce contract and obtain interface
+    d = compile_and_extract_interface()
+    
+    # Establish web3 connection
+    w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
+    
+    # Obtain user so we know his address for the 'from' field
+    private_key = requester_private_key
+    user = w3.eth.account.privateKeyToAccount(private_key)
+    
+    # Obtain contract address & instantiate contract
+    contract_address = contract_address
+    luce = w3.eth.contract(address=contract_address, abi=d['abi'])
+    
+    # Construct raw transaction
+    nonce = w3.eth.getTransactionCount(user.address)
+    txn_dict = {
+    'gas': 2000000,
+    'chainId': 3,
+    'gasPrice': w3.toWei('40', 'gwei'),
+    'nonce': nonce,
+    }
+    
+    luce_txn = luce.functions.addDataRequester(purpose_code,license_type).buildTransaction(txn_dict)
+    
+    # Sign transaction
+    signed_txn = w3.eth.account.signTransaction(luce_txn, private_key)
+    
+    # Deploy
+    tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    
+    # Wait for the transaction to be mined, and get the transaction receipt
+    tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    
+    return tx_receipt
+
+def update_contract_v3(provider_private_key, contract_address, description="Updated Description", link="void"):
+    from web3 import Web3
+    
+    # Compile Luce contract and obtain interface
+    d = compile_and_extract_interface()
+    
+    # Establish web3 connection
+    w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
+    
+    # Obtain user so we know his address for the 'from' field
+    private_key = provider_private_key
+    user = w3.eth.account.privateKeyToAccount(private_key)
+    
+    # Obtain contract address & instantiate contract
+    contract_address = contract_address
+    luce = w3.eth.contract(address=contract_address, abi=d['abi'])
+    
+    # Construct raw transaction
+    nonce = w3.eth.getTransactionCount(user.address)
+    txn_dict = {
+    'gas': 2000000,
+    'chainId': 3,
+    'gasPrice': w3.toWei('40', 'gwei'),
+    'nonce': nonce,
+    }
+    
+    luce_txn = luce.functions.updateData(description,link).buildTransaction(txn_dict)
+    
+    # Sign transaction
+    signed_txn = w3.eth.account.signTransaction(luce_txn, private_key)
+    
+    # Deploy
+    tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    
+    # Wait for the transaction to be mined, and get the transaction receipt
+    tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    
+    return tx_receipt
+
+    
 
 
 #### Initial Implementations
