@@ -5,6 +5,7 @@
 luce_vm/.vagrant/*
 test_vm/.vagrant/*
 django_vm/.vagrant/*
+**/.vagrant/*
 
 # Exlude django cache directories
 test_vm/django/dapp/__pycache__/*

@@ -1,0 +1,61 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+# LuceVM Setup
+Vagrant.configure("2") do |config|
+
+
+  config.vm.define "lucevm" do |lucevm|
+    # precise = Ubuntu 12.04.5 LTS
+    # lucevm.vm.box = "hashicorp/precise64"
+
+    # xenial = Ubuntu 16.04 LTS
+    # lucevm.vm.box = "ubuntu/xenial64"
+
+    # trusty = Ubuntu 14.04.6 LTS
+    lucevm.vm.box = "ubuntu/trusty64"
+    lucevm.vm.network "private_network", ip: "192.168.72.3"
+  end
+
+end
+
+
+
+# PostgreSQL Setup
+$script = <<SCRIPT
+echo I am provisioning...
+date > /etc/vagrant_provisioned_at
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.define "psql" do |psql|
+    psql.vm.provision "shell", inline: $script
+  end
+
+end
+
+Vagrant.configure("1") do |config|
+
+  config.vm.define "psql" do |psql|
+    # trusty = Ubuntu 14.04.6 LTS
+    psql.vm.box = "ubuntu/trusty64"
+    psql.vm.host_name = "postgresql" 
+
+    psql.vm.share_folder "bootstrap", "/mnt/bootstrap", ".", :create => true
+    psql.vm.provision :shell, :path => "Vagrant-setup/bootstrap.sh"
+  
+    # PostgreSQL Server port forwarding
+    psql.vm.forward_port 5432, 15432
+  end
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.define "psql" do |psql|
+    psql.vm.network "private_network", ip: "192.168.72.4"
+  end
+
+end
+
+end
