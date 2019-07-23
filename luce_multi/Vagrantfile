@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
 
     # Use Ubuntu 16.04 as basis for VM
     lucevm.vm.box = "ubuntu/xenial64"
+    lucevm.vm.box_check_update = false
 
     # ==== PORT CONFIGURATION ====
 
@@ -75,6 +76,9 @@ Vagrant.configure("2") do |config|
   config.vm.define "psql" do |psql|
     # Create note that system was provisioned
     psql.vm.provision "shell", inline: $script
+
+    # Disable automatic update check
+    psql.vm.box_check_update = false
 
     # Set up shared network interface
     psql.vm.network "private_network", ip: "192.168.72.3"

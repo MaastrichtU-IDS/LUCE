@@ -93,6 +93,12 @@ pip install django-extensions
 # cd django-web3-auth/example
 # pip install -r requirements.txt
 
+# ==== INSTALL PostgreSQL CLI Client ====
+sudo apt install -y postgresql-client
+
+# Install psycopg2 package (Python interface to psql)
+conda activate luce_vm
+conda install -y psycopg2
 
 # ==== COMPLETION MESSAGE ====
 

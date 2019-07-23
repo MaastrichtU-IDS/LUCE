@@ -6,7 +6,7 @@ from django.contrib.auth.models import (
 )
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, institution, ethereum_public_key=None, password=None, is_staff=False, is_admin=False):
+    def create_user(self, email, first_name, last_name, institution, ethereum_public_key=None, ethereum_private_key=None, password=None, is_staff=False, is_admin=False):
         """
         Creates and saves a User with the given arguments and password.
         """
@@ -30,6 +30,7 @@ class UserManager(BaseUserManager):
         user.last_name 		= last_name
         user.institution 	= institution
         user.ethereum_public_key = ethereum_public_key
+        user.ethereum_private_key= ethereum_private_key
         user.staff = is_staff
         user.admin = is_admin
         user.save(using=self._db)
@@ -50,7 +51,9 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, institution, password):
+    def create_superuser(self, email, first_name, last_name, institution, password, 
+                        ethereum_public_key  = "0x43e196c418b4b7ebf71ba534042cc8907bd39dc9", 
+                        ethereum_private_key = "0x5714ad5f65fb27cb0d0ab914db9252dfe24cf33038a181555a7efc3dcf863ab3"):
         """
         Creates and saves a superuser.
         """
@@ -60,6 +63,8 @@ class UserManager(BaseUserManager):
             last_name,
             institution,
             password=password,
+            ethereum_public_key = "0x43e196c418b4b7ebf71ba534042cc8907bd39dc9",
+            ethereum_private_key = "0x5714ad5f65fb27cb0d0ab914db9252dfe24cf33038a181555a7efc3dcf863ab3"
         )
         user.staff = True
         user.admin = True

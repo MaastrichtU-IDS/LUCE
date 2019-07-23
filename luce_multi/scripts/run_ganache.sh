@@ -7,4 +7,4 @@ eval "$(conda shell.bash hook)"
 conda activate luce_vm
 
 # Run Ganache server
-ganache-cli --mnemonic luce --host 0.0.0.0
+ganache-cli --mnemonic luce --host 0.0.0.0 --accounts 3 --defaultBalanceEther 1000000

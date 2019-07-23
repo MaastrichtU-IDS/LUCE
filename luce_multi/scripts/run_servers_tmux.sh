@@ -16,7 +16,7 @@ tmux split-window -v
 # Send in commands to start ganache
 tmux send-keys -t jupyter_ganache.1 'eval "$(conda shell.bash hook)"' ENTER
 tmux send-keys -t jupyter_ganache.1 'conda activate luce_vm' ENTER
-tmux send-keys -t jupyter_ganache.1 'ganache-cli --mnemonic luce --host 0.0.0.0 --accounts 100 --defaultBalanceEther 1000' ENTER
+tmux send-keys -t jupyter_ganache.1 'ganache-cli --mnemonic luce --host 0.0.0.0 --accounts 3 --defaultBalanceEther 1000000' ENTER
 
 
 echo
