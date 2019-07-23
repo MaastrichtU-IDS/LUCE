@@ -6,16 +6,57 @@
 Vagrant.configure("2") do |config|
 
 
-  config.vm.define "lucevm" do |lucevm|
-    # precise = Ubuntu 12.04.5 LTS
-    # lucevm.vm.box = "hashicorp/precise64"
+  config.vm.define "lucevm", primary: true do |lucevm|
 
-    # xenial = Ubuntu 16.04 LTS
-    # lucevm.vm.box = "ubuntu/xenial64"
+    # Use Ubuntu 16.04 as basis for VM
+    lucevm.vm.box = "ubuntu/xenial64"
 
-    # trusty = Ubuntu 14.04.6 LTS
-    lucevm.vm.box = "ubuntu/trusty64"
-    lucevm.vm.network "private_network", ip: "192.168.72.3"
+    # ==== PORT CONFIGURATION ====
+
+    # Apache Web Server
+    lucevm.vm.network :forwarded_port, guest: 80, host: 4567
+
+    # Jupyter Notebook
+    lucevm.vm.network :forwarded_port, guest: 8888, host: 8888
+
+    # Jupyter Notebook Alternative Port
+    lucevm.vm.network :forwarded_port, guest: 8889, host: 8889
+
+    # Ganache Blockchain
+    lucevm.vm.network :forwarded_port, guest: 8545, host: 8545
+
+    # Django - Open a few ports for testing multiple servers
+    lucevm.vm.network :forwarded_port, guest: 8000, host: 8000
+    lucevm.vm.network :forwarded_port, guest: 8001, host: 8001
+    lucevm.vm.network :forwarded_port, guest: 8002, host: 8002
+
+    # ==== VM CONFIGURATION ====
+
+    lucevm.vm.provider "virtualbox" do |vb|
+
+      # Amount of memory used by VM (1GB)
+      vb.memory = "1024"    
+      #vb.memory = "2048"
+
+      # Display VirtualBox GUI when booting the machine
+      # vb.gui = true
+
+      # Disable creation of log file
+      vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
+
+      # Hard-code virtual ethernet cable connection
+      # This prevents SSH auth method: private key from getting stuck
+      vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
+    end
+
+    # ==== SCRIPTS TO RUN AFTER STARTUP ====
+
+    lucevm.vm.provision :shell, path: "./scripts/bootstrap.sh"
+  
+
+
+    # Set up shared network interface
+    lucevm.vm.network "private_network", ip: "192.168.72.2"
   end
 
 end
@@ -23,39 +64,36 @@ end
 
 
 # PostgreSQL Setup
+
+# Used to later check if Database was already provisioned
 $script = <<SCRIPT
-echo I am provisioning...
 date > /etc/vagrant_provisioned_at
 SCRIPT
 
 Vagrant.configure("2") do |config|
   
   config.vm.define "psql" do |psql|
+    # Create note that system was provisioned
     psql.vm.provision "shell", inline: $script
+
+    # Set up shared network interface
+    psql.vm.network "private_network", ip: "192.168.72.3"
+    psql.vm.network :forwarded_port, guest: 5432, host: 15432
   end
 
 end
 
+# Apply some configuration with old version of settings
 Vagrant.configure("1") do |config|
 
   config.vm.define "psql" do |psql|
     # trusty = Ubuntu 14.04.6 LTS
     psql.vm.box = "ubuntu/trusty64"
     psql.vm.host_name = "postgresql" 
-
     psql.vm.share_folder "bootstrap", "/mnt/bootstrap", ".", :create => true
-    psql.vm.provision :shell, :path => "Vagrant-setup/bootstrap.sh"
-  
-    # PostgreSQL Server port forwarding
-    psql.vm.forward_port 5432, 15432
+    
+    # Provision is performed only the first time machine is started
+    psql.vm.provision :shell, :path => "scripts/bootstrap_psql.sh"
   end
-
-Vagrant.configure("2") do |config|
-  
-  config.vm.define "psql" do |psql|
-    psql.vm.network "private_network", ip: "192.168.72.4"
-  end
-
-end
 
 end
