@@ -2,7 +2,10 @@ from web3 import Web3
 import time
 w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:8545"))
 
-
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# '/vagrant/luce_django/luce'
+SOLIDITY_CONTRACT_FILE = BASE_DIR + '/utils/data/luce.sol'
 
 #### WEB3 HELPER FUNCTIONS ####
 # Helper functions used to make the code in assign_address_v3 easier to read
@@ -98,8 +101,9 @@ def deploy_contract_v3(private_key):
     from solcx import compile_source
     from web3 import Web3
     
+
     # Read in LUCE contract code
-    with open('./utils/data/luce.sol', 'r') as file: # Adjust file_path for use in Jupyter/Django
+    with open(SOLIDITY_CONTRACT_FILE, 'r') as file: # Adjust file_path for use in Jupyter/Django
         contract_source_code = file.read()
     
     # Compile & Store Compiled source code
@@ -150,7 +154,7 @@ def compile_and_extract_interface():
     from solcx import compile_source
     
     # Read in LUCE contract code
-    with open('./utils/data/luce.sol', 'r') as file: # Adjust file_path for use in Jupyter/Django
+    with open(SOLIDITY_CONTRACT_FILE, 'r') as file: # Adjust file_path for use in Jupyter/Django
         contract_source_code = file.read()
         
     # Compile & Store Compiled source code
@@ -331,7 +335,7 @@ def deploy_contract(user):
     from web3 import Web3
     
     # Read in LUCE contract code
-    with open('./utils/data/luce.sol', 'r') as file:
+    with open(SOLIDITY_CONTRACT_FILE, 'r') as file:
         contract_source_code = file.read()
         
     # Compile & Store Compiled source code
@@ -373,7 +377,7 @@ def deploy_contract_with_data(user, description, license, link=""):
     from web3 import Web3
     
     # Read in LUCE contract code
-    with open('./utils/data/luce.sol', 'r') as file:
+    with open(SOLIDITY_CONTRACT_FILE, 'r') as file:
         contract_source_code = file.read()
         
     # Compile & Store Compiled source code

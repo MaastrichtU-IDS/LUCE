@@ -150,7 +150,7 @@ def dev_view(request):
         tx_receipt = add_requester_v3(
                         requester_private_key= current_user.ethereum_private_key, 
                         contract_address     = current_contract,
-                        license_type         = dev_dataset.license)
+                        license              = dev_dataset.license)
         print("Transaction receipt:\n", tx_receipt)
 
 

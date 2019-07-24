@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
     lucevm.vm.network :forwarded_port, guest: 8001, host: 8001
     lucevm.vm.network :forwarded_port, guest: 8002, host: 8002
 
-    # ==== VM CONFIGURATION ====
+    # ==== VirtualBox CONFIGURATION ====
 
     lucevm.vm.provider "virtualbox" do |vb|
 
@@ -50,14 +50,22 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
     end
 
+    # ==== ADDITIONAL CONFIGURATION ====
+    
+    # Set up shared network interface
+    lucevm.vm.network "private_network", ip: "192.168.72.2"
+
+    # Disable checking for new vbguest updates
+    if Vagrant.has_plugin?("vagrant-vbguest")
+    	lucevm.vbguest.auto_update = false
+    end
+
     # ==== SCRIPTS TO RUN AFTER STARTUP ====
 
     lucevm.vm.provision :shell, path: "./scripts/bootstrap.sh"
   
 
 
-    # Set up shared network interface
-    lucevm.vm.network "private_network", ip: "192.168.72.2"
   end
 
 end
@@ -79,6 +87,11 @@ Vagrant.configure("2") do |config|
 
     # Disable automatic update check
     psql.vm.box_check_update = false
+
+    # Disable checking for new vbguest updates
+    if Vagrant.has_plugin?("vagrant-vbguest")
+    	psql.vbguest.auto_update = false
+    end
 
     # Set up shared network interface
     psql.vm.network "private_network", ip: "192.168.72.3"

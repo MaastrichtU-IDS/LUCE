@@ -1,5 +1,8 @@
 # This script starts the jupyter and ganache server processes in the background
 
+# Gently shutdown old processes
+tmux kill-session -t "jupyter_ganache"
+
 # Create detached tmux session from terminal
 tmux new-session -d -s jupyter_ganache
 tmux rename-window 'jupyter_ganache'

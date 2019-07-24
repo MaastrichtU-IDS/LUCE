@@ -5,7 +5,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import User
 
 # Import Python web3 script
-from utils.web3_scripts import assign_address
+from utils.web3_scripts import assign_address, assign_address_v3
 
 # Form for signup view
 class RegisterForm(forms.ModelForm):
