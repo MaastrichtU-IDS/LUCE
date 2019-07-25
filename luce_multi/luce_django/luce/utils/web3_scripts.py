@@ -242,6 +242,8 @@ def add_requester_v3(requester_private_key, contract_address, license=3, purpose
     }
     
     license_type = license
+    # Obtain license from smart contract
+    license_type = luce.functions.getLicence().call()
     luce_txn = luce.functions.addDataRequester(purpose_code,license_type).buildTransaction(txn_dict)
     
     # Sign transaction

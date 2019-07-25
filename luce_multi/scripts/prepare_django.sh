@@ -14,6 +14,9 @@ python /vagrant/luce_django/luce/manage.py migrate
 # Create superuser
 echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('vagrant@luce.com','Vagrant','Luce','Maastricht University','vagrant')" | python /vagrant/luce_django/luce/manage.py shell
 
+# Load in demo data 
+# 3 users, 7 datasets (5 published, 2 unpublished)
+python /vagrant/luce_django/luce/manage.py loaddata utils/fixtures/demo_all.json
 
 # ==== COMPLETION MESSAGE ====
 
