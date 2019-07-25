@@ -8,8 +8,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "lucevm", primary: true do |lucevm|
 
-    # Use Ubuntu 16.04 as basis for VM
-    lucevm.vm.box = "ubuntu/xenial64"
+    # Use pre-provisioned custom box
+    lucevm.vm.box = "arnoan/lucevm"
     lucevm.vm.box_check_update = false
 
     # ==== PORT CONFIGURATION ====
@@ -62,30 +62,21 @@ Vagrant.configure("2") do |config|
 
     # ==== SCRIPTS TO RUN AFTER STARTUP ====
 
-    lucevm.vm.provision :shell, path: "./scripts/bootstrap.sh"
-  
-
+    #lucevm.vm.provision :shell, path: "./scripts/bootstrap.sh"
 
   end
 
 end
 
 
-
 # PostgreSQL Setup
-
-# Used to later check if Database was already provisioned
-$script = <<SCRIPT
-date > /etc/vagrant_provisioned_at
-SCRIPT
 
 Vagrant.configure("2") do |config|
   
   config.vm.define "lucedb", autostart: false do |lucedb| 
-    # Create note that system was provisioned
-    lucedb.vm.provision "shell", inline: $script
 
-    # Disable automatic update check
+    # Use pre-provisioned custom box
+    lucedb.vm.box = "arnoan/lucedb"
     lucedb.vm.box_check_update = false
 
     # Disable checking for new vbguest updates
@@ -96,6 +87,9 @@ Vagrant.configure("2") do |config|
     # Set up shared network interface
     lucedb.vm.network "private_network", ip: "192.168.72.3"
     lucedb.vm.network :forwarded_port, guest: 5432, host: 15432
+
+    #lucedb.vm.provision :shell, path: "./scripts/bootstrap_lucedb.sh"
+
   end
 
 end
@@ -104,13 +98,10 @@ end
 Vagrant.configure("1") do |config|
 
   config.vm.define "lucedb" do |lucedb|
-    # trusty = Ubuntu 14.04.6 LTS
-    lucedb.vm.box = "ubuntu/trusty64"
+
     lucedb.vm.host_name = "postgresql" 
     lucedb.vm.share_folder "bootstrap", "/mnt/bootstrap", ".", :create => true
     
-    # Provision is performed only the first time machine is started
-    lucedb.vm.provision :shell, :path => "scripts/bootstrap_lucedb.sh"
   end
 
 end
