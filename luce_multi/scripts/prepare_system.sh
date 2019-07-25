@@ -41,8 +41,10 @@ conda activate luce_vm
 # Install Jupyter
 conda install -y jupyter
 
-# Install Jupyter Notebook Extensions
-conda install -y -c conda-forge jupyter_contrib_nbextensions
+# 2019-07-25 Update:
+# Jupyter notebook v6 was just released and breaks all extensions
+# Downgrade to latest release of v5 to keep things functioning
+conda install -y notebook=5.7.8
 
 # Set up jupyter kernel for luce python environment
 # The custom kernel allows us to introduce environment variables 
@@ -51,8 +53,21 @@ conda install -y -c conda-forge jupyter_contrib_nbextensions
 python -m ipykernel install --user --name=luce_vm
 
 # Update the jupyter custom kernel configuration
+# This allows to make the Django context availabe to luce_vm kernel via environment variables
 cp /vagrant/.config/luce_jupyter_kernel.json /home/vagrant/.local/share/jupyter/kernels/luce_vm/
 
+# Install Jupyter Notebook Extensions
+conda install -y -c conda-forge jupyter_contrib_nbextensions
+
+# Configure Jupyter Extensions
+# Table of Contents
+jupyter nbextension enable toc2/main
+# Variable Inspector
+jupyter nbextension enable varInspector/main
+# Scratchpad (Ctrl+B)
+jupyter nbextension enable scratchpad/main
+# Python Markdown {{ var }} in md cells
+jupyter nbextension enable python-markdown/main
 
 
 # ==== INSTALL WEB3 ====

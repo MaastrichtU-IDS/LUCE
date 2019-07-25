@@ -15,9 +15,13 @@ if ! [ -L /var/www ]; then
 fi
 
 # Copy jupyter configuration into VM & make vagrant owner of folder
+
+# Jupyter configuration file - define hashed password for notebook access
 mkdir -p /home/vagrant/.jupyter && cp /vagrant/.config/jupyter_notebook_config.py $_
+# Custom logo for Jupyter
 mkdir -p /home/vagrant/.jupyter/custom && cp /vagrant/.config/custom.css $_
 cp /vagrant/.config/logo.png /home/vagrant/.jupyter/custom
+# Change folder permissions
 sudo chown -R vagrant:vagrant /home/vagrant/.jupyter
 
 # Copy scripts to vagrant home directory
