@@ -84,25 +84,26 @@ WSGI_APPLICATION = 'lucehome.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-#  Old Database setting
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# Postgresql Database:
+# Use sqlite by default (only one VM required, less resources)
+# Can switch to Postgresql via environment variable (see code at the very bottom)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lucedb',
-        'USER': 'vagrant',
-        'PASSWORD': 'luce',
-        'HOST': '192.168.72.3',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# Postgresql Database:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'lucedb',
+#         'USER': 'vagrant',
+#         'PASSWORD': 'luce',
+#         'HOST': '192.168.72.3',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -157,5 +158,11 @@ MEDIA_URL = '/media/'
 # Local file changes take place here, then at some point they are uploaded to CDN
 STATICFILES_DIRS = [BASE_DIR + '/lucehome/static_files/']
 
+# ==== SWITCH TO PSQL ====
 
+# export DJANGO_USE_PSQL=true
+
+# Override variables in this settings file if DJANGO_USE_PSQL env variable is set
+if os.environ.get('DJANGO_USE_PSQL') is not None:
+    from lucehome.settings_psql import *
 
