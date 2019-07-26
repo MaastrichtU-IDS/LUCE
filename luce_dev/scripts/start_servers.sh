@@ -42,8 +42,8 @@ echo
 printf "Visit http://127.0.0.1:8000 to access the 
 Luce Data Exchange. 
 Demo users: 
-provider@luce.com 	| providerpw
-requester@luce.com  | requesterpw
+provider@luce.com 	| provider
+requester@luce.com  | requester
 \n"
 echo
 

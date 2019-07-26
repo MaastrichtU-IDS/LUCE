@@ -19,14 +19,13 @@ The repository also contains supporting content and documentation materials I us
 cd ~/path/to/desired/location/
 git clone https://github.com/arnoan/LUCE.git
 cd ./LUCE/luce_vm 
-vagrant up # start the VM
-vagrant ssh -c 'bash start_servers.sh' # Start the servers
+vagrant up 								# start LuceVM
+vagrant ssh -c 'bash start_servers.sh' 	# start the servers
 ```
 Then access the Jupyter server from the host system via `http://127.0.0.1:8888` with password `luce`.  
 (Or visit `http://127.0.0.1:4567` for further instructions.)
 
 ## Further Information
-(Note: This section is still under development.) 
 
 *Q: How do I stop the machine when I am finished working?*   
 From within the same terminal where lucevm was started:
@@ -34,6 +33,13 @@ From within the same terminal where lucevm was started:
 vagrant suspend
 ```
 This hibernates the virtual machine. That way the next time it is started via `vagrant up` it will start much faster and be exactly in the same state again as you left off. There is no need to manually start the servers again.
+
+*Q: How do I resume the machine?*   
+No matter the state (hibernated, shut down, or not-yet-existing), we always use the same command to start it up:
+```
+vagrant up
+```
+If the machine was previously hibernated `vagrant up` is all that is needed. If the machine was shut down or completely destroyed the servers need to be manually started again with `vagrant ssh -c 'bash start_servers.sh'`.
 
 *Q: How do I stop the machine completely?*   
 The machine can be shut down completely via `vagrant halt` - in that case the servers have to be started again the next time LuceVM is booted. Finally `vagrant destroy` can be used to completely destroy the virtual machine instance. (The python notebooks are still preserved even if the machine is destroyed. That is because all application source code for Jupyter, Django, etc. actually lives on the host filesystem. It is automatically shared with the VM when a new machine instance is created.)

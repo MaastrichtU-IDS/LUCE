@@ -37,8 +37,39 @@ the LUCE technical prototype.\n\n"
 
 printf "It is powered by %s \n\n" "$DISTRIB_DESCRIPTION"
 
-printf "To complete the setup please run the following command: \n"
-printf "(Only required when booting the system for the first time) \n"
-printf "$ bash prepare_system.sh\n\n"
+
+# Final part of welcome message is conditional on whether the 
+# system preparation scripts have already been run before.
+
+# This stamp is created by prepare_system.sh
+SYSTEM_PREPARED_STAMP=/home/vagrant/.stamps/vagrant_system_prepared_timestamp
+
+# If file does not exist == system has NOT been prepared yet
+if [ ! -f "$SYSTEM_PREPARED_STAMP" ]
+then
+	printf "To complete the setup please run the following commands: \n"
+	printf "(Only required when booting the system for the first time) \n"
+	printf "$ bash prepare_system.sh\n" # Install all packages
+	printf "$ bash prepare_django.sh\n\n" # Initialise Django & DB
+fi
+
+# Check if servers are already running
+tmux has-session -t jup 1> /dev/null 2> /dev/null
+server_test=$? # Store outcome code of last command in variable
+if [ $server_test = 0 ] 
+then
+	printf "The servers are already running..\n\n"
+	exit # Quit script early and don't show further instructions
+fi
+
+# If file does exist == system has already been prepared:
+if [ -f "$SYSTEM_PREPARED_STAMP" ]
+then
+	printf "To start the servers please run the following command: \n"
+	printf "$ bash start_servers.sh\n\n"
+fi
+
+
+
 
 

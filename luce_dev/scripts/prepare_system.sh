@@ -115,6 +115,13 @@ sudo apt install -y postgresql-client
 conda activate luce_vm
 conda install -y psycopg2
 
+# ==== INCLUDE TIMESTAMP ====
+
+# Set system preparation timestamp:
+SYSTEM_PREPARED_STAMP=/home/vagrant/.stamps/vagrant_system_prepared_timestamp
+date > "$SYSTEM_PREPARED_STAMP"
+
+
 # ==== COMPLETION MESSAGE ====
 
 echo
