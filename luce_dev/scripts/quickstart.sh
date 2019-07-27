@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Only for development use
 # This script allows me to quickly continue after restarting the VM
 # cp /vagrant/scripts/quickstart.sh ~/ # Copy updated script into VM home dir

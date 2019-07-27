@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # This script starts the jupyter and ganache server processes in the background
 
 # Gently shutdown old processes

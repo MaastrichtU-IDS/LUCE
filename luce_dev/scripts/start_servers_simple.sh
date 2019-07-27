@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # This script should start simple version of django, without psql..
 # One vagrant machine is sufficient
 
