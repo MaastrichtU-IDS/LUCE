@@ -85,24 +85,24 @@ WSGI_APPLICATION = 'lucehome.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 #  Old Database setting
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# Postgresql Database:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lucedb',
-        'USER': 'vagrant',
-        'PASSWORD': 'luce',
-        'HOST': '192.168.72.3',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# Postgresql Database:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'lucedb',
+#         'USER': 'vagrant',
+#         'PASSWORD': 'luce',
+#         'HOST': '192.168.72.3',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
