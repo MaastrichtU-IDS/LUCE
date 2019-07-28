@@ -2,7 +2,7 @@
 # This script starts the jupyter and ganache server processes in the background
 
 # Gently shutdown old processes
-tmux kill-session -t "jupyter_ganache_django"
+tmux kill-session -t "jupyter_ganache_django" 2> /dev/null
 
 # Create detached tmux session from terminal
 tmux new-session -d -s jupyter_ganache_django
@@ -20,7 +20,7 @@ tmux split-window -v
 # Send in commands to start Ganache Server
 tmux send-keys -t jupyter_ganache_django.1 'eval "$(conda shell.bash hook)"' ENTER
 tmux send-keys -t jupyter_ganache_django.1 'conda activate luce_vm' ENTER
-tmux send-keys -t jupyter_ganache_django.1 'ganache-cli --mnemonic luce --host 0.0.0.0 --accounts 3 --defaultBalanceEther 1000000' ENTER
+tmux send-keys -t jupyter_ganache_django.1 'ganache-cli --mnemonic luce --db ~/.ganache_db --networkId 72 --host 0.0.0.0 --accounts 3 --defaultBalanceEther 1000000' ENTER
 
 # Split window once again
 tmux split-window -v

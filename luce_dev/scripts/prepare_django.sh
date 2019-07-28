@@ -16,7 +16,7 @@ echo "from django.contrib.auth import get_user_model; User = get_user_model(); U
 
 # Load in demo data 
 # 3 users, 7 datasets (5 published, 2 unpublished)
-python /vagrant/luce_django/luce/manage.py loaddata /vagrant/luce_django/luce/utils/fixtures/demo_all.json
+python /vagrant/luce_django/luce/manage.py loaddata /vagrant/luce_django/luce/utils/fixtures/demo_all_v2.json
 
 # ==== INCLUDE TIMESTAMP ====
 

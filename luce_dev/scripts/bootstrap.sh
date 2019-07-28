@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
 # Bash commands to run during VM initialization
-# Customise motd
+
+# ==== CUSTOM MOTD ====
 rm /etc/update-motd.d/*
 cp /vagrant/.config/luce_motd /etc/update-motd.d/00-header
+
+
+# ==== INSERT CUSTOM  SCRIPTS ====
+# Copy scripts to vagrant home directory
+cp /vagrant/scripts/* /home/vagrant
+
 
 # ==== INSTALL APACHE ====
 
@@ -14,7 +21,8 @@ if ! [ -L /var/www ]; then
   ln -fs /vagrant /var/www
 fi
 
-# Copy jupyter configuration into VM & make vagrant owner of folder
+
+# ==== JUPYTER PRE-CONFIGURATION ====
 
 # Jupyter configuration file - define hashed password for notebook access
 mkdir -p /home/vagrant/.jupyter && cp /vagrant/.config/jupyter_notebook_config.py $_
@@ -24,11 +32,17 @@ cp /vagrant/.config/logo.png /home/vagrant/.jupyter/custom
 # Change folder permissions
 sudo chown -R vagrant:vagrant /home/vagrant/.jupyter
 
-# Copy scripts to vagrant home directory
-cp /vagrant/scripts/* /home/vagrant
 
 
-#### INCLUDE PROVISIONING LOGIC ####
+# ==== INCLUDE GANACHE DEFAULT DEMO STATE ====
+# Create folder to store ganache state
+mkdir -p /home/vagrant/.ganache_db
+cp /vagrant/.config/ganache_db/* /home/vagrant/.ganache_db
+# Change folder permissions
+sudo chown -R vagrant:vagrant /home/vagrant/.ganache_db
+
+
+# ==== INCLUDE TIMESTAMPS FOR PROVISIONING LOGIC ====
 
 # Set provisioning timestamp:
 LAST_PROVISIONED_STAMP=/etc/vagrant_last_provisioned_timestamp
@@ -39,7 +53,6 @@ date > "$LAST_PROVISIONED_STAMP"
 # then
 # echo "VM was already provisioned"
 # fi
-
 
 # Create ~/.stamps folder for timestamps used by later scripts
 # Other scripts do not have access privileges for /etc
