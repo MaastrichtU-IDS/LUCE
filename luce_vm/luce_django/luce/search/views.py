@@ -24,6 +24,8 @@ def search_view(request):
 
 		# Obtain matching search results
 		results_list = Dataset.objects.search(query=query)
+		# Only display published items
+		results_list = results_list.published()
 
 		# Add matching results to context dictionary
 		context['results_list'] = results_list
