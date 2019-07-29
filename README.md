@@ -50,6 +50,9 @@ Then run the following in the terminal:
 ```bash
 git fetch origin # this downloads all new content from github
 git reset --hard origin/master # this replaces all local LUCE content with the newest updates
+
+# To update to the latest release of lucevm & lucedb custom boxes:
+vagrant destroy lucevm lucedb -f # destroy currently running instances of boxes
 vagrant box update # this ensures you are using the latest lucevm and lucedb boxes
 ```
 
