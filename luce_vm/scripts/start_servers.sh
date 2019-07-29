@@ -31,19 +31,16 @@ tmux send-keys -t jupyter_ganache_django.2 'conda activate luce_vm' ENTER
 tmux send-keys -t jupyter_ganache_django.2 'python /vagrant/luce_django/luce/manage.py runserver 0.0.0.0:8000 --noreload' ENTER
 
 echo
-printf "The Jupyter, Ganache and Django servers have been started...\n\n"
-
-printf "Visit http://127.0.0.1:4567 on your host machine 
-browser for further instructions on how to continue\n\n"
+printf "The Jupyter, Ganache and Django servers have been started..\n\n"
 
 printf "Visit http://127.0.0.1:8888 to access the Jupyter 
 notebook environment. The password is: luce\n"
 echo
 
 printf "Visit http://127.0.0.1:8000 to access the 
-Luce Data Exchange. 
-Demo users: 
-provider@luce.com 	| provider
+Luce Data Exchange.
+Demo accounts: 
+provider@luce.com   | provider
 requester@luce.com  | requester
 \n"
 echo

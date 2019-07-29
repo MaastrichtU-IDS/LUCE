@@ -41,6 +41,11 @@ cp /vagrant/.config/ganache_db/* /home/vagrant/.ganache_db
 # Change folder permissions
 sudo chown -R vagrant:vagrant /home/vagrant/.ganache_db
 
+# Create another folder for reset while lucevm is running
+mkdir -p /home/vagrant/.ganache_db_default
+cp /vagrant/.config/ganache_db/* /home/vagrant/.ganache_db_default
+sudo chown -R vagrant:vagrant /home/vagrant/.ganache_db_default
+
 
 # ==== INCLUDE TIMESTAMPS FOR PROVISIONING LOGIC ====
 
