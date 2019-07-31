@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script provides a convenient interface to interact with the LUCE servers
-
+# This script is placed in the default shell path so it can be directly executed as a command
 
 # No arguments
 if [ $ == ]
@@ -8,6 +8,8 @@ then
 	printf "Please use luce with one of the following arguments:
 	luce start  ->  Starts the Jupyter, Ganache and Django servers
 	luce stop   ->  Stops all running servers
+
+	luce status ->  Show the current status of the servers [running/not running]
 	luce reset  ->  Reset blockchain and default database back to demo state
 
 	luce start_psql  ->  Starts servers and uses alternative PSQL database

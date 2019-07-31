@@ -34,3 +34,4 @@ ubuntu-xenial-16.04-cloudimg-console.log
 # Exclude Django VM
  django_vm/**
  luce_vm/**
+/luce_wild/**
