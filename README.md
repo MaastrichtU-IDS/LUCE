@@ -23,7 +23,7 @@ vagrant up  # start LuceVM
 vagrant ssh -c 'bash start_servers.sh' 	# start the servers
 ```
 Then access the Jupyter server from the host system via `http://127.0.0.1:8888` with password `luce`.  
-Or visit the Luce Data Exchange via `http://127.0.0.1:8000`.
+Or visit the Luce Data Exchange via `http://127.0.0.1:8000`.  
 Demo accounts:  
 provider@luce.com &nbsp; | provider  
 requester@luce.com  | requester  
