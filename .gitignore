@@ -17,7 +17,7 @@ luce_vm/jupyter/.ipynb_checkpoints/*
 **/jupyter/.ipynb_checkpoints/*
 
 # Exclude safe storage area
-luce_vm/jupyter/safe_storage_area/*
+luce_vm/jupyter/safe_storage_area/**
 
 # Exclude all files of a certain filetype
 **.icloud
