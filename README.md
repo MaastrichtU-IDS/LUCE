@@ -19,11 +19,15 @@ The repository also contains supporting content and documentation materials I us
 cd ~/path/to/desired/location/
 git clone https://github.com/arnoan/LUCE.git
 cd ./LUCE/luce_vm 
-vagrant up 								# start LuceVM
+vagrant up  # start LuceVM
 vagrant ssh -c 'bash start_servers.sh' 	# start the servers
 ```
 Then access the Jupyter server from the host system via `http://127.0.0.1:8888` with password `luce`.  
-(Or visit `http://127.0.0.1:4567` for further instructions.)
+Or visit the Luce Data Exchange via `http://127.0.0.1:8000`.
+Demo accounts:  
+provider@luce.com &nbsp; | provider  
+requester@luce.com  | requester  
+
 
 ## Further Information
 
@@ -57,3 +61,14 @@ vagrant box update # this ensures you are using the latest lucevm and lucedb box
 ```
 
 **Warning:** Note that by running `git reset` all LUCE files that may have been changed locally will be overwritten with the latest version from Github. In order to experiment locally with Jupyter notebooks without the possibility of them accidentally being over-written I created the `/jupyter/safe_storage_area/` folder. The contents of this folder are not synchronised with the github repository. Not even when `git reset` is executed. Please store all files you wish to keep safe in that folder.
+
+*Q: How can I delete LuceVM completely?*   
+```
+vagrant -f destroy lucevm lucedb # this destroys all machines
+
+# Remove both custom base images from the system:
+vagrant box remove arnoan/lucevm 
+vagrant box remove arnoan/lucedb 
+```
+Then simply delete the folder to which this repository was cloned.  
+There are no other places where information is stored.
