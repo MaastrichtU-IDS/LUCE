@@ -63,6 +63,7 @@ vagrant box update # this ensures you are using the latest lucevm and lucedb box
 **Warning:** Note that by running `git reset` all LUCE files that may have been changed locally will be overwritten with the latest version from Github. In order to experiment locally with Jupyter notebooks without the possibility of them accidentally being over-written I created the `/jupyter/safe_storage_area/` folder. The contents of this folder are not synchronised with the github repository. Not even when `git reset` is executed. Please store all files you wish to keep safe in that folder.
 
 *Q: How can I delete LuceVM completely?*   
+To delete LuceVM we first destroy all currently instantiated machines. Then we remove the base images and - if desired - delete the folder containing all LUCE related application data.
 ```
 vagrant -f destroy lucevm lucedb # this destroys all machines
 
