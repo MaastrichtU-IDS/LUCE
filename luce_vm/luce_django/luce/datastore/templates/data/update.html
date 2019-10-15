@@ -3,6 +3,11 @@
 <!-- Main Content Section -->
 {% block content %}
 
+
+	<!-- Owner -->
+	{% if user == dataset.created_by %} 
+
+
 	<h1> Update {{ dataset.title }}: </h1>
 
 		<!-- Dataset Update Form -->
@@ -10,5 +15,12 @@
 		    {{ form.as_p }}
 		    <button type='submit'>Update</button>
 		</form> 
+
+	<!-- NOT Owner -->
+	{% else %}		
+
+	<a class="navbar-text text-info">Sorry, you do not have the required permission for what you are trying to do.</a>
+
+	{% endif %}
 
 {% endblock %}

@@ -121,6 +121,9 @@ conda install -y psycopg2
 SYSTEM_PREPARED_STAMP=/home/vagrant/.stamps/vagrant_system_prepared_timestamp
 date > "$SYSTEM_PREPARED_STAMP"
 
+# ==== SET DEFAULT CONDA ENVIRONMENT ====
+
+echo "conda activate luve_vm" >> /home/vagrant/.bashrc
 
 # ==== COMPLETION MESSAGE ====
 

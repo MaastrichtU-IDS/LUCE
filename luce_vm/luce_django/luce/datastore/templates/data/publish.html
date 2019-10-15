@@ -3,20 +3,32 @@
 
 {% block content %}
 
-<h1>Are you sure you want to publish the following dataset? </h1>
-<p> {{ dataset.title }} </p>
-<p> {{ dataset.description }} </p>
-<p> License: {{ dataset.license }} </p>
+	<!-- Owner -->
+	{% if user == dataset.created_by %} 
 
-<!-- This is simply a confirmation page. 
-	All other logic happens in view.py -->
-<form method ='POST'>{% csrf_token %}
+		<h1>Are you sure you want to publish the following dataset? </h1>
+		<p> {{ dataset.title }} </p>
+		<p> {{ dataset.description }} </p>
+		<p> License: {{ dataset.license }} </p>
 
-	<button class='btn btn-success'> Yes, Publish! </button>
+		<!-- This is simply a confirmation page. 
+			All other logic happens in view.py -->
+		<form method ='POST'>{% csrf_token %}
 
-</form>
+			<button class='btn btn-success'> Yes, Publish! </button>
 
-<!-- Alternative Button -->
-<button class='btn btn-info mt-1' onclick="window.location.href=' {{ dataset.get_absolute_url }} '"> No, take me back. </button>
+		</form>
+
+		<!-- Alternative Button -->
+		<button class='btn btn-info mt-1' onclick="window.location.href=' {{ dataset.get_absolute_url }} '"> No, take me back. </button>
+
+
+	<!-- NOT Owner -->
+	{% else %}		
+
+		<a class="navbar-text text-info">Sorry, you do not have the required permission for what you are trying to do.</a>
+
+	{% endif %}
+
 
 {% endblock %}

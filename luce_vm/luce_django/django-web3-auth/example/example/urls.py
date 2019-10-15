@@ -39,4 +39,5 @@ urlpatterns = [
     url(r'^login/', login, name='login'),
     url(r'^auto_login/', auto_login, name='autologin'),
     url(r'', include('web3auth.urls')),
+    # url(r'^hello/', ),
 ]
