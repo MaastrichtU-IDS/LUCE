@@ -82,3 +82,23 @@ vagrant box remove arnoan/lucedb
 ```
 Then simply delete the folder to which this repository was cloned.  
 There are no other places where information is stored.  
+
+## Run with docker
+
+Build
+
+```bash
+docker build -t vjaiman/luce .
+```
+
+Run
+
+```bash
+docker run -it -p 8000:8000 -p 8888:8888 vjaiman/luce
+```
+
+Run with docker-compose
+
+```bash
+docker-compose up -d
+```

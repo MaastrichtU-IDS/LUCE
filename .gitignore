@@ -35,3 +35,5 @@ ubuntu-xenial-16.04-cloudimg-console.log
  django_vm/**
  luce_vm/**
 /luce_wild/**
+
+/data/

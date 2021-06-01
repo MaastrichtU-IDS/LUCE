@@ -1,0 +1,53 @@
+version: '3'
+services:
+
+  postgres_db:
+    image: postgres
+    restart: unless-stopped
+    # ports:
+    #   - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=luce
+      - POSTGRES_USER=vagrant
+      - POSTGRES_DB=lucedb
+    volumes: 
+      - ./data/postgres:/var/lib/postgresql/data
+      # - ./luce_vm/.config/init_postgres:/docker-entrypoint-initdb.d
+
+
+  luce-server:
+    # image: vjaiman/luce
+    build: .
+    depends_on: 
+      - postgres_db
+    ports:
+      - "8000:8000"
+      - "8888:8888"
+    restart: unless-stopped
+    environment:
+      - JUPYTER_TOKEN=luce
+      # Nginx reverse proxy
+      - VIRTUAL_PORT=8000
+      - VIRTUAL_HOST=luce.137.120.31.102.nip.io
+      - LETSENCRYPT_HOST=luce.137.120.31.102.nip.io
+      # PostgreSQL config
+      - DJANGO_USE_PSQL=true
+      - POSTGRES_PASSWORD=luce
+      - POSTGRES_USER=vagrant
+      - POSTGRES_DB=lucedb
+      # Ideally the users/password should be defined here
+      # And automatically added to the database at start
+      - PROVIDER_USER=provider@luce.com
+      - PROVIDER_PASSWORD=provider
+      - REQUESTER_USER=requester@luce.com
+      - REQUESTER_PASSWORD=requester
+    # volumes:
+    #   - /data/luce-blockchain:/data
+
+  # ethereum-node:
+  #   image: ethereum/client-go
+  #   ports:
+  #     - "30303:30303"
+  #   command: "--rpc --rpcaddr 0.0.0.0"
+  #   volumes:
+  #     - ./data/ethereum:/root/.ethereum
