@@ -97,7 +97,7 @@ Run
 docker run -it -p 8000:8000 -p 8888:8888 vjaiman/luce
 ```
 
-Run with docker-compose
+To run with docker-compose, first check and change the `.env` file containing the parameters to run the application, such as the path to the persistent storage:
 
 ```bash
 docker-compose up -d

@@ -12,7 +12,7 @@ services:
       - VIRTUAL_HOST=ganache.luce.137.120.31.102.nip.io
       - LETSENCRYPT_HOST=ganache.luce.137.120.31.102.nip.io
     volumes: 
-      - ./data/ganache_db:/ganache_db
+      - ${STORAGE_PATH}/ganache_db:/ganache_db
 
 
   postgres_db:
@@ -27,7 +27,7 @@ services:
       - POSTGRES_USER=vagrant
       - POSTGRES_DB=lucedb
     volumes: 
-      - ./data/postgres:/var/lib/postgresql/data
+      - ${STORAGE_PATH}/postgres_db:/var/lib/postgresql/data
       - ./luce_vm/.config/init_postgres:/docker-entrypoint-initdb.d
 
 
@@ -57,8 +57,6 @@ services:
       - PROVIDER_PASSWORD=provider
       - REQUESTER_USER=requester@luce.com
       - REQUESTER_PASSWORD=requester
-    # volumes:
-    #   - ./data/ganache_db:/root/.ganache_db
 
   jupyterlab:
     image: jupyter/base-notebook
