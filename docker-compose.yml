@@ -12,7 +12,7 @@ services:
       - VIRTUAL_HOST=ganache.luce.137.120.31.102.nip.io
       - LETSENCRYPT_HOST=ganache.luce.137.120.31.102.nip.io
     volumes: 
-      - ${STORAGE_PATH}/ganache_db:/ganache_db
+      - ${STORAGE_PATH:-./data}/ganache_db:/ganache_db
 
 
   postgres_db:
@@ -27,7 +27,7 @@ services:
       - POSTGRES_USER=vagrant
       - POSTGRES_DB=lucedb
     volumes: 
-      - ${STORAGE_PATH}/postgres_db:/var/lib/postgresql/data
+      - ${STORAGE_PATH:-./data}/postgres_db:/var/lib/postgresql/data
       - ./luce_vm/.config/init_postgres:/docker-entrypoint-initdb.d
 
 

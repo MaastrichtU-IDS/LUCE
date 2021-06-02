@@ -97,8 +97,10 @@ Run
 docker run -it -p 8000:8000 -p 8888:8888 vjaiman/luce
 ```
 
-To run with docker-compose, first check and change the `.env` file containing the parameters to run the application, such as the path to the persistent storage:
+Run with docker-compose, the ganache DB and postgres DB will be stored in a `data` folder in the same directory as the `docker-compose.yml` file:
 
 ```bash
 docker-compose up -d
 ```
+
+> You can easily change the path to the storage folder by copying `.env.sample` to `.env` and change the storage path variable.
