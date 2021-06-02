@@ -15,6 +15,7 @@ test_vm/django/dapp/__pycache__/*
 # Exclude jupyter checkpoints directory
 luce_vm/jupyter/.ipynb_checkpoints/*
 **/jupyter/.ipynb_checkpoints/*
+.local
 
 # Exclude safe storage area
 luce_vm/jupyter/safe_storage_area/**
