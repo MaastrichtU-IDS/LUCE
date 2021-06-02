@@ -11,8 +11,8 @@ services:
       - POSTGRES_USER=vagrant
       - POSTGRES_DB=lucedb
     volumes: 
-      - ./data/postgres:/var/lib/postgresql/data
-      # - ./luce_vm/.config/init_postgres:/docker-entrypoint-initdb.d
+      # - ./data/postgres:/var/lib/postgresql/data
+      - ./luce_vm/.config/init_postgres:/docker-entrypoint-initdb.d
 
 
   luce-server:

@@ -26,7 +26,7 @@ COPY luce_vm /luce/
 
 RUN pip install -r /luce/requirements.txt
 
-RUN python /luce/luce_django/luce/manage.py loaddata /luce/luce_django/luce/utils/fixtures/demo_all_v2.json
+# RUN python /luce/luce_django/luce/manage.py loaddata /luce/luce_django/luce/utils/fixtures/demo_all_v2.json
 
 RUN mkdir -p /root/.local/share/jupyter/kernels/luce_vm/ && \
     cp /luce/.config/luce_jupyter_kernel.json /root/.local/share/jupyter/kernels/luce_vm/
@@ -63,8 +63,8 @@ RUN mkdir -p /root/.ganache_db && \
 # pip install ipykernel
 # python -m ipykernel install --user --name=luce_vm
 
-RUN wget -O /wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
-    chmod +x /wait-for-it.sh
+# RUN wget -O /wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
+#     chmod +x /wait-for-it.sh
 
 EXPOSE 8000
 EXPOSE 8888
