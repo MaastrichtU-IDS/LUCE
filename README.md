@@ -6,8 +6,6 @@ LuceVM is a self-contained virtual machine to facilitate web3 development. It en
 
 This repository explains how to set-up LuceVM to access the LUCE Prototype.
 
-Soon a web-hosted version will be made available as well.
-
 ## Run with docker
 
 Build
@@ -22,7 +20,7 @@ Run
 docker run -it -p 8000:8000 -p 8888:8888 vjaiman/luce
 ```
 
-Run with docker-compose, the ganache DB and postgres DB will be stored in a `data` folder in the same directory as the `docker-compose.yml` file:
+Run with docker-compose, the ganache DB and postgres DB will be stored in a `data` folder in the same directory as the `docker-compose.yml` file. You will need also to uncomment the ports in the `docker-compose.yml` 
 
 ```bash
 docker-compose up -d
