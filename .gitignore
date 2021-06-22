@@ -16,6 +16,14 @@ test_vm/django/dapp/__pycache__/*
 luce_vm/jupyter/.ipynb_checkpoints/*
 **/jupyter/.ipynb_checkpoints/*
 .local
+.bash_history
+.cache
+.ipython
+.jupyter
+.solcx
+.ipynb_checkpoints
+
+workspace.code-workspace
 
 # Exclude safe storage area
 luce_vm/jupyter/safe_storage_area/**
