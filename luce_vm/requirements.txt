@@ -1,6 +1,6 @@
 django==2.2
 django-extensions
-psycopg2
+psycopg2==2.8.6
 py-solc
 py-solc-x
 web3
