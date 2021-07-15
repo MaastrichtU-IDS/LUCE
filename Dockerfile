@@ -5,7 +5,8 @@ FROM jupyter/base-notebook:python-3.7.6
 USER root
 WORKDIR /luce
 
-    
+ENV USE_TZ=False
+
 RUN apt update && \
     apt install -y wget build-essential software-properties-common libssl-dev  postgresql-client libpq-dev
 
