@@ -1,5 +1,7 @@
 # LUCE Technical Prototype & LuceVM
 
+The paper is available online: https://arxiv.org/abs/2202.11646
+
 The technical prototype of LUCE is accessible via LuceVM.
 
 LuceVM is a self-contained virtual machine to facilitate web3 development. It encapsulates a Python-Django-Ethereum development stack and allows us to compile, deploy and interact with Ethereum Smart Contracts in a seamless manner. It was created primarily to facilitate the development of the LUCE technical prototype but can be used to support other blockchain-focused research as well.
