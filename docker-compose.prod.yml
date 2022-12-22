@@ -28,7 +28,7 @@ services:
       - POSTGRES_DB=lucedb
     volumes:
       - ${STORAGE_PATH:-./data}/postgres_db:/var/lib/postgresql/data
-      - ./scripts/init_postgres.sh:/docker-entrypoint-initdb.d/init_postgres.sh
+      - ./luce_vm/.config/init_postgres:/docker-entrypoint-initdb.d
 
 
   luce_server:
@@ -58,19 +58,19 @@ services:
       - REQUESTER_USER=requester@luce.com
       - REQUESTER_PASSWORD=requester
 
-  jupyterlab:
-    image: jupyter/base-notebook
-    # build: ./luce_vm/jupyter
-    restart: unless-stopped
-    user: root
-    ports:
-      - 8889:8888
-    volumes:
-      - ./src/notebooks:/home/jovyan/work
-    environment:
-      - JUPYTER_TOKEN=password
-      - GRANT_SUDO=yes
-      - JUPYTER_ENABLE_LAB=yes
+  # jupyterlab:
+  #   # image: jupyter/base-notebook
+  #   build: ./luce_vm/jupyter
+  #   restart: unless-stopped
+  #   user: root
+  #   ports:
+  #     - 8888:8888
+  #   volumes:
+  #     - ./luce_vm/jupyter:/home/jovyan/work
+  #   environment:
+  #     - JUPYTER_TOKEN=password
+  #     - GRANT_SUDO=yes
+  #     - JUPYTER_ENABLE_LAB=yes
 
 
   # ethereum-node:

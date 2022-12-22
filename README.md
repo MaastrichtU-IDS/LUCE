@@ -1,4 +1,4 @@
-# LUCE Technical Prototype & LuceVM
+# LUCE Technical Prototype
 
 The paper is available online: https://arxiv.org/abs/2202.11646
 
@@ -7,6 +7,13 @@ The technical prototype of LUCE is accessible via LuceVM.
 LuceVM is a self-contained virtual machine to facilitate web3 development. It encapsulates a Python-Django-Ethereum development stack and allows us to compile, deploy and interact with Ethereum Smart Contracts in a seamless manner. It was created primarily to facilitate the development of the LUCE technical prototype but can be used to support other blockchain-focused research as well.
 
 This repository explains how to set-up LuceVM to access the LUCE Prototype.
+
+## Online demo
+
+Try the webhosted version:
+
+* LUCE Web UI: https://luce.137.120.31.102.nip.io
+* LUCE blockchain access: https://ganache.luce.137.120.31.102.nip.io
 
 ## Run with docker
 
@@ -22,7 +29,7 @@ Run
 docker run -it -p 8000:8000 -p 8888:8888 vjaiman/luce
 ```
 
-Run with docker-compose, the ganache DB and postgres DB will be stored in a `data` folder in the same directory as the `docker-compose.yml` file. You will need also to uncomment the ports in the `docker-compose.yml` 
+Run with docker-compose, the ganache DB and postgres DB will be stored in a `data` folder in the same directory as the `docker-compose.yml` file. You will need also to uncomment the ports in the `docker-compose.yml`
 
 ```bash
 docker-compose up -d
@@ -30,12 +37,79 @@ docker-compose up -d
 
 > You can easily change the path to the storage folder by copying `.env.sample` to `.env` and change the storage path variable.
 
-Try the webhosted version:
+Access on http://localhost:8000 and connect with one of the demo account:
 
-* LUCE Web UI: https://luce.137.120.31.102.nip.io
-* LUCE blockchain access: https://ganache.luce.137.120.31.102.nip.io
+* provider@luce.com &nbsp; | provider
+* requester@luce.com  | requester
 
-## Usage of LuceVM (deprecated)
+
+
+## 🧑‍💻 Development setup
+
+The final section of the README is for if you want to run the package in development, and get involved by making a code contribution.
+
+
+### 📥️ Clone
+
+Clone the repository:
+
+```bash
+git clone https://github.com/vemonet/luce
+cd luce
+```
+### 🐣 Install dependencies
+
+Install [Hatch](https://hatch.pypa.io), this will automatically handle virtual environments and make sure all dependencies are installed when you run a script in the project:
+
+```bash
+pip install --upgrade hatch
+```
+
+Install the dependencies in a local virtual environment:
+
+```bash
+hatch -v env create
+```
+
+### ☑️ Run tests
+
+Make sure the existing tests still work by running ``pytest``. Note that any pull requests to the fairworkflows repository on github will automatically trigger running of the test suite;
+
+```bash
+hatch run test
+```
+
+To display all `print()`:
+
+```bash
+hatch run test -s
+```
+
+### 🧹 Code formatting
+
+The code will be automatically formatted when you commit your changes using `pre-commit`. But you can also run the script to format the code yourself:
+
+```
+hatch run fmt
+```
+
+Check the code for errors, and if it is in accordance with the PEP8 style guide, by running `flake8` and `mypy`:
+
+```
+hatch run check
+```
+
+### ♻️ Reset the environment
+
+In case you are facing issues with dependencies not updating properly you can easily reset the virtual environment with:
+
+```bash
+hatch env prune
+```
+
+
+# Deprecated instructions for LuceVM
+
 LuceVm works on all major operating systems (Linux, Mac and Windows).
 
 * First make sure [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) are installed
@@ -43,50 +117,50 @@ LuceVm works on all major operating systems (Linux, Mac and Windows).
   * [This blog post](https://medium.com/@DMeechan/fixing-the-installation-failed-virtualbox-error-on-mac-high-sierra-7c421362b5b5) explains how to fix that
   * On Windows, ensure that [Hyper-V is enabled](https://www.vagrantup.com/docs/hyperv/)
 * Check if `git` is installed and if not install from [here](https://git-scm.com)
-  * To check if git is installed run `git --version` in the terminal 
+  * To check if git is installed run `git --version` in the terminal
   * If it is installed it will return the version number
 * Then clone the LUCE base folder from github and start the VM as follows:
 
 ```bash
 cd ~/path/to/desired/location/
 git clone https://github.com/arnoan/LUCE.git
-cd ./LUCE/luce_vm 
+cd ./LUCE/luce_vm
 vagrant up  # start LuceVM
 vagrant ssh -c 'bash start_servers.sh' 	# start the servers
 ```
 
 Visit `http://127.0.0.1:8000` in your browser to access the LUCE Data Exchange.
-Demo accounts:  
-provider@luce.com &nbsp; | provider  
-requester@luce.com  | requester  
+Demo accounts:
+provider@luce.com &nbsp; | provider
+requester@luce.com  | requester
 
-For research usage the Jupyter notebook environment is accessible via `http://127.0.0.1:8888`.  
+For research usage the Jupyter notebook environment is accessible via `http://127.0.0.1:8888`.
 The password is: `luce`.
 
 Once finished the virtual machine can be stopped using either `vagrant halt`, `vagrant suspend` and completely removed using `vagrant destroy`. See below for the differences.
 
 ## Further Information
 
-*Q: How do I stop the virtual machine when I am finished working?*   
+*Q: How do I stop the virtual machine when I am finished working?*
 From within the same terminal where lucevm was started:
 ```
 vagrant suspend
 ```
 This hibernates the virtual machine. That way the next time it is started via `vagrant up` it will start much faster and continue in exactly the same state as you left off. There is no need to manually start the servers again.
 
-*Q: How do I resume the machine?*   
+*Q: How do I resume the machine?*
 No matter the state (hibernated, shut down, or not-yet-existent), we always use the same command to start up:
 ```
 vagrant up
 ```
 If the machine was previously hibernated `vagrant up` is all that is needed. If the machine was shut down or completely destroyed the servers need to be manually started again with `vagrant ssh -c 'bash start_servers.sh'`.
 
-*Q: How do I stop the machine completely?*   
+*Q: How do I stop the machine completely?*
 The machine can be shut down completely via `vagrant halt` - in that case the servers have to be started again the next time LuceVM is booted. Finally `vagrant destroy` can be used to completely destroy the virtual machine instance. (All changes within the Luce Data Exchange and in the Jupyter python notebooks and are still preserved even if the machine is destroyed. That is because all application code for Jupyter, Django, the Datbase etc. are actually sotred on the host machine filesystem. This data is automatically shared with the VM again when a new machine instance is created.)
 
-*Q: How can I update to the latest data contained in this github repository?*  
-To update, first navigate to your local LUCE folder: `cd ~/path/to/LUCE/`  
-Then run the following in the terminal:  
+*Q: How can I update to the latest data contained in this github repository?*
+To update, first navigate to your local LUCE folder: `cd ~/path/to/LUCE/`
+Then run the following in the terminal:
 ```bash
 git fetch origin # this downloads all new content from github
 git reset --hard origin/master # this replaces all local LUCE content with the newest updates
@@ -98,15 +172,15 @@ vagrant box update # this ensures you are using the latest lucevm and lucedb box
 
 **Warning:** Note that by running `git reset` all LUCE files that may have been changed locally will be overwritten with the latest version from Github. In order to experiment locally with Jupyter notebooks without the possibility of them accidentally being over-written please create a `/jupyter/safe_storage_area/` folder. The contents of this folder are not synchronised with the github repository. Not even when `git reset` is executed. Please store all files you wish to keep safe in that folder.
 
-*Q: How can I delete LuceVM completely?*   
+*Q: How can I delete LuceVM completely?*
 To delete LuceVM we first destroy all currently instantiated machines. Then we remove the base images and - if desired - delete the folder containing all LUCE related application data.
 ```
 vagrant -f destroy lucevm lucedb # this destroys all machines
 
 # Remove both custom base images from the system:
-vagrant box remove arnoan/lucevm 
-vagrant box remove arnoan/lucedb 
+vagrant box remove arnoan/lucevm
+vagrant box remove arnoan/lucedb
 ```
-Then simply delete the folder to which this repository was cloned.  
-There are no other places where information is stored.  
+Then simply delete the folder to which this repository was cloned.
+There are no other places where information is stored.
 

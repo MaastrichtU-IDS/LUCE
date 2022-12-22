@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - orcid: https://orcid.org/0000-0002-1501-1082
+    email: vincent.emonet@gmail.com
+    given-names: Vincent Emonet
+    affiliation: Institute of Data Science, Maastricht University
+  - given-names: Visara Urovi
+    affiliation: Institute of Data Science, Maastricht University
+  - given-names: Vikas Jaiman
+    affiliation: Institute of Data Science, Maastricht University
+  - given-names: Arno Angerer
+  - given-names: Michel Dumontier
+    email: michel.dumontier@maastrichtuniversity.nl
+    affiliation: Institute of Data Science, Maastricht University
+title: "LUCE: A Blockchain-based data sharing platform for monitoring data license accountability and compliance"
+repository-code: https://github.com/vemonet/luce
+date-released: 2022-02-23
+url: https://pypi.org/project/luce
+doi: 10.48550/arXiv.2202.11646

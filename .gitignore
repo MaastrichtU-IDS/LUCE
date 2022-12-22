@@ -1,6 +1,8 @@
 # Ignore MacOS files
 .DS_Store
 
+*.egg-info
+
 # Exlude internal vagrant directories
 luce_vm/.vagrant/*
 test_vm/.vagrant/*
@@ -32,7 +34,7 @@ luce_vm/jupyter/safe_storage_area/**
 **.icloud
 **.sublime-workspace
 **.sublime-project
-**.box 
+**.box
 # Track again later via Git LFS?
 
 # Exclude specific files/folders

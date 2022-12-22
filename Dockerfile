@@ -16,21 +16,28 @@ RUN add-apt-repository -y ppa:ethereum/ethereum && \
     apt install -y ethereum
 
 # RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /root/miniconda.sh
-    
+
 
 RUN conda install -y jupyter_contrib_nbextensions
 
-COPY luce_vm /luce/
+ADD requirements.txt .
+
+RUN pip install -r requirements.txt
+
+COPY scripts/entrypoint.sh /entrypoint.sh
+
+COPY src .
 
 ## Uncomment this line to use psql instead of SQLite
 # ENV DJANGO_USE_PSQL=true
 
-RUN pip install -r /luce/requirements.txt
 
 # RUN python /luce/luce_django/luce/manage.py loaddata /luce/luce_django/luce/utils/fixtures/demo_all_v2.json
+# RUN mkdir -p /root/.local/share/jupyter/kernels/luce_vm/
 
-RUN mkdir -p /root/.local/share/jupyter/kernels/luce_vm/ && \
-    cp /luce/.config/luce_jupyter_kernel.json /root/.local/share/jupyter/kernels/luce_vm/
+# TODO: remove?
+COPY resources/luce_jupyter_kernel.json /root/.local/share/jupyter/kernels/luce_vm/
+
 
 # Enable jupyter extensions
 RUN jupyter nbextension enable toc2/main && \
@@ -51,15 +58,15 @@ RUN mkdir -p /root/.nvm && \
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && \
     nvm install node
 
-RUN npm install -g ganache-cli
-RUN mkdir -p /root/.ganache_db && \
-    cp /luce/.config/ganache_db/* /root/.ganache_db/
+# RUN npm install -g ganache-cli
+# RUN mkdir -p /root/.ganache_db && \
+#     cp /luce/.config/ganache_db/* /root/.ganache_db/
 
 # RUN cp /luce/.config/ganache_db /root/.ganache_db
 
 
 # Set up jupyter kernel for luce python environment
-# The custom kernel allows us to introduce environment variables 
+# The custom kernel allows us to introduce environment variables
 # for access to the Django context from within Jupyter
 # pip install ipykernel
 # python -m ipykernel install --user --name=luce_vm
@@ -70,4 +77,4 @@ RUN mkdir -p /root/.ganache_db && \
 EXPOSE 8000
 EXPOSE 8888
 
-ENTRYPOINT [ "/luce/entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
