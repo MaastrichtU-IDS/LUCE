@@ -40,6 +40,8 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
+    volumes:
+      - ./src:/luce
     environment:
       - JUPYTER_TOKEN=luce
       # Nginx reverse proxy
@@ -58,19 +60,19 @@ services:
       - REQUESTER_USER=requester@luce.com
       - REQUESTER_PASSWORD=requester
 
-  jupyterlab:
-    image: jupyter/base-notebook
-    # build: ./luce_vm/jupyter
-    restart: unless-stopped
-    user: root
-    ports:
-      - 8889:8888
-    volumes:
-      - ./src/notebooks:/home/jovyan/work
-    environment:
-      - JUPYTER_TOKEN=password
-      - GRANT_SUDO=yes
-      - JUPYTER_ENABLE_LAB=yes
+  # jupyterlab:
+  #   image: jupyter/base-notebook
+  #   # build: ./luce_vm/jupyter
+  #   restart: unless-stopped
+  #   user: root
+  #   ports:
+  #     - 8889:8888
+  #   volumes:
+  #     - ./src/notebooks:/home/jovyan/work
+  #   environment:
+  #     - JUPYTER_TOKEN=password
+  #     - GRANT_SUDO=yes
+  #     - JUPYTER_ENABLE_LAB=yes
 
 
   # ethereum-node:
