@@ -26,7 +26,7 @@ COPY scripts/entrypoint.sh /entrypoint.sh
 
 
 
-COPY src .
+COPY . .
 
 RUN pip install -e .
 

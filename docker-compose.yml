@@ -41,7 +41,7 @@ services:
       - "8000:8000"
     restart: unless-stopped
     volumes:
-      - ./src:/luce
+      - ./:/luce
     environment:
       - JUPYTER_TOKEN=luce
       # Nginx reverse proxy
