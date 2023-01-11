@@ -44,9 +44,12 @@ python /luce/src/luce_django/luce/manage.py loaddata /luce/src/luce_django/luce/
 # python scripts/create_users.py
 
 
-echo "Demo accounts:"
+echo "👤 Demo accounts:"
 echo "provider@luce.com   | provider"
 echo "requester@luce.com  | requester"
+
+echo "🚀 Access the LUCE user interface on http://localhost:8000"
+
 
 # Start Django on port 8000
 python /luce/src/luce_django/luce/manage.py runserver 0.0.0.0:8000 --noreload
