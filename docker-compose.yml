@@ -2,9 +2,9 @@ version: '3'
 services:
 
   ganache_db:
-    image: trufflesuite/ganache-cli
+    image: trufflesuite/ganache:v7.7.3
     restart: unless-stopped
-    command: --mnemonic luce --db /ganache_db --networkId 72 --host 0.0.0.0 --accounts 10 --defaultBalanceEther 1000000 --account "0x5714ad5f65fb27cb0d0ab914db9252dfe24cf33038a181555a7efc3dcf863ab3,1000000000000000000000000" --account "0xad740a17686169082f3148dcec143e4730fc69a636d710cb8e4e23ef966feadd,1000000000000000000000000" --account "0xdd11160def74259a8cfcb0282702ab65c1388cf4e0265f567fe0a3707957d810,1000000000000000000000000"
+    command: --database.dbPath /ganache_db --chain.networkId 72 -h 0.0.0.0 -e 1000000
     ports:
       - 8545:8545
     environment:
