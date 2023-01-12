@@ -11,10 +11,11 @@ from utils.web3_scripts import assign_address, assign_address_v3
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    access_token = forms.CharField(label='Access token', widget=forms.TextInput)
 
     class Meta:
         model = User
-        fields = ('email','first_name', 'last_name', 'institution')
+        fields = ('email', 'first_name', 'last_name', 'access_token', 'institution')
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -87,7 +88,7 @@ class UserAdminChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'institution', 'password', 'active', 'staff', 'admin')
+        fields = ('email', 'first_name', 'last_name', 'institution' , 'user_type', 'password', 'active', 'staff' , 'admin')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

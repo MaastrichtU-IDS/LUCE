@@ -8,6 +8,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserAdminCreationForm, UserAdminChangeForm
 from .models import User
 
+
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     form = UserAdminChangeForm
@@ -19,17 +20,35 @@ class UserAdmin(BaseUserAdmin):
     list_display = ('email', 'admin')
     list_filter = ('admin',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'institution')}),
-        ('Web3', {'fields': ('ethereum_public_key',)}),
-        ('Permissions', {'fields': ('admin', 'staff','active')}),
+        (
+            None, {
+                'fields': ('email', 'password')
+            }
+        ),
+        (
+            'Personal info', {
+                'fields': ('first_name', 'last_name', 'institution')
+            }
+        ),
+        (
+            'Web3', {
+                'fields': ('ethereum_public_key',)
+            }
+        ),
+        (
+            'Permissions', {
+                'fields': ('admin', 'staff', 'active')
+            }
+        ),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'first_name', 'last_name', 'institution', 'password1', 'password2')}
+        (
+            None, {
+                'classes': ('wide',),
+                'fields': ('email', 'first_name', 'last_name', 'institution', 'password1', 'password2')
+            }
         ),
     )
     search_fields = ('email',)
@@ -38,7 +57,6 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
-
 
 
 # Remove Group Model from admin. We're not using it.

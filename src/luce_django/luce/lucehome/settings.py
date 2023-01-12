@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
 
     'datastore',
     'accounts',
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'django_extensions',
 ]
 
-AUTH_USER_MODEL = 'accounts.User' # changes the built-in user model
+AUTH_USER_MODEL = 'accounts.User'  # changes the built-in user model
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,7 +145,8 @@ USE_TZ = True
 
 # Simulate a CDN locally:
 # This path is outside django project, usually a CDN like AWS S3
-LOCAL_STATIC_CDN_PATH = os.path.join(os.path.dirname(BASE_DIR), 'luce_static_files/static_cdn_local')
+LOCAL_STATIC_CDN_PATH = os.path.join(os.path.dirname(
+    BASE_DIR), 'luce_static_files/static_cdn_local')
 
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'static')
@@ -165,4 +168,3 @@ STATICFILES_DIRS = [BASE_DIR + '/lucehome/static_files/']
 # Override variables in this settings file if DJANGO_USE_PSQL env variable is set
 if os.environ.get('DJANGO_USE_PSQL') is not None:
     from lucehome.settings_psql import *
-
