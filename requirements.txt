@@ -1,10 +1,8 @@
-django==2.2
+django==3.0
 django-extensions
 psycopg2==2.8.6
-py-solc
-py-solc-x
+py-solc <3.0.0
+py-solc-x <2.0.0
 web3
 ipykernel
 ethereum==2.3.1
-rlp==1.0.1
-eth_utils>=1.0.3

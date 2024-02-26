@@ -3,7 +3,7 @@
 FROM python:3.7
 
 USER root
-WORKDIR /luce
+WORKDIR /app
 
 ENV USE_TZ=False
 
@@ -31,6 +31,7 @@ COPY . .
 RUN pip install -e .
 
 RUN python -m solcx.install v0.4.25
+
 
 
 

@@ -33,17 +33,15 @@ classifiers = [
 ]
 
 dependencies = [
-    "django == 3.0",
+    "django ==3.0",
     "django-extensions",
     "psycopg2 ==2.8.6",
-    "py-solc",
-    "py-solc-x",
-    "web3",
+    "py-solc <3.0.0",
+    "py-solc-x <2.0.0",
+    "web3 <6.0.0",
     "ipykernel",
     "ethereum ==2.3.1",
-    "rlp ==1.0.1",
-    "eth_utils >=1.0.3",
-    "djangorestframework == 3.14.0"
+    "djangorestframework ==3.14.0"
 ]
 
 
@@ -55,10 +53,12 @@ test = [
     "ruff >=0.0.189",
     "isort >=5.11.0",
     "mypy >=0.991",
-    "black >= 22.8.0",
+    "black >=22.8.0",
 ]
 dev = [
     "pre-commit >=2.17.0",
+    "rlp ==1.0.1",
+    "eth_utils >=1.0.3",
 ]
 
 
@@ -83,14 +83,15 @@ features = [
 [tool.hatch.envs.default.scripts]
 test = "pytest {args}"
 cov = "test --cov src {args}"
-dev = "python tests/dev.py {args}"
+dev = [
+    "python src/luce/manage.py migrate",
+    "python src/luce/manage.py runserver localhost:8000 {args}",
+]
 fmt = [
-    "isort src tests",
     "black src tests",
     "ruff src tests --fix",
 ]
 check = [
-    "isort --check-only --diff src",
     "ruff src tests",
     "black src tests --check",
     "mypy src",
@@ -102,6 +103,8 @@ all = [
 ]
 
 # TOOLS
+[tool.hatch.build.targets.wheel]
+packages = ["src/luce"]
 
 [tool.coverage.run]
 source = ["src"]

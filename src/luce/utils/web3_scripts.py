@@ -15,7 +15,7 @@ SOLIDITY_CONTRACT_FILE = BASE_DIR + '/utils/data/luce.sol'
 
 # Create faucet for pre-funding accounts
 # NOTE: placing a private key here is obviously very unsafe
-# We only do this for development usage. When transitioning 
+# We only do this for development usage. When transitioning
 # to Infura the faucet can be replaced with an API call instead.
 
 # Private key (obtained via Ganache interface)
@@ -29,7 +29,7 @@ def create_wallet():
 
 def send_ether(amount_in_ether, recipient_address, sender_pkey=faucet.privateKey):
     amount_in_wei = w3.toWei(amount_in_ether,'ether');
-    
+
     # Obtain sender address from private key
     sender_address = w3.eth.account.privateKeyToAccount(sender_pkey).address
 
@@ -37,7 +37,7 @@ def send_ether(amount_in_ether, recipient_address, sender_pkey=faucet.privateKey
     # This is required and prevents double-spending.
     # Same name but different from nonce in block mining.
     nonce = w3.eth.getTransactionCount(sender_address)
-    
+
     # Specify transcation dictionary
     txn_dict = {
             'to': recipient_address,
@@ -47,7 +47,7 @@ def send_ether(amount_in_ether, recipient_address, sender_pkey=faucet.privateKey
             'nonce': nonce,
             'chainId': 3
     }
-    
+
     # IN THIS STEP THE PRIVATE KEY OF THE SENDER IS USED
     # Sign transaction
     def sign_transaction(txn_dict, sender_pkey):
@@ -55,15 +55,15 @@ def send_ether(amount_in_ether, recipient_address, sender_pkey=faucet.privateKey
         return signed_txn
     signed_txn      = sign_transaction(txn_dict, sender_pkey)
     signed_txn_raw = signed_txn.rawTransaction
-    
-    
+
+
     # Send transaction & store transaction hash
     def send_raw_transaction(raw_transaction):
         txn_hash = w3.eth.sendRawTransaction(raw_transaction)
         return txn_hash
     txn_hash = send_raw_transaction(signed_txn_raw)
 
-    # Check if transaction was added to blockchain 
+    # Check if transaction was added to blockchain
     # time.sleep(5)     # Not needed on Ganache since our transactions are instantaneous
     txn_receipt = w3.eth.getTransactionReceipt(txn_hash)
     return txn_hash
@@ -103,12 +103,12 @@ def assign_address_v3(user):
 def deploy_contract_v3(private_key):
     from solcx import compile_source
     from web3 import Web3
-    
+
 
     # Read in LUCE contract code
     with open(SOLIDITY_CONTRACT_FILE, 'r') as file: # Adjust file_path for use in Jupyter/Django
         contract_source_code = file.read()
-    
+
     # Compile & Store Compiled source code
     compiled_sol = compile_source(contract_source_code)
 
@@ -118,48 +118,50 @@ def deploy_contract_v3(private_key):
     # Extract abi and bytecode
     abi = contract_interface['abi']
     bytecode = contract_interface['bin']
-    
+
     # Establish web3 connection
     w3 = Web3(Web3.HTTPProvider(ganache_url))
-    
+    # TODO: get from environment
+    ganache_chain_id = 1337
+
     #Obtain user so we know his address for the 'from' field
     user = w3.eth.account.privateKeyToAccount(private_key)
-    
+
     # Construct raw transaction
     nonce = w3.eth.getTransactionCount(user.address)
-    
+
     transaction = {
-    'from': user.address,
-    'gas': 2000000,
-    'data': bytecode,
-    'chainId': 3,
-    'gasPrice': w3.toWei('40', 'gwei'),
-    'nonce': nonce,
+        'from': user.address,
+        'gas': 2000000,
+        'data': bytecode,
+        'chainId': ganache_chain_id,
+        'gasPrice': w3.toWei('40', 'gwei'),
+        'nonce': nonce,
     }
-    
+
     # Sign transaction
     signed_txn = w3.eth.account.signTransaction(transaction, private_key)
-    
+
     # Deploy
     tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
-    
+
     # Wait for the transaction to be mined, and get the transaction receipt
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+
     # Obtain address of freshly deployed contract
     contractAddress = tx_receipt.contractAddress
-    
+
     return contractAddress
 
 
 # Auxilary function to support interaction with existing smart contract
 def compile_and_extract_interface():
     from solcx import compile_source
-    
+
     # Read in LUCE contract code
     with open(SOLIDITY_CONTRACT_FILE, 'r') as file: # Adjust file_path for use in Jupyter/Django
         contract_source_code = file.read()
-        
+
     # Compile & Store Compiled source code
     compiled_sol = compile_source(contract_source_code)
 
@@ -169,7 +171,7 @@ def compile_and_extract_interface():
     # Extract abi and bytecode
     abi = contract_interface['abi']
     bytecode = contract_interface['bin']
-    
+
     # Create dictionary with interface
     d = dict()
     d['abi']      = abi
@@ -180,21 +182,21 @@ def compile_and_extract_interface():
 
 def publish_data_v3(provider_private_key, contract_address, description="Description", license=3, link="void"):
     from web3 import Web3
-    
+
     # Compile Luce contract and obtain interface
     d = compile_and_extract_interface()
-    
+
     # Establish web3 connection
     w3 = Web3(Web3.HTTPProvider(ganache_url))
-    
+
     # Obtain user so we know his address for the 'from' field
     private_key = provider_private_key
     user = w3.eth.account.privateKeyToAccount(private_key)
-    
+
     # Obtain contract address & instantiate contract
     contract_address = contract_address
     luce = w3.eth.contract(address=contract_address, abi=d['abi'])
-    
+
     # Construct raw transaction
     nonce = w3.eth.getTransactionCount(user.address)
     txn_dict = {
@@ -203,38 +205,38 @@ def publish_data_v3(provider_private_key, contract_address, description="Descrip
     'gasPrice': w3.toWei('40', 'gwei'),
     'nonce': nonce,
     }
-    
+
     luce_txn = luce.functions.publishData(description,link,license).buildTransaction(txn_dict)
-    
+
     # Sign transaction
     signed_txn = w3.eth.account.signTransaction(luce_txn, private_key)
-    
+
     # Deploy
     tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
-    
+
     # Wait for the transaction to be mined, and get the transaction receipt
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+
     return tx_receipt
 
 def add_requester_v3(requester_private_key, contract_address, license=3, purpose_code=3):
     from web3 import Web3
-    
+
 
     # Compile Luce contract and obtain interface
     d = compile_and_extract_interface()
-    
+
     # Establish web3 connection
     w3 = Web3(Web3.HTTPProvider(ganache_url))
-    
+
     # Obtain user so we know his address for the 'from' field
     private_key = requester_private_key
     user = w3.eth.account.privateKeyToAccount(private_key)
-    
+
     # Obtain contract address & instantiate contract
     contract_address = contract_address
     luce = w3.eth.contract(address=contract_address, abi=d['abi'])
-    
+
     # Construct raw transaction
     nonce = w3.eth.getTransactionCount(user.address)
     txn_dict = {
@@ -243,40 +245,40 @@ def add_requester_v3(requester_private_key, contract_address, license=3, purpose
     'gasPrice': w3.toWei('40', 'gwei'),
     'nonce': nonce,
     }
-    
+
     license_type = license
     # Obtain license from smart contract
     license_type = luce.functions.getLicence().call()
     luce_txn = luce.functions.addDataRequester(purpose_code,license_type).buildTransaction(txn_dict)
-    
+
     # Sign transaction
     signed_txn = w3.eth.account.signTransaction(luce_txn, private_key)
-    
+
     # Deploy
     tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
-    
+
     # Wait for the transaction to be mined, and get the transaction receipt
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+
     return tx_receipt
 
 def update_contract_v3(provider_private_key, contract_address, description="Updated Description", link="void"):
     from web3 import Web3
-    
+
     # Compile Luce contract and obtain interface
     d = compile_and_extract_interface()
-    
+
     # Establish web3 connection
     w3 = Web3(Web3.HTTPProvider(ganache_url))
-    
+
     # Obtain user so we know his address for the 'from' field
     private_key = provider_private_key
     user = w3.eth.account.privateKeyToAccount(private_key)
-    
+
     # Obtain contract address & instantiate contract
     contract_address = contract_address
     luce = w3.eth.contract(address=contract_address, abi=d['abi'])
-    
+
     # Construct raw transaction
     nonce = w3.eth.getTransactionCount(user.address)
     txn_dict = {
@@ -285,18 +287,18 @@ def update_contract_v3(provider_private_key, contract_address, description="Upda
     'gasPrice': w3.toWei('40', 'gwei'),
     'nonce': nonce,
     }
-    
+
     luce_txn = luce.functions.updateData(description,link).buildTransaction(txn_dict)
-    
+
     # Sign transaction
     signed_txn = w3.eth.account.signTransaction(luce_txn, private_key)
-    
+
     # Deploy
     tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
-    
+
     # Wait for the transaction to be mined, and get the transaction receipt
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+
     return tx_receipt
 
 
@@ -338,11 +340,11 @@ def assign_address(user):
 def deploy_contract(user):
     from solcx import compile_source
     from web3 import Web3
-    
+
     # Read in LUCE contract code
     with open(SOLIDITY_CONTRACT_FILE, 'r') as file:
         contract_source_code = file.read()
-        
+
     # Compile & Store Compiled source code
     compiled_sol = compile_source(contract_source_code)
 
@@ -352,13 +354,13 @@ def deploy_contract(user):
     # Extract abi and bytecode
     abi = contract_interface['abi']
     bytecode = contract_interface['bin']
-    
+
     # Establish web3 connection
     w3 = Web3(Web3.HTTPProvider(ganache_url))
 
     # Obtain user
     current_user = user
-    
+
     # Set sender
     w3.eth.defaultAccount = current_user.ethereum_public_key
 
@@ -367,10 +369,10 @@ def deploy_contract(user):
 
     # Submit the transaction that deploys the contract
     tx_hash = Luce.constructor().transact()
-    
+
     # Wait for the transaction to be mined, and get the transaction receipt
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+
     # Obtain address of freshly deployed contract
     contractAddress = tx_receipt.contractAddress
 
@@ -380,11 +382,11 @@ def deploy_contract(user):
 def deploy_contract_with_data(user, description, license, link=""):
     from solcx import compile_source
     from web3 import Web3
-    
+
     # Read in LUCE contract code
     with open(SOLIDITY_CONTRACT_FILE, 'r') as file:
         contract_source_code = file.read()
-        
+
     # Compile & Store Compiled source code
     compiled_sol = compile_source(contract_source_code)
 
@@ -394,13 +396,13 @@ def deploy_contract_with_data(user, description, license, link=""):
     # Extract abi and bytecode
     abi = contract_interface['abi']
     bytecode = contract_interface['bin']
-    
+
     # Establish web3 connection
     w3 = Web3(Web3.HTTPProvider(ganache_url))
 
     # Obtin user
     current_user = user
-    
+
     # Set sender
     w3.eth.defaultAccount = current_user.ethereum_public_key
 
@@ -409,28 +411,28 @@ def deploy_contract_with_data(user, description, license, link=""):
 
     # Submit the transaction that deploys the contract
     tx_hash = Luce.constructor().transact()
-    
+
     # Wait for the transaction to be mined, and get the transaction receipt
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+
     # Obtain address of freshly deployed contract
     contract_address = tx_receipt.contractAddress
-    
+
     # Create python instance of deployed contract
     luce = w3.eth.contract(
     address=contract_address,
     abi=contract_interface['abi'],
     )
-    
+
     # Store dataset information in contract
     tx_hash = luce.functions.publishData(description, link, license).transact()
-    
+
     return contract_address
-	
+
 # Not used in Django Frontend anymore - kept for testing and reference
 def create_wallet_old():
     print("This message comes from within my custom script")
-    
+
     class EthAccount():
         address = None
         pkey = None
@@ -464,7 +466,7 @@ def create_wallet_old():
         # This is required and prevents double-spending.
         # Different from nonce in block mining.
         nonce = w3.eth.getTransactionCount(sender_address)
-        
+
         # Specify transcation dictionary
         txn_dict = {
                 'to': recipient_address,
@@ -474,7 +476,7 @@ def create_wallet_old():
                 'nonce': nonce,
                 'chainId': 3
         }
-        
+
         # Sign transaction
         signed_txn = w3.eth.account.signTransaction(txn_dict, sender_pkey)
 
@@ -494,7 +496,7 @@ def create_wallet_old():
     print(w3.eth.getBalance(eth_account.address))
 
     import os
- 
+
     dirpath = os.getcwd()
     print("current directory is : " + dirpath)
     foldername = os.path.basename(dirpath)

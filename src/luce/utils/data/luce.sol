@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 contract Dataset{
-    
+
     address public dataProvider;
     uint public licence;
     string private link;
@@ -12,7 +12,7 @@ contract Dataset{
     mapping (address => uint) userTokens;
     mapping (address => address) public mappedUsers;
     address[] public addressIndices;
-    
+
     // Events allow light clients to react to changes efficiently.
     event Sent(address from, address to, uint token);
     event publishedDataset(address publisher, string description, string link, uint licence); // Event
@@ -21,7 +21,7 @@ contract Dataset{
     constructor () public{
                 dataProvider=msg.sender;
     }
-    
+
     function publishData(string memory _newdescription, string memory _link, uint _licence) public {
         require(msg.sender == dataProvider);
         dataDescription=_newdescription;
@@ -33,11 +33,11 @@ contract Dataset{
     function setLicence(uint newLicence) public{
        dataProvider=msg.sender;
        licence=newLicence;
-    //TODO we need to update all of the changes!! 
+    //TODO we need to update all of the changes!!
     //Not focusing here as I am not sure we need to change licences once the data is published.
     }
-    
-    
+
+
     function getLicence() public view returns(uint) {
        return licence;
     }

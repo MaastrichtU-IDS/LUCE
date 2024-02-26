@@ -145,8 +145,9 @@ USE_TZ = True
 
 # Simulate a CDN locally:
 # This path is outside django project, usually a CDN like AWS S3
-LOCAL_STATIC_CDN_PATH = os.path.join(os.path.dirname(
-    BASE_DIR), 'luce_static_files/static_cdn_local')
+# LOCAL_STATIC_CDN_PATH = os.path.join(os.path.dirname(
+#     BASE_DIR), '../../luce_static_files/static_cdn_local')
+LOCAL_STATIC_CDN_PATH = 'luce_static_files/static_cdn_local'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'static')

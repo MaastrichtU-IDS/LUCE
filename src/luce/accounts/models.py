@@ -393,10 +393,10 @@ class CauseGroup(models.Model):
 
 
 
-    
+
 class GroupInfo(models.Model):
     cause = models.ForeignKey(Cause, on_delete=models.CASCADE)
     group = models.ForeignKey(CauseGroup, related_name='group', on_delete=models.CASCADE, null = True)
     split = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)])
-    
+
 """
